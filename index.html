@@ -8,10 +8,14 @@
     <link rel="stylesheet" href="node_modules/materialize-css/dist/css/materialize.min.css">
   </head>
   <body style="padding-left: 300px;">
-    <nav>
+    <nav class="indigo">
       <div class="nav-wrapper">
         <a href="#" class="brand-logo">Paper Moon</a>
         <a href="#" data-target="menu" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+        <ul id="nav" class="right hide-on-med-and-down">
+          <li><a class="waves-effect" href="#" title="問題回報"><i class="material-icons">feedback</i></a></li>
+          <li><a class="waves-effect" href="#" title="使用說明"><i class="material-icons">help</i></a></li>
+        </ul>
       </div>
     </nav>
     <ul id="menu" class="sidenav sidenav-fixed">
@@ -34,10 +38,125 @@
       <div class="section" style="position: relative;">
         <h5>Calculation</h5>
         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-        <a class="btn-floating btn-large halfway-fab waves-effect"><i class="material-icons">fact_check</i></a>
+        <div class="row">
+          <div class="col s12">
+            <label>罪名</label>
+            <select class="browser-default">
+              <option value="" disabled selected>選擇罪名</option>
+              <option value="1">§271(1) 殺人罪</option>
+              <option value="2">§271(2),(1) 殺人未遂罪</option>
+              <option value="3">§271(3) 預備殺人罪</option>
+              <option value="4">修正前§272(1) 殺害直系血親尊親屬罪</option>
+              <option value="5">修正前§272(2),(1) 殺害直系血親尊親屬未遂罪</option>
+              <option value="6">修正前§272(3) 預備殺害直系血親尊親屬罪</option>
+              <option value="7">§273(1) 義憤殺人罪</option>
+              <option value="8">§273(2),(1) 義憤殺人未遂罪</option>
+              <option value="9">§274(1) 母殺嬰兒罪</option>
+              <option value="10">§274(2),(1) 母殺嬰兒未遂罪</option>
+              <option value="11">§275(1) 加工自殺罪</option>
+              <option value="12">修正前§275(2)/修正後§275(3),(1) 加工自殺未遂罪</option>
+              <option value="13">§277(2)前段  傷害致人於死罪</option>
+              <option value="14">§278(2) 使人受重傷因而致人於死罪</option>
+              <option value="15">§279但書 義憤傷害因而致人於死罪</option>
+              <option value="16">§280,§277(2) 傷害直系血親尊親屬致死罪</option>
+              <option value="17">§280,§278(2) 重傷害直系血親尊親屬致死罪</option>
+              <option value="18">修正前§282中段/修正後§282(1)前段 加工自傷因而致死罪</option>
+              <option value="19">修正前§282前段 教唆或幫助自傷因而致死罪</option>
+              <option value="20">修正後§282(2)前段 教唆或幫助自傷因而致死罪</option>
+              <option value="21">修正前§275(3)/修正後§275(4),§275(1) 謀為同死，加工自殺罪</option>
+              <option value="22">修正前§275(1) 教唆或幫助自殺罪</option>
+              <option value="23">修正前§275(3),§275(1) 謀為同死，教唆或幫助自殺罪</option>
+              <option value="24">修正前§275(2),(1) 教唆或幫助自殺未遂罪</option>
+              <option value="25">修正後§275(2) 教唆或幫助自殺罪</option>
+              <option value="26">修正後§275(4),§275(2) 謀為同死，教唆或幫助自殺罪</option>
+              <option value="27">修正前§272(1) 殺害直系血親尊親屬罪</option>
+              <option value="28">修正前§272(2),(1) 殺害直系血親尊親屬未遂罪</option>
+              <option value="29">修正後§272,§271(3) 預備殺害直系血親尊親屬罪</option>
+              <option value="30">修正前§283,§277(2)前段 聚眾鬥毆致人於死罪</option>
+            </select>
+          </div>
+          <div class="input-field col s12 l6">
+            <div class="switch">§57(1) 犯罪之動機、目的 <label>有<input type="checkbox"><span class="lever"></span>無</label></div>
+          </div>
+          <div class="input-field col s12 l6">
+            <div class="switch">§57(2) 犯罪時所受之刺激 <label>有<input type="checkbox"><span class="lever"></span>無</label></div>
+          </div>
+          <div class="input-field col s12 l6">
+            <div class="switch">§57(3) 犯罪之手段 <label>有<input type="checkbox"><span class="lever"></span>無</label></div>
+          </div>
+          <div class="input-field col s12 l6">
+            <div class="switch">§57(4) 犯罪行為人之生活狀況 <label>有<input type="checkbox"><span class="lever"></span>無</label></div>
+          </div>
+          <div class="input-field col s12 l6">
+            <div class="switch">§57(5) 犯罪行為人之品行 <label>有<input type="checkbox"><span class="lever"></span>無</label></div>
+          </div>
+          <div class="input-field col s12 l6">
+            <div class="switch">§57(6) 犯罪行為人之智識程度 <label>有<input type="checkbox"><span class="lever"></span>無</label></div>
+          </div>
+          <div class="input-field col s12 l6">
+            <div class="switch">§57(7) 犯罪行為人與被害人之關係 <label>有<input type="checkbox"><span class="lever"></span>無</label></div>
+          </div>
+          <div class="input-field col s12 l6">
+            <div class="switch">§57(8) 犯罪行為人違反義務之程度 <label>有<input type="checkbox"><span class="lever"></span>無</label></div>
+          </div>
+          <div class="input-field col s12 l6">
+            <div class="switch">§57(9) 犯罪所生之危險或損害 <label>有<input type="checkbox"><span class="lever"></span>無</label></div>
+          </div>
+          <div class="input-field col s12 l6">
+            <div class="switch">§57(10) 犯罪後之態度 <label>有<input type="checkbox"><span class="lever"></span>無</label></div>
+          </div>
+          <div class="input-field col s12 l6">
+            <div class="switch">§47 累犯 <label>有<input type="checkbox"><span class="lever"></span>無</label></div>
+          </div>
+          <div class="input-field col s12 l6">
+            <div class="switch">§70 成年人教唆、幫助或利用兒童及少年犯罪或與之共同實施犯罪或故意對其犯罪者，加重其刑至二分之一 <label>有<input type="checkbox"><span class="lever"></span>無</label></div>
+          </div>
+          <div class="input-field col s12 l6">
+            <div class="switch">§134 公務員假借職務上之權力、機會或方法，以故意犯本章以外各罪者，加重其刑至二分之一 <label>有<input type="checkbox"><span class="lever"></span>無</label></div>
+          </div>
+          <div class="input-field col s12 l6">
+            <div class="switch">§18(2) 十四歲以上未滿十八歲人之行為 <label>有<input type="checkbox"><span class="lever"></span>無</label></div>
+          </div>
+          <div class="input-field col s12 l6">
+            <div class="switch">§18(3) 滿八十歲人之行為 <label>有<input type="checkbox"><span class="lever"></span>無</label></div>
+          </div>
+          <div class="input-field col s12 l6">
+            <div class="switch">§19(2) 行為時因精神障礙或其他心智缺陷，辨識行為違法或依其辨識而行為之能力顯著減低者 <label>有<input type="checkbox"><span class="lever"></span>無</label></div>
+          </div>
+          <div class="input-field col s12 l6">
+            <div class="switch">§20 瘖啞人之行為 <label>有<input type="checkbox"><span class="lever"></span>無</label></div>
+          </div>
+          <div class="input-field col s12 l6">
+            <div class="switch">§23 防衛行為過當 <label>有<input type="checkbox"><span class="lever"></span>無</label></div>
+          </div>
+          <div class="input-field col s12 l6">
+            <div class="switch">§25(2) 未遂犯 <label>有<input type="checkbox"><span class="lever"></span>無</label></div>
+          </div>
+          <div class="input-field col s12 l6">
+            <div class="switch">§27(1) 己意中止 <label>有<input type="checkbox"><span class="lever"></span>無</label></div>
+          </div>
+          <div class="input-field col s12 l6">
+            <div class="switch">§30 幫助犯 <label>有<input type="checkbox"><span class="lever"></span>無</label></div>
+          </div>
+          <div class="input-field col s12 l6">
+            <div class="switch">§59 情狀顯可憫恕，科以最低度刑仍嫌過重者 <label>有<input type="checkbox"><span class="lever"></span>無</label></div>
+          </div>
+          <div class="input-field col s12 l6">
+            <div class="switch">§62 未發覺之罪自首而受裁判者 <label>有<input type="checkbox"><span class="lever"></span>無</label></div>
+          </div>
+          <div class="input-field col s12 l6">
+            <div class="switch">§63 未滿十八歲人或滿八十歲人犯罪，本刑為死刑或無期徒刑者 <label>有<input type="checkbox"><span class="lever"></span>無</label></div>
+          </div>
+
+        </div>
+        <a class="btn-floating btn-large halfway-fab waves-effect purple"><i class="material-icons">fact_check</i></a>
       </div>
       <div class="divider"></div>
       <div class="section">
+        <div class="card-panel">
+          <h5>2 年 4 個月</h5>
+          <p>不曉得誰創造的，過了些時，地方自治的權能，水面的夜光菌也放射不出光明來，一顆銀亮亮的月球，厭人，是陸地或溪橋的意志，以什麼為標準？在貧家，時間的進行，通溶化在月光裡，我近來纔漸漸覺得它的意義，雖用巨磨磨碎了此五尺之軀。</p>
+        </div>
         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
         <div class="collection">
           <a href="#" class="collection-item">
