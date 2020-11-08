@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  AppBar, Divider, Fab, Grid, IconButton, Paper, Toolbar, Typography
+  AppBar, Divider, Grid, IconButton, Menu, MenuItem, Paper, Toolbar, Typography
   } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import {
@@ -9,6 +9,7 @@ import {
   Help as HelpIcon,
   } from '@material-ui/icons';
 import CalculateButton from './controls/CalculateButton';
+import AppMenu from './parts/AppMenu';
 import SentencingForm from './parts/SentencingForm';
 
 const useStyles = makeStyles((theme) => ({
@@ -42,24 +43,15 @@ export default function App() {
           <Typography variant="h6" noWrap className={classes.title}>
             司法院量刑系統
           </Typography>
-          <IconButton aria-label="問題回報" color="inherit">
-            <FeedbackIcon />
-          </IconButton>
-          <IconButton aria-label="使用說明" color="inherit">
-            <HelpIcon />
-          </IconButton>
-          <Divider />
-          <IconButton aria-label="開啟功能表" color="inherit">
-            <AccountIcon />
-          </IconButton>
+          <AppMenu />
         </Toolbar>
       </AppBar>
       <Grid container component="main" className={classes.main}>
         <Grid item xs={12} md={6} className={classes.formPanel}>
           <Paper elevation={3} className={classes.form}>
             <SentencingForm />
+            <CalculateButton />
           </Paper>
-          <CalculateButton />
         </Grid>
         <Grid item xs={12} md={6} className={classes.contentPanel}>
           <Paper elevation={1}>
