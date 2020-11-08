@@ -16,16 +16,16 @@ const crimes = [
   { value: 9, text: "§274(1) 母殺嬰兒罪" },
   { value: 10, text: "§274(2),(1) 母殺嬰兒未遂罪" },
   { value: 11, text: "§275(1) 加工自殺罪" },
-  { value: 12, text: { "*": "§275(3),(1) 加工自殺未遂罪", PENAL_CODE_AMENDMENT_DATE: "§275(2) 加工自殺未遂罪" } },
+  { value: 12, text: "§275(3),(1) 加工自殺未遂罪" /*{ "*": "§275(3),(1) 加工自殺未遂罪", PENAL_CODE_AMENDMENT_DATE: "§275(2) 加工自殺未遂罪" }*/ },
   { value: 13, text: "§277(2)前段  傷害致人於死罪" },
   { value: 14, text: "§278(2) 使人受重傷因而致人於死罪" },
   { value: 15, text: "§279但書 義憤傷害因而致人於死罪" },
   { value: 16, text: "§280,§277(2) 傷害直系血親尊親屬致死罪" },
   { value: 17, text: "§280,§278(2) 重傷害直系血親尊親屬致死罪" },
-  { value: 18, text: { "*": "§282(1)前段 加工自傷因而致死罪", PENAL_CODE_AMENDMENT_DATE: "§282中段 加工自傷因而致死罪" } },
+  { value: 18, text: "§282(1)前段 加工自傷因而致死罪" /*{ "*": "§282(1)前段 加工自傷因而致死罪", PENAL_CODE_AMENDMENT_DATE: "§282中段 加工自傷因而致死罪" }*/ },
   { value: 19, valid_before: PENAL_CODE_AMENDMENT_DATE, text: "§282前段 教唆或幫助自傷因而致死罪" },
   { value: 20, valid_after: PENAL_CODE_AMENDMENT_DATE, text: "§282(2)前段 教唆或幫助自傷因而致死罪" },
-  { value: 21, text: { "*": "§275(4),§275(1) 謀為同死，加工自殺罪", PENAL_CODE_AMENDMENT_DATE: "§275(3) 謀為同死，加工自殺罪" } },
+  { value: 21, text: "§275(4),§275(1) 謀為同死，加工自殺罪" /*{ "*": "§275(4),§275(1) 謀為同死，加工自殺罪", PENAL_CODE_AMENDMENT_DATE: "§275(3) 謀為同死，加工自殺罪" }*/ },
   { value: 22, valid_before: PENAL_CODE_AMENDMENT_DATE, text: "§275(1) 教唆或幫助自殺罪" },
   { value: 23, valid_before: PENAL_CODE_AMENDMENT_DATE, text: "§275(3),§275(1) 謀為同死，教唆或幫助自殺罪" },
   { value: 24, valid_before: PENAL_CODE_AMENDMENT_DATE, text: "§275(2),(1) 教唆或幫助自殺未遂罪" },
@@ -52,7 +52,7 @@ const factors = [
   ]},
   { title: "法定加重事由", items: [
     { name: "c47", text: "§47 累犯", type: "binary" },
-    { name: "c112", text: { "*": "兒少§112 成年人教唆、幫助或利用兒童及少年犯罪", "2011-11-30": "兒少§70 成年人教唆、幫助或利用兒童及少年犯罪" }, type: "binary" },
+    { name: "c112", text: "兒少§112 成年人教唆、幫助或利用兒童及少年犯罪" /*{ "*": "兒少§112 成年人教唆、幫助或利用兒童及少年犯罪", "2011-11-30": "兒少§70 成年人教唆、幫助或利用兒童及少年犯罪" }*/, type: "binary" },
     { name: "c134", text: "§134 公務員利用職權機會", type: "binary" },
   ]},
   { title: "法定減輕事由", items: [
@@ -75,9 +75,11 @@ const factors = [
 ];
 
 const scales = [
+  /*{ value: 0, label: '未知未提' },*/
   { value: 1, label: '減輕' },
   { value: 2, label: '不影響' },
-  { value: 3, label: '加重' },
+  { value: 3, label: '重' },
+  /*{ value: 4, label: '並存' },*/
 ];
 
 export { crimes, factors, scales };

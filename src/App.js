@@ -8,7 +8,7 @@ import {
   Feedback as FeedbackIcon,
   Help as HelpIcon,
   } from '@material-ui/icons';
-import CalculateButton from './parts/CalculateButton';
+import CalculateButton from './controls/CalculateButton';
 import SentencingForm from './parts/SentencingForm';
 
 const useStyles = makeStyles((theme) => ({
