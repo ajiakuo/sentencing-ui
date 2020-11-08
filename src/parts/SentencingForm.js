@@ -27,7 +27,7 @@ class SentencingForm extends Component {
               <Typography variant="h6">{ factor.title }</Typography>
             </Grid>
             { factor.items.map((item) => (
-              <Grid item xs={6}>
+              <Grid item xs={12} lg={6}>
                 { item.type === "binary" ? (
                   <FactorCheckBox name={item.name} label={item.text} />
                 ) : (

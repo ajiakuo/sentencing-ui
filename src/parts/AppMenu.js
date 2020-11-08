@@ -1,11 +1,11 @@
 import { React, Component } from 'react';
 import { Divider, IconButton, ListItemIcon, ListItemText, Menu, MenuItem } from '@material-ui/core';
 import {
-  AccountCircle as AccountIcon,
   CheckBox as CheckBoxIcon,
   CheckBoxOutlineBlank as UncheckedBoxIcon,
   Feedback as FeedbackIcon,
   Help as HelpIcon,
+  MoreVert as MoreIcon,
   } from '@material-ui/icons';
 
 
@@ -40,7 +40,7 @@ class AppMenu extends Component {
         <IconButton
           aria-controls="menu" aria-haspopup="true"
           aria-label="開啟功能表" color="inherit" onClick={this.handleButtonClick}>
-          <AccountIcon />
+          <MoreIcon />
         </IconButton>
         <Menu
           id="menu" keepMounted anchorEl={this.state.anchorEl}

@@ -1,13 +1,8 @@
 import React from 'react';
 import {
-  AppBar, Divider, Grid, IconButton, Menu, MenuItem, Paper, Toolbar, Typography
+  AppBar, Grid, Paper, Toolbar, Typography
   } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import {
-  AccountCircle as AccountIcon,
-  Feedback as FeedbackIcon,
-  Help as HelpIcon,
-  } from '@material-ui/icons';
 import CalculateButton from './controls/CalculateButton';
 import AppMenu from './parts/AppMenu';
 import SentencingForm from './parts/SentencingForm';
@@ -26,11 +21,14 @@ const useStyles = makeStyles((theme) => ({
   formPanel: {
   },
   form: {
-    padding: theme.spacing(2),
+    padding: theme.spacing(4),
   },
-  contentPanel: {
-    padding: theme.spacing(2),
+  content: {
+    padding: theme.spacing(4),
   },
+  crimePanel: {
+    padding: theme.spacing(2),
+  }
 }));
 
 export default function App() {
@@ -47,14 +45,14 @@ export default function App() {
         </Toolbar>
       </AppBar>
       <Grid container component="main" className={classes.main}>
-        <Grid item xs={12} md={6} className={classes.formPanel}>
+        <Grid item xs={12} md={7} xl={6} className={classes.formPanel}>
           <Paper elevation={3} className={classes.form}>
             <SentencingForm />
             <CalculateButton />
           </Paper>
         </Grid>
-        <Grid item xs={12} md={6} className={classes.contentPanel}>
-          <Paper elevation={1}>
+        <Grid item xs={12} md={5} xl={6} className={classes.content}>
+          <Paper elevation={1} className={classes.crimePanel}>
             <Typography variant="h4">2 年 9 個月</Typography>
           </Paper>
         </Grid>
