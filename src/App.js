@@ -7,8 +7,8 @@ import {
   AccountCircle as AccountIcon,
   Feedback as FeedbackIcon,
   Help as HelpIcon,
-  Spellcheck as FactCheckIcon,
   } from '@material-ui/icons';
+import CalculateButton from './parts/CalculateButton';
 import SentencingForm from './parts/SentencingForm';
 
 const useStyles = makeStyles((theme) => ({
@@ -20,17 +20,12 @@ const useStyles = makeStyles((theme) => ({
   },
   main: {
     overflowX: 'hidden',
+    minHeight: 'calc(100vh - 64px)',
   },
   formPanel: {
   },
   form: {
     padding: theme.spacing(2),
-  },
-  fab: {
-    margin: theme.spacing(2),
-  },
-  fabIcon: {
-    marginRight: theme.spacing(1),
   },
   contentPanel: {
     padding: theme.spacing(2),
@@ -64,13 +59,12 @@ export default function App() {
           <Paper elevation={3} className={classes.form}>
             <SentencingForm />
           </Paper>
-          <Fab color="secondary" variant="extended" className={classes.fab}>
-            <FactCheckIcon className={classes.fabIcon} />
-            計算
-          </Fab>
+          <CalculateButton />
         </Grid>
         <Grid item xs={12} md={6} className={classes.contentPanel}>
-          Content
+          <Paper elevation={1}>
+            <Typography variant="h4">2 年 9 個月</Typography>
+          </Paper>
         </Grid>
       </Grid>
     </div>
