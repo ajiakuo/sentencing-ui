@@ -78,7 +78,7 @@ const scales = [
   /*{ value: 0, label: '未知未提' },*/
   { value: 1, label: '減輕' },
   { value: 2, label: '不影響' },
-  { value: 3, label: '重' },
+  { value: 3, label: '加重' },
   /*{ value: 4, label: '並存' },*/
 ];
 

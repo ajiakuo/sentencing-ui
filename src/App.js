@@ -15,8 +15,17 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
   },
   main: {
+    width: '100vw',
+    minHeight: '100vh',
     overflowX: 'hidden',
-    minHeight: 'calc(100vh - 64px)',
+    /* ToolBar mixin, but with padding */
+    paddingTop: 56,
+    [`${theme.breakpoints.up('xs')} and (orientation: landscape)`]: {
+      paddingTop: 48,
+    },
+    [theme.breakpoints.up('sm')]: {
+      paddingTop: 64,
+    },
   },
   formPanel: {
   },
@@ -36,7 +45,7 @@ export default function App() {
 
   return (
     <div className={classes.root}>
-      <AppBar position="sticky">
+      <AppBar position="fixed">
         <Toolbar>
           <Typography variant="h6" noWrap className={classes.title}>
             司法院量刑系統

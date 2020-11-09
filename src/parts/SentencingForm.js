@@ -11,8 +11,8 @@ class SentencingForm extends Component {
 
   render() {
     return (
-      <Grid container spacing={2}>
-        <Grid item xs={12}>
+      <>
+        <div>
           <FormControl required>
             <InputLabel id="crimeNameLabel">罪名</InputLabel>
             <Select labelId="crimeNameLabel" value={0}>
@@ -20,13 +20,12 @@ class SentencingForm extends Component {
             </Select>
             <FormHelperText>§367 吞食玻璃不傷身體罪</FormHelperText>
           </FormControl>
-        </Grid>
+        </div>
         { factors.map((factor) => (
           <>
-            <Grid item xs={12}>
-              <Typography variant="h6">{ factor.title }</Typography>
-            </Grid>
-            { factor.items.map((item) => (
+            <Typography variant="h6">{ factor.title }</Typography>
+            <Grid container>
+            { factor.items.map((item) => ( !item.valid_before &&
               <Grid item xs={12} lg={6}>
                 { item.type === "binary" ? (
                   <FactorCheckBox name={item.name} label={item.text} />
@@ -35,9 +34,10 @@ class SentencingForm extends Component {
                 ) }
               </Grid>
             )) }
+            </Grid>
           </>
         )) }
-      </Grid>
+      </>
     );
   }
 }
