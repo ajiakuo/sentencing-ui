@@ -5,7 +5,7 @@ import Spellcheck from '@material-ui/icons/Spellcheck';
 
 const useStyles = makeStyles((theme) => ({
   fab: {
-    margin: theme.spacing(2),
+    margin: theme.spacing(1),
   },
   icon: {
     marginRight: theme.spacing(1),

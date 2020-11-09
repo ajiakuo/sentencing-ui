@@ -12,27 +12,57 @@ const styles = (theme) => ({
 const SwitchLikeSlider = withStyles((theme) => ({
   root: {
     height: 14,
-    padding: '12 0',
+    padding: '12px 0',
     marginBottom: 0,
-    color: ((props) => props.value === 1 ? theme.palette.success.main :
-                        props.value === 3 ? theme.palette.error.main :
-                        theme.palette.grey[50]),
+    color: theme.palette.grey[50],
     transition: theme.transitions.create(['color'], {
       duration: theme.transitions.duration.shortest,
-    })
+    }),
+    '&[data-state="lighter"]': { color: theme.palette.success.main },
+    '&[data-state="heavier"]': { color: theme.palette.error.main },
   },
   thumb: {
     width: 20,
     height: 20,
     marginTop: (14 - 20) / 2,
     marginLeft: -20 / 2,
-    boxShadow: theme.shadows[1],
+    transition: theme.transitions.create(['left', 'box-shadow'], {
+      duration: theme.transitions.duration.shortest,
+    }),
+    '&::before': {
+      content: '""',
+      position: 'absolute',
+      borderRadius: '50%',
+      boxShadow: theme.shadows[1],
+      left: 0, top: 0, right: 0, bottom: 0,
+    },
+    '&::after': {
+      left: -11, top: -11, right: -11, bottom: -11,
+    },
+    '&:hover, &$focusVisible': {
+      boxShadow: `0px 0px 0px 8px rgba(0, 0, 0, 0.16)`,
+    },
+    '&$active': {
+      boxShadow: `0px 0px 0px 14px rgba(0, 0, 0, 0.16)`,
+    },
   },
   track: {
     height: 14,
-    borderRadius: 14 / 2,
-    width: '100% !important',
     opacity: 0.5,
+    width: '50% !important',
+    transition: theme.transitions.create(['opacity'], {
+      duration: theme.transitions.duration.shortest,
+    }),
+    '[data-state="lighter"] &': {
+      left: '0 !important',
+    },
+    '[data-state="neutral"] &': {
+      opacity: 0,
+      width: '0% !important',
+    },
+    '[data-state="heavier"] &': {
+      left: '50% !important',
+    },
   },
   rail: {
     height: 14,
@@ -70,6 +100,7 @@ class FactorSlider extends Component {
             name={this.props.name} value={this.state.value} onChange={this.handleChange}
             aria-labelledby={`${this.props.name}Label`}
             min={1} max={3} steps={null} marks={scales}
+            data-state={this.state.value === 2 ? 'neutral' : this.state.value === 1 ? 'lighter' : 'heavier'}
           />
         </Grid>
       </Grid>
