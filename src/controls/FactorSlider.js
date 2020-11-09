@@ -40,10 +40,10 @@ const SwitchLikeSlider = withStyles((theme) => ({
       left: -11, top: -11, right: -11, bottom: -11,
     },
     '&:hover, &$focusVisible': {
-      boxShadow: `0px 0px 0px 8px rgba(0, 0, 0, 0.16)`,
+      boxShadow: '0px 0px 0px 8px rgba(0, 0, 0, 0.16)',
     },
     '&$active': {
-      boxShadow: `0px 0px 0px 14px rgba(0, 0, 0, 0.16)`,
+      boxShadow: '0px 0px 0px 14px rgba(0, 0, 0, 0.16)',
     },
   },
   track: {
@@ -71,7 +71,10 @@ const SwitchLikeSlider = withStyles((theme) => ({
     opacity: 0.3,
   },
   mark: {
-    display: 'none',
+    height: 14,
+    backgroundColor: theme.palette.background.paper,
+    opacity: 0,
+    '&[data-index="1"]': { opacity: 0.8 },
   },
 }))(Slider);
 

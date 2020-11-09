@@ -50,12 +50,12 @@ const factors = [
     { name: "c57_9", text: "§57(9) 犯罪所生之危險或損害" },
     { name: "c57_10", text: "§57(10) 犯罪後之態度" }
   ]},
-  { title: "法定加重事由", items: [
+  { title: "法定加重事由", vibe: "negative", items: [
     { name: "c47", text: "§47 累犯", type: "binary" },
     { name: "c112", text: "兒少§112 成年人教唆、幫助或利用兒童及少年犯罪" /*{ "*": "兒少§112 成年人教唆、幫助或利用兒童及少年犯罪", "2011-11-30": "兒少§70 成年人教唆、幫助或利用兒童及少年犯罪" }*/, type: "binary" },
     { name: "c134", text: "§134 公務員利用職權機會", type: "binary" },
   ]},
-  { title: "法定減輕事由", items: [
+  { title: "法定減輕事由", vibe: "positive", items: [
     { name: "c18_2", text: "§18(2) 十四歲以上未滿十八歲", type: "binary" },
     { name: "c18_3", text: "§18(3) 滿八十歲", type: "binary" },
     { name: "c19_2", text: "§19(2) 辨識、控制能力顯著減低", type: "binary" },
@@ -76,9 +76,9 @@ const factors = [
 
 const scales = [
   /*{ value: 0, label: '未知未提' },*/
-  { value: 1, label: '減輕' },
-  { value: 2, label: '不影響' },
-  { value: 3, label: '加重' },
+  { value: 1, label: '−', description: '減輕' },
+  { value: 2, label: '', description: '不影響' },
+  { value: 3, label: '+', description: '加重' },
   /*{ value: 4, label: '並存' },*/
 ];
 

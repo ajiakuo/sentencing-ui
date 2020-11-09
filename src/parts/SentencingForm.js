@@ -28,7 +28,7 @@ class SentencingForm extends Component {
             { factor.items.map((item) => ( !item.valid_before &&
               <Grid item xs={12} lg={6}>
                 { item.type === "binary" ? (
-                  <FactorCheckBox name={item.name} label={item.text} />
+                  <FactorCheckBox name={item.name} label={item.text} vibe={factor.vibe} />
                 ) : (
                   <FactorSlider name={item.name} label={item.text} />
                 ) }
