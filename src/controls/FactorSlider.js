@@ -76,7 +76,7 @@ const SwitchLikeSlider = withStyles((theme) => ({
     opacity: 0,
     '&[data-index="1"]': { opacity: 0.8 },
   },
-}))(Slider);
+}), { name: 'SwitchLikeSlider' })(Slider);
 
 class FactorSlider extends Component {
   constructor(props) {

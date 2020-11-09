@@ -48,7 +48,7 @@ class AppMenu extends Component {
           open={Boolean(this.state.anchorEl)} onClose={this.handleMenuClose}>
           <MenuItem onClick={this.handleFilterItemClick}>
             <ListItemIcon>
-              { this.state.showFilter ? <CheckBoxIcon /> : <UncheckedBoxIcon /> }
+              { this.state.showFilter ? <CheckBoxIcon color="secondary" /> : <UncheckedBoxIcon /> }
             </ListItemIcon>
             <ListItemText primary="顯示修正前條文" />
           </MenuItem>

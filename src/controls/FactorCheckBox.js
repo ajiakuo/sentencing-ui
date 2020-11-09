@@ -8,14 +8,14 @@ const ColoredCheckbox = withStyles((theme) => ({
       color: theme.palette.secondary.main,
     },
     '&[data-vibe="positive"]$checked': {
-      color: theme.palette.success.main,
+      color: theme.palette.success.dark,
     },
     '&[data-vibe="negative"]$checked': {
-      color: theme.palette.error.main,
+      color: theme.palette.error.dark,
     },
   },
   checked: {},
-}))((props) => <Checkbox color="default" {...props} />);
+}), { name: 'ColoredCheckbox' })((props) => <Checkbox color="default" {...props} />);
 
 class FactorCheckBox extends Component {
   constructor(props) {
