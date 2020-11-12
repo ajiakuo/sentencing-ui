@@ -6,6 +6,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import GavelIcon from '@material-ui/icons/Gavel';
 import CalculateButton from './controls/CalculateButton';
 import AppMenu from './parts/AppMenu';
+import CaseAccordion from './parts/CaseAccordion';
 import SentencingForm from './parts/SentencingForm';
 
 const useStyles = makeStyles((theme) => ({
@@ -72,17 +73,8 @@ export default function App() {
           <Paper elevation={1} className={classes.crimePanel}>
             <Typography variant="h4">2 年 9 個月</Typography>
           </Paper>
-          { ['101 台上 900 號', '101 台上 900 號', '101 台上 900 號', '101 台上 900 號'].map((i) => (
-            <Accordion>
-              <AccordionSummary>
-                <Typography variant="subtitle1">{i}</Typography>
-              </AccordionSummary>
-              <AccordionDetails>
-                <Typography>
-                  至其餘上訴意旨，無非仍執其等在原審之同一辯解，就原審採證認事職權之適法行使，暨原判決已明確論斷詳細說明之事項，任意指為違法，並仍就其有無本件強盜殺人犯行之單純事實，暨與本件判決結果無關之細節問題，漫為爭執，均非依據卷內資料具體指摘原判決有何違背法令或不當，其等上訴均難認為有理由，應併予駁回。
-                </Typography>
-              </AccordionDetails>
-            </Accordion>
+          { ['TPS,101,台上,900', 'TCD,101,台上,901', 'TPS,101,台上,902', 'TPS,101,台上,903'].map((i) => (
+            <CaseAccordion id={i} />
           )) }
         </Grid>
       </Grid>

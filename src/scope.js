@@ -82,4 +82,47 @@ const scales = [
   /*{ value: 4, label: '並存' },*/
 ];
 
-export { crimes, factors, scales };
+const courts = [
+  { "id":  1, "value": "TPC", "text": "司法院刑事補償" },
+  { "id":  2, "value": "TPU", "text": "司法院訴願決定" },
+  { "id":  4, "value": "TPS", "text": "最高法院" },
+  { "id":  5, "value": "TPA", "text": "最高行政法院" },
+  { "id":  6, "value": "TPP", "text": "懲戒法院懲戒法庭" },
+  { "id":  3, "value": "TPJ", "text": "懲戒法院職務法庭" },
+  { "id":  7, "value": "TPH", "text": "臺灣高等法院" },
+  { "id":  8, "value": "001", "text": "臺灣高等法院訴願決定" },
+  { "id":  9, "value": "TPB", "text": "臺北高等行政法院" },
+  { "id": 10, "value": "TCB", "text": "臺中高等行政法院" },
+  { "id": 11, "value": "KSB", "text": "高雄高等行政法院" },
+  { "id": 12, "value": "IPC", "text": "智慧財產法院" },
+  { "id": 13, "value": "TCH", "text": "臺灣高等法院臺中分院" },
+  { "id": 14, "value": "TNH", "text": "臺灣高等法院臺南分院" },
+  { "id": 15, "value": "KSH", "text": "臺灣高等法院高雄分院" },
+  { "id": 16, "value": "HLH", "text": "臺灣高等法院花蓮分院" },
+  { "id": 17, "value": "TPD", "text": "臺灣臺北地方法院" },
+  { "id": 18, "value": "SLD", "text": "臺灣士林地方法院" },
+  { "id": 19, "value": "PCD", "text": "臺灣新北地方法院" },
+  { "id": 20, "value": "ILD", "text": "臺灣宜蘭地方法院" },
+  { "id": 21, "value": "KLD", "text": "臺灣基隆地方法院" },
+  { "id": 22, "value": "TYD", "text": "臺灣桃園地方法院" },
+  { "id": 23, "value": "SCD", "text": "臺灣新竹地方法院" },
+  { "id": 24, "value": "MLD", "text": "臺灣苗栗地方法院" },
+  { "id": 25, "value": "TCD", "text": "臺灣臺中地方法院" },
+  { "id": 26, "value": "CHD", "text": "臺灣彰化地方法院" },
+  { "id": 27, "value": "NTD", "text": "臺灣南投地方法院" },
+  { "id": 28, "value": "ULD", "text": "臺灣雲林地方法院" },
+  { "id": 29, "value": "CYD", "text": "臺灣嘉義地方法院" },
+  { "id": 30, "value": "TND", "text": "臺灣臺南地方法院" },
+  { "id": 31, "value": "KSD", "text": "臺灣高雄地方法院" },
+  { "id": 32, "value": "CTD", "text": "臺灣橋頭地方法院" },
+  { "id": 33, "value": "HLD", "text": "臺灣花蓮地方法院" },
+  { "id": 34, "value": "TTD", "text": "臺灣臺東地方法院" },
+  { "id": 35, "value": "PTD", "text": "臺灣屏東地方法院" },
+  { "id": 36, "value": "PHD", "text": "臺灣澎湖地方法院" },
+  { "id": 37, "value": "KMH", "text": "福建高等法院金門分院" },
+  { "id": 38, "value": "KMD", "text": "福建金門地方法院" },
+  { "id": 39, "value": "LCD", "text": "福建連江地方法院" },
+  { "id": 41, "value": "KSY", "text": "臺灣高雄少年及家事法院" },
+];
+
+export { crimes, factors, scales, courts };
