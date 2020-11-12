@@ -75,11 +75,9 @@ const factors = [
 ];
 
 const scales = [
-  /*{ value: 0, label: '未知未提' },*/
-  { value: 1, label: '−', description: '減輕' },
-  { value: 2, label: '', description: '不影響' },
-  { value: 3, label: '+', description: '加重' },
-  /*{ value: 4, label: '並存' },*/
+  { value: -1, label: '−', description: '減輕' },
+  { value: 0, label: '', description: '不影響' },
+  { value: 1, label: '+', description: '加重' },
 ];
 
 const courts = [

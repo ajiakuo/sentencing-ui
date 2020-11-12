@@ -1,13 +1,13 @@
-import { React, Component } from 'react';
+import { React, useState } from 'react';
 import { Grid, Slider, Typography } from '@material-ui/core';
-import { withStyles } from '@material-ui/core/styles';
+import { makeStyles, withStyles } from '@material-ui/core/styles';
 import { scales } from '../scope';
 
-const styles = (theme) => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     paddingRight: theme.spacing(4),
   },
-});
+}));
 
 const SwitchLikeSlider = withStyles((theme) => ({
   root: {
@@ -78,37 +78,24 @@ const SwitchLikeSlider = withStyles((theme) => ({
   },
 }), { name: 'SwitchLikeSlider' })(Slider);
 
-class FactorSlider extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {value: 2};
-    this.handleChange = this.handleChange.bind(this);
-  }
-
-  handleChange(e, newValue) {
-    this.setState({value: newValue});
-  }
-
-  render() {
-    const { classes } = this.props;
-    return (
-      <Grid container spacing={2} className={classes.root}>
-        <Grid item xs={8}>
-          <Typography id={`${this.props.name}Label`} gutterBottom>
-            {this.props.label}
-          </Typography>
-        </Grid>
-        <Grid item xs={4}>
-          <SwitchLikeSlider
-            name={this.props.name} value={this.state.value} onChange={this.handleChange}
-            aria-labelledby={`${this.props.name}Label`}
-            min={1} max={3} steps={null} marks={scales}
-            data-state={this.state.value === 2 ? 'neutral' : this.state.value === 1 ? 'lighter' : 'heavier'}
-          />
-        </Grid>
+export default function FactorSlider(props) {
+  const classes = useStyles();
+  const [value, setValue] = useState(0);
+  return (
+    <Grid container spacing={2} className={classes.root}>
+      <Grid item xs={8}>
+        <Typography id={`${props.name}Label`} gutterBottom>
+          {props.label}
+        </Typography>
       </Grid>
-    );
-  }
-}
-
-export default withStyles(styles)(FactorSlider);
+      <Grid item xs={4}>
+        <SwitchLikeSlider
+          name={props.name} value={value} onChange={(e, newValue) => setValue(newValue)}
+          aria-labelledby={`${props.name}Label`}
+          min={-1} max={1} steps={null} marks={scales}
+          data-state={value === 0 ? 'neutral' : value === -1 ? 'lighter' : 'heavier'}
+        />
+      </Grid>
+    </Grid>
+  );
+};

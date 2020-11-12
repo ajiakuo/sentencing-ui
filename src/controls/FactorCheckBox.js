@@ -1,4 +1,4 @@
-import { React, Component } from 'react';
+import { React, useState } from 'react';
 import { FormControlLabel, Checkbox } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 
@@ -17,25 +17,14 @@ const ColoredCheckbox = withStyles((theme) => ({
   checked: {},
 }), { name: 'ColoredCheckbox' })((props) => <Checkbox color="default" {...props} />);
 
-class FactorCheckBox extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {value: 0};
-    this.handleChange = this.handleChange.bind(this);
-  }
-
-  handleChange(e) {
-    this.setState({value: (e.target.checked ? 1 : 0)})
-  }
-
-  render() {
-    return (
-      <FormControlLabel label={this.props.label} control={
-        <ColoredCheckbox name={this.props.name} checked={this.state.value === 1} onChange={this.handleChange}
-          data-vibe={this.props.vibe} />
-      } />
-    );
-  }
-}
-
-export default FactorCheckBox;
+export default function FactorCheckBox(props) {
+  const [value, setValue] = useState(0);
+  return (
+    <FormControlLabel label={props.label} control={
+      <ColoredCheckbox
+        name={props.name} data-vibe={props.vibe}
+        checked={value === 1}
+        onChange={(e) => setValue(e.target.checked ? 1 : 0)} />
+    } />
+  );
+};
