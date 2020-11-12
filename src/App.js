@@ -71,9 +71,10 @@ export default function App() {
         </Grid>
         <Grid item xs={12} md={5} xl={6} className={classes.content}>
           <Paper elevation={1} className={classes.crimePanel}>
-            <Typography variant="h4">2 年 9 個月</Typography>
+            <Typography variant="overline" gutterBottom>量刑預測</Typography>
+            <Typography variant="h4" component="div">2 年 9 個月</Typography>
           </Paper>
-          { ['TPS,101,台上,900', 'TCD,101,台上,901', 'TPS,101,台上,902', 'TPS,101,台上,903'].map((i) => (
+          { ['TPS,101,台上,900', 'TCD,106,台上,112', 'PCD,103,台上,307', 'TPD,104,台上,689'].map((i) => (
             <CaseAccordion id={i} sentencing={6} />
           )) }
         </Grid>

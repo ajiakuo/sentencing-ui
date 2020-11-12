@@ -1,5 +1,5 @@
 import React from 'react';
-import { Accordion, AccordionSummary, AccordionDetails, IconButton, Table, TableContainer, TableHead, TableBody, TableRow, TableCell, Typography } from '@material-ui/core';
+import { Accordion, AccordionSummary, AccordionDetails, Button, Table, TableContainer, TableHead, TableBody, TableRow, TableCell, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import OpenInNewIcon from '@material-ui/icons/OpenInNew';
@@ -12,12 +12,18 @@ const useStyles = makeStyles((theme) => ({
   subheading: {
     color: theme.palette.text.secondary,
   },
-  externalButton: {
-    margin: '-12px -12px -12px 12px',
+  details: {
+    flexDirection: 'column',
   },
   tableWrapper: {
-    marginTop: -12,
-  }
+    marginTop: theme.spacing(1) - 20,
+    marginBottom: 20 - theme.spacing(1),
+  },
+  sourceButton: {
+    paddingLeft: theme.spacing(2),
+    paddingRight: theme.spacing(2), // Align with table
+    alignSelf: 'start',
+  },
 }));
 
 const parseCaseID = (id) => {
@@ -43,16 +49,11 @@ export default function CaseAccordion(props) {
 
   return (
     <Accordion>
-      <AccordionSummary>
-        <Typography className={classes.heading}>{ parseCaseID(props.id).formatted_text }</Typography>
-        <Typography className={classes.subheading}>{ props.sentencing } 個月</Typography>
-        <IconButton className={classes.externalButton} size="medium" aria-label="在法學資料檢索系統檢視"
-          target="_blank" href={formatCaseURL(parseCaseID(props.id))}
-          onClick={(event) => event.stopPropagation()}>
-          <OpenInNewIcon />
-        </IconButton>
+      <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+        <Typography variant="subtitle1" className={classes.heading}>{ parseCaseID(props.id).formatted_text }</Typography>
+        <Typography variant="subtitle1" className={classes.subheading}>{ props.sentencing } 個月</Typography>
       </AccordionSummary>
-      <AccordionDetails>
+      <AccordionDetails className={classes.details}>
         <TableContainer className={classes.tableWrapper}>
           <Table aria-label="量刑因素標記">
             <TableBody>
@@ -65,8 +66,10 @@ export default function CaseAccordion(props) {
             </TableBody>
           </Table>
         </TableContainer>
-        <Typography>
-        </Typography>
+        <Button className={classes.sourceButton} endIcon={<OpenInNewIcon />}
+          target="_blank" href={formatCaseURL(parseCaseID(props.id))}>
+          在法學資料檢索系統檢視
+        </Button>
       </AccordionDetails>
     </Accordion>
   );
