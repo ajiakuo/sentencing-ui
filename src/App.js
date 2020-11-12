@@ -74,7 +74,7 @@ export default function App() {
             <Typography variant="h4">2 年 9 個月</Typography>
           </Paper>
           { ['TPS,101,台上,900', 'TCD,101,台上,901', 'TPS,101,台上,902', 'TPS,101,台上,903'].map((i) => (
-            <CaseAccordion id={i} />
+            <CaseAccordion id={i} sentencing={6} />
           )) }
         </Grid>
       </Grid>

@@ -1,19 +1,42 @@
 import React from 'react';
-import { Accordion, AccordionSummary, AccordionDetails, Typography } from '@material-ui/core';
+import { Accordion, AccordionSummary, AccordionDetails, IconButton, Table, TableContainer, TableHead, TableBody, TableRow, TableCell, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import OpenInNewIcon from '@material-ui/icons/OpenInNew';
 import { courts } from '../scope';
 
 const useStyles = makeStyles((theme) => ({
+  heading: {
+    flexGrow: 1,
+  },
+  subheading: {
+    color: theme.palette.text.secondary,
+  },
+  externalButton: {
+    margin: '-12px -12px -12px 12px',
+  },
+  tableWrapper: {
+    marginTop: -12,
+  }
 }));
 
-const formatCaseID = (id) => {
+const parseCaseID = (id) => {
   let m = id.match((/^(?<court>[A-Z]+),(?<year>\d+),(?<case>[^,]+),(?<no>\d+)$/));
   if (m != null) {
     // Leave out the court name if it’s Supreme Court
-    let court = m.groups.court === 'TPS' ? '' : courts.find((e) => e.value == m.groups.court).text;
-    return `${court} ${m.groups.year} 年${m.groups.case}字第 ${m.groups.no} 號`;
+    let court_name = m.groups.court === 'TPS' ? '' : courts.find((e) => e.value == m.groups.court).text;
+    return {
+      database_id: id,
+      court: m.groups.court,
+      year: m.groups.year,
+      case: m.groups.case,
+      no: m.groups.no,
+      formatted_text: `${court_name} ${m.groups.year} 年${m.groups.case}字第 ${m.groups.no} 號`
+    };
   }
 };
+
+const formatCaseURL = ((cid) => `https://law.judicial.gov.tw/FJUD/qryresult.aspx?jud_court=${cid.court}&jud_sys=M&jud_year=${cid.year}&jud_case=${cid.case}&jud_no=${cid.no}&judtype=JUDBOOK`);
 
 export default function CaseAccordion(props) {
   const classes = useStyles();
@@ -21,11 +44,28 @@ export default function CaseAccordion(props) {
   return (
     <Accordion>
       <AccordionSummary>
-        <Typography variant="subtitle1">{ formatCaseID(props.id) }</Typography>
+        <Typography className={classes.heading}>{ parseCaseID(props.id).formatted_text }</Typography>
+        <Typography className={classes.subheading}>{ props.sentencing } 個月</Typography>
+        <IconButton className={classes.externalButton} size="medium" aria-label="在法學資料檢索系統檢視"
+          target="_blank" href={formatCaseURL(parseCaseID(props.id))}
+          onClick={(event) => event.stopPropagation()}>
+          <OpenInNewIcon />
+        </IconButton>
       </AccordionSummary>
       <AccordionDetails>
+        <TableContainer className={classes.tableWrapper}>
+          <Table aria-label="量刑因素標記">
+            <TableBody>
+              { ([1, 2, 3, 4, 5]).map((row) =>
+                <TableRow key={row}>
+                  <TableCell component="th" scope="row">§57({ row })</TableCell>
+                  <TableCell>至其餘上訴意旨，無非仍執其等在原審之同一辯解</TableCell>
+                </TableRow>
+              ) }
+            </TableBody>
+          </Table>
+        </TableContainer>
         <Typography>
-          至其餘上訴意旨，無非仍執其等在原審之同一辯解，就原審採證認事職權之適法行使，暨原判決已明確論斷詳細說明之事項，任意指為違法，並仍就其有無本件強盜殺人犯行之單純事實，暨與本件判決結果無關之細節問題，漫為爭執，均非依據卷內資料具體指摘原判決有何違背法令或不當，其等上訴均難認為有理由，應併予駁回。
         </Typography>
       </AccordionDetails>
     </Accordion>
