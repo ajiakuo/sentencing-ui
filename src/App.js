@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  Accordion, AccordionSummary, AccordionDetails, AppBar, Avatar, Grid, Paper, Toolbar, Typography
+  AppBar, Avatar, Grid, Paper, Toolbar, Typography
   } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import GavelIcon from '@material-ui/icons/Gavel';
@@ -8,6 +8,8 @@ import CalculateButton from './controls/CalculateButton';
 import AppMenu from './parts/AppMenu';
 import CaseAccordion from './parts/CaseAccordion';
 import SentencingForm from './parts/SentencingForm';
+import data from './mockup';
+import { formatSentence } from './util';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -72,10 +74,10 @@ export default function App() {
         <Grid item xs={12} md={5} xl={6} className={classes.content}>
           <Paper elevation={1} className={classes.crimePanel}>
             <Typography variant="overline" gutterBottom>量刑預測</Typography>
-            <Typography variant="h4" component="div">2 年 9 個月</Typography>
+            <Typography variant="h4" component="div">{ formatSentence(33) }</Typography>
           </Paper>
-          { ['TPS,101,台上,900', 'TCD,106,台上,112', 'PCD,103,台上,307', 'TPD,104,台上,689'].map((i) => (
-            <CaseAccordion id={i} sentencing={6} />
+          { data.related_cases.map((i) => (
+            <CaseAccordion {...i} />
           )) }
         </Grid>
       </Grid>
