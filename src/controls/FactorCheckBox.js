@@ -19,6 +19,7 @@ const ColoredCheckbox = withStyles((theme) => ({
 
 export default function FactorCheckBox(props) {
   const [value, setValue] = useState(0);
+
   return (
     <FormControlLabel label={props.label} control={
       <ColoredCheckbox

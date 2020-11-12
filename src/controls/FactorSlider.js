@@ -81,6 +81,7 @@ const SwitchLikeSlider = withStyles((theme) => ({
 export default function FactorSlider(props) {
   const classes = useStyles();
   const [value, setValue] = useState(0);
+
   return (
     <Grid container spacing={2} className={classes.root}>
       <Grid item xs={8}>
