@@ -16,12 +16,18 @@ const parseCaseID = (id) => {
   }
 };
 
-const formatSentence = (sentence) => (
-  sentence > 12 ? `${Math.floor(sentence / 12)} 年 ${sentence % 12} 個月` :
-  sentence > 0 ? `${sentence} 個月` :
-  sentence === -1 ? '無期徒刑' :
-  sentence === -2 ? '死刑' :
-  '無罪' // 無罪推定！(*ﾟ∀ﾟ)
-);
+const formatSentence = (sentence) => {
+  if (sentence > 0) {
+    let year = Math.floor(sentence / 12);
+    if (year > 0) {
+      let month = sentence % 12;
+      return month > 0 ? `${year} 年 ${month} 個月` : `${year} 年`; }
+    else
+      return `${sentence} 個月`; }
+  else
+    return sentence === -1 ? '無期徒刑' :
+           sentence === -2 ? '死刑' :
+           '無罪'; // 無罪推定！(*ﾟ∀ﾟ)
+};
 
 export { parseCaseID, formatSentence };

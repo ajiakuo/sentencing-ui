@@ -1,9 +1,9 @@
 import React from 'react';
-import { Accordion, AccordionSummary, AccordionDetails, Button, Table, TableContainer, TableHead, TableBody, TableRow, TableCell, Typography } from '@material-ui/core';
+import { Accordion, AccordionSummary, AccordionDetails, Button, Table, TableContainer, TableBody, TableRow, TableCell, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import OpenInNewIcon from '@material-ui/icons/OpenInNew';
-import { courts } from '../scope';
+import { factors } from '../scope';
 import { parseCaseID, formatSentence } from '../util';
 
 const useStyles = makeStyles((theme) => ({
@@ -40,7 +40,7 @@ export default function CaseAccordion(props) {
         <Typography variant="subtitle1" className={classes.subheading}>{ formatSentence(props.sentence) }</Typography>
       </AccordionSummary>
       <AccordionDetails className={classes.details}>
-      { props.labels &&
+        { props.labels && (
         <TableContainer className={classes.tableWrapper}>
           <Table aria-label="量刑因素標記">
             <TableBody>
@@ -53,7 +53,7 @@ export default function CaseAccordion(props) {
             </TableBody>
           </Table>
         </TableContainer>
-      }
+        )}
         <Button className={classes.sourceButton} endIcon={<OpenInNewIcon />}
           target="_blank" href={formatCaseURL(case_id)}>
           在法學資料檢索系統檢視

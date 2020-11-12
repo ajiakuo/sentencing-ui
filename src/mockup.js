@@ -20,6 +20,11 @@ export default {
       "crime": 13,
       "sentence": 360,
       "subject": "傷害致死",
+      "labels": [
+        { factor: "c57_1", summary: "被害人…生活常規問題" },
+        { factor: "c57_1", summary: "因不滿…，竟共同基於傷害之犯意" },
+        { factor: "c57_3", summary: "接續在上開居所內分別徒手或以蒼蠅拍、愛的小手毆打…" },
+      ]
     },
     {
       "id": "PCD,110,訴,307",
@@ -27,6 +32,11 @@ export default {
       "crime": 21,
       "sentence": 0,
       "subject": "謀為同死加工自殺",
+      "labels": [
+        { factor: "c57_1", summary: "被害人…生活常規問題" },
+        { factor: "c57_1", summary: "因不滿…，竟共同基於傷害之犯意" },
+        { factor: "c57_3", summary: "接續在上開居所內分別徒手或以蒼蠅拍、愛的小手毆打…" },
+      ]
     },
     {
       "id": "TPD,104,訴,689",
@@ -34,6 +44,11 @@ export default {
       "crime": 13,
       "sentence": -1,
       "subject": "傷害致死",
+      "labels": [
+        { factor: "c57_1", summary: "被害人…生活常規問題" },
+        { factor: "c57_1", summary: "因不滿…，竟共同基於傷害之犯意" },
+        { factor: "c57_3", summary: "接續在上開居所內分別徒手或以蒼蠅拍、愛的小手毆打…" },
+      ]
     },
     {
       "id": "TPS,101,台上,900",
