@@ -52,7 +52,6 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(2),
     [theme.breakpoints.up('md')]: {
       position: 'sticky',
-      display: 'flex',
       bottom: theme.spacing(4),
     },
   },

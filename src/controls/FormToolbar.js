@@ -1,13 +1,26 @@
 import React from 'react';
+import clsx from 'clsx';
+import Fab from '@material-ui/core/Fab';
 import { makeStyles } from '@material-ui/core/styles';
-import CalculateButton from './CalculateButton';
+import ClearAllIcon from '@material-ui/icons/ClearAll';
+import SpellcheckIcon from '@material-ui/icons/Spellcheck';
 
 const useStyles = makeStyles((theme) => ({
+  root: {
+    display: 'flex',
+    alignItems: 'center',
+  },
   space: {
     flexGrow: 1,
   },
-  item: {
-    marginLeft: theme.spacing(1),
+  button: {
+    marginLeft: theme.spacing(2),
+  },
+  iconSmall: {
+    marginRight: theme.spacing(1) / 2,
+  },
+  icon: {
+    marginRight: theme.spacing(1),
   },
 }), { name: 'FormToolbar' });
 
@@ -15,10 +28,16 @@ export default function FormToolbar(props) {
   const classes = useStyles();
 
   return (
-    <div {...props}>
+    <div {...props} className={clsx([classes.root, props.className])}>
       <div className={classes.space} />
-      <CalculateButton className={classes.item} />
-      <CalculateButton className={classes.item} />
+      <Fab className={classes.button} size="medium" variant="extended">
+        <ClearAllIcon className={classes.iconSmall} />
+        清除
+      </Fab>
+      <Fab className={classes.button} color="secondary" variant="extended">
+        <SpellcheckIcon className={classes.icon} />
+        計算
+      </Fab>
     </div>
   );
 };
