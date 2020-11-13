@@ -7,7 +7,7 @@ import FactorSlider from '../controls/FactorSlider';
 const renderGroup = (group) => {
   const renderItem = (
     group.type === "binary" ?
-    (factor) => <FactorCheckBox name={factor.name} label={factor.text} vibe={factor.vibe} /> :
+    (factor) => <FactorCheckBox name={factor.name} label={factor.text} vibe={group.vibe} /> :
     (factor) => <FactorSlider name={factor.name} label={factor.text} />
   );
 
