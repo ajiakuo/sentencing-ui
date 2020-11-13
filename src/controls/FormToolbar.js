@@ -30,11 +30,11 @@ export default function FormToolbar(props) {
   return (
     <div {...props} className={clsx([classes.root, props.className])}>
       <div className={classes.space} />
-      <Fab className={classes.button} size="medium" variant="extended">
+      <Fab className={classes.button} size="medium" variant="extended" onClick={props.onClear}>
         <ClearAllIcon className={classes.iconSmall} />
         清除
       </Fab>
-      <Fab className={classes.button} color="secondary" variant="extended">
+      <Fab className={classes.button} color="secondary" variant="extended" onClick={props.onSubmit}>
         <SpellcheckIcon className={classes.icon} />
         計算
       </Fab>
