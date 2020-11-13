@@ -31,11 +31,11 @@ export default function SentencingForm() {
             <>
               <Typography variant="h6">罪名</Typography>
               <FormControl className={classes.selectWrapper}>
-                <Select name="crime"
+                <Select name="crime" displayEmpty
                   inputProps={{ "aria-label": "罪名" }}
-                  menuProps={{ transformOrigin: { vertical: 'top', horizontal: 'center'} }}
                   IconComponent="div" className={classes.select}
                   onClick={(e) => e.stopPropagation()}>
+                  <MenuItem value="" disabled>適用條文</MenuItem>
                   { crimes.map((crime) => (
                     <MenuItem value={crime.value}>{crime.text}</MenuItem>
                   )) }

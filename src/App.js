@@ -8,7 +8,7 @@ import FormToolbar from './controls/FormToolbar';
 import AppForm from './parts/AppForm';
 import AppMenu from './parts/AppMenu';
 import CaseAccordion from './parts/CaseAccordion';
-import data from './mockup';
+import mockupData from './mockup';
 import { formatSentence } from './util';
 
 const useStyles = makeStyles((theme) => ({
@@ -62,6 +62,8 @@ const useStyles = makeStyles((theme) => ({
 
 export default function App() {
   const classes = useStyles();
+  const [loaded, setLoaded] = useState(false);
+  let data = mockupData;
 
   return (
     <div className={classes.root}>
@@ -80,16 +82,19 @@ export default function App() {
         <Grid item xs={12} md={6} lg={7} xl={6} component={Paper} elevation={3} className={classes.pane}>
           <div className={classes.content}>
             <AppForm />
-            <FormToolbar className={classes.controls} />
+            <FormToolbar className={classes.controls}
+              onSubmit={() => setLoaded(true)} onClear={() => setLoaded(false)} />
           </div>
         </Grid>
         <Grid item xs={12} md={6} lg={5} xl={6} className={classes.pane}>
           <div className={classes.content}>
-            <Paper elevation={1} className={classes.crimePanel}>
-              <Typography variant="overline" gutterBottom>量刑預測</Typography>
-              <Typography variant="h4" component="div">{ formatSentence(33) }</Typography>
-            </Paper>
-            { data.related_cases.map((i) => (
+            { loaded &&
+              <Paper elevation={1} className={classes.crimePanel}>
+                <Typography variant="overline" gutterBottom>量刑預測</Typography>
+                <Typography variant="h4" component="div">{ formatSentence(data.estimation) }</Typography>
+              </Paper>
+            }
+            { loaded && data.related_cases.map((i) => (
               <CaseAccordion {...i} />
             )) }
           </div>
