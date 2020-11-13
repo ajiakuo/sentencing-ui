@@ -1,13 +1,23 @@
 import { React } from 'react';
 import { FormControl, FormHelperText, Grid, InputLabel, ListSubheader, MenuItem, Select, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import { factorGroups, factors } from '../scope';
+import { crimes, factorGroups, factors } from '../scope';
 import FactorCheckBox from '../controls/FactorCheckBox';
 import FactorSlider from '../controls/FactorSlider';;
 import FormAccordion from '../controls/FormAccordion';
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   root: {},
+  selectWrapper: {
+    marginLeft: theme.spacing(2),
+    flexGrow: 1,
+  },
+  select: {
+    color: theme.palette.text.secondary,
+    '&:before': {
+      display: 'none',
+    }
+  },
 }), { name: 'AppForm' });
 
 export default function SentencingForm() {
@@ -18,19 +28,20 @@ export default function SentencingForm() {
       <Grid item xs={12} sm={6} md={12} lg={6}>
         <FormAccordion defaultExpanded={true}
           summary={(
-            <FormControl>
-              <InputLabel id="crimeLabel">罪名</InputLabel>
-              <Select name="crime" labelId="crimeLabel"
-                onClick={(e) => e.stopPropagation()}>
-                <MenuItem>選擇一項</MenuItem>
-                <MenuItem value={0}>吞食玻璃罪</MenuItem>
-                <ListSubheader>殺人</ListSubheader>
-                <MenuItem value={1}>殺人罪</MenuItem>
-                <ListSubheader>傷害致死</ListSubheader>
-                <MenuItem value={2}>傷害致死罪</MenuItem>
-              </Select>
-              <FormHelperText>§367 吞食玻璃不傷身體罪</FormHelperText>
-            </FormControl>
+            <>
+              <Typography variant="h6">罪名</Typography>
+              <FormControl className={classes.selectWrapper}>
+                <Select name="crime"
+                  inputProps={{ "aria-label": "罪名" }}
+                  menuProps={{ transformOrigin: { vertical: 'top', horizontal: 'center'} }}
+                  IconComponent="div" className={classes.select}
+                  onClick={(e) => e.stopPropagation()}>
+                  { crimes.map((crime) => (
+                    <MenuItem value={crime.value}>{crime.text}</MenuItem>
+                  )) }
+                </Select>
+              </FormControl>
+            </>
           )}>
         </FormAccordion>
       </Grid>
