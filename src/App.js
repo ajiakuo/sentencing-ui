@@ -26,6 +26,7 @@ const useStyles = makeStyles((theme) => ({
     width: '100vw',
     minHeight: '100vh',
     overflowX: 'hidden',
+
     /* ToolBar mixin, but with padding */
     paddingTop: 56,
     [`${theme.breakpoints.up('xs')} and (orientation: landscape)`]: {
@@ -34,10 +35,17 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.up('sm')]: {
       paddingTop: 64,
     },
+
+    /* Responsive layout */
+    [theme.breakpoints.up('md')]: {
+      height: '100vh',
+      '& > *': {
+        height: '100%',
+        overflowY: 'scroll',
+      },
+    }
   },
   formPanel: {
-  },
-  form: {
     padding: theme.spacing(4),
   },
   content: {
@@ -65,13 +73,11 @@ export default function App() {
         </Toolbar>
       </AppBar>
       <Grid container component="main" className={classes.main}>
-        <Grid item xs={12} md={7} xl={6} className={classes.formPanel}>
-          <Paper elevation={3} className={classes.form}>
-            <SentencingForm />
-            <CalculateButton />
-          </Paper>
+        <Grid item xs={12} md={6} lg={7} xl={6} component={Paper} elevation={3} className={classes.formPanel}>
+          <SentencingForm />
+          <CalculateButton />
         </Grid>
-        <Grid item xs={12} md={5} xl={6} className={classes.content}>
+        <Grid item xs={12} md={6} lg={5} xl={6} className={classes.content}>
           <Paper elevation={1} className={classes.crimePanel}>
             <Typography variant="overline" gutterBottom>量刑預測</Typography>
             <Typography variant="h4" component="div">{ formatSentence(33) }</Typography>

@@ -1,5 +1,6 @@
 import { React } from 'react';
-import { FormControl, FormHelperText, Grid, InputLabel, MenuItem, Select, Typography } from '@material-ui/core';
+import { Accordion, AccordionSummary, AccordionDetails, FormControl, FormHelperText, Grid, InputLabel, MenuItem, Select, Typography } from '@material-ui/core';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { factors, factorGroups } from '../scope';
 import FactorCheckBox from '../controls/FactorCheckBox';
 import FactorSlider from '../controls/FactorSlider';
@@ -12,19 +13,21 @@ const renderGroup = (group) => {
   );
 
   return (
-    <>
-      <Grid item xs={12}>
+    <Accordion elevation={0} defaultExpanded={group.type !== "binary"}>
+      <AccordionSummary expandIcon={<ExpandMoreIcon />}>
         <Typography variant="h6">{group.title}</Typography>
-      </Grid>
+      </AccordionSummary>
+      <AccordionDetails style={ {flexDirection: 'column'} }>
       { group.factors.map((name) => {
         let factor = factors.find(i => i.name === name);
         return (!factor.valid_before && (
-          <Grid item xs={12}>
+          <div>
             {renderItem(factor)}
-          </Grid>
+          </div>
         ));
       })}
-    </>
+      </AccordionDetails>
+    </Accordion>
   );
 }
 
@@ -42,7 +45,7 @@ export default function SentencingForm() {
       </div>
       <Grid container spacing={2}>
         { ["tristate", "binary"].map((type) => (
-          <Grid item container xs={12} sm={6} md={12} lg={6} alignContent="flex-start">
+          <Grid item xs={12} sm={6} md={12} lg={6}>
             { factorGroups.filter(group => group.type === type).map(renderGroup) }
           </Grid>
         )) }
