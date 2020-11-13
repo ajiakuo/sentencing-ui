@@ -6,7 +6,13 @@ import FactorCheckBox from '../controls/FactorCheckBox';
 import FactorSlider from '../controls/FactorSlider';;
 import FormAccordion from '../controls/FormAccordion';
 
+const useStyles = makeStyles(() => ({
+  root: {},
+}), { name: 'AppForm' });
+
 export default function SentencingForm() {
+  const classes = useStyles();
+
   return (
     <Grid container spacing={4}>
       <Grid item xs={12} sm={6} md={12} lg={6}>

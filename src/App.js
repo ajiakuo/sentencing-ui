@@ -5,9 +5,9 @@ import {
 import { makeStyles } from '@material-ui/core/styles';
 import GavelIcon from '@material-ui/icons/Gavel';
 import FormToolbar from './controls/FormToolbar';
+import AppForm from './parts/AppForm';
 import AppMenu from './parts/AppMenu';
 import CaseAccordion from './parts/CaseAccordion';
-import SentencingForm from './parts/SentencingForm';
 import data from './mockup';
 import { formatSentence } from './util';
 
@@ -79,7 +79,7 @@ export default function App() {
       <Grid container component="main" className={classes.main}>
         <Grid item xs={12} md={6} lg={7} xl={6} component={Paper} elevation={3} className={classes.pane}>
           <div className={classes.content}>
-            <SentencingForm />
+            <AppForm />
             <FormToolbar className={classes.controls} />
           </div>
         </Grid>
