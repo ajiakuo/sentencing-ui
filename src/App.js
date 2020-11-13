@@ -1,10 +1,10 @@
-import React from 'react';
+import { React, useState } from 'react';
 import {
   AppBar, Avatar, Grid, Paper, Toolbar, Typography
   } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import GavelIcon from '@material-ui/icons/Gavel';
-import CalculateButton from './controls/CalculateButton';
+import FormToolbar from './controls/FormToolbar';
 import AppMenu from './parts/AppMenu';
 import CaseAccordion from './parts/CaseAccordion';
 import SentencingForm from './parts/SentencingForm';
@@ -48,10 +48,13 @@ const useStyles = makeStyles((theme) => ({
   content: {
     margin: theme.spacing(4),
   },
-  calcButton: {
-    position: 'fixed',
-    right: theme.spacing(4),
-    bottom: theme.spacing(4),
+  controls: {
+    marginTop: theme.spacing(2),
+    [theme.breakpoints.up('md')]: {
+      position: 'sticky',
+      display: 'flex',
+      bottom: theme.spacing(4),
+    },
   },
   crimePanel: {
     padding: theme.spacing(2),
@@ -78,6 +81,7 @@ export default function App() {
         <Grid item xs={12} md={6} lg={7} xl={6} component={Paper} elevation={3} className={classes.pane}>
           <div className={classes.content}>
             <SentencingForm />
+            <FormToolbar className={classes.controls} />
           </div>
         </Grid>
         <Grid item xs={12} md={6} lg={5} xl={6} className={classes.pane}>
@@ -92,7 +96,6 @@ export default function App() {
           </div>
         </Grid>
       </Grid>
-      <CalculateButton className={classes.calcButton} />
     </div>
   );
 }
