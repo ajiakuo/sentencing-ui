@@ -6,7 +6,7 @@ import { factors } from '../scope';
 import FactorCheckBox from '../controls/FactorCheckBox';
 import FactorSlider from '../controls/FactorSlider';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   root: {
     margin: 0,
   },

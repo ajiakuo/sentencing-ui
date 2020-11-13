@@ -35,26 +35,28 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.up('sm')]: {
       paddingTop: 64,
     },
-
-    /* Responsive layout */
     [theme.breakpoints.up('md')]: {
       height: '100vh',
-      '& > *': {
-        height: '100%',
-        overflowY: 'scroll',
-      },
     }
   },
-  formPanel: {
-    padding: theme.spacing(4),
+  pane: {
+    [theme.breakpoints.up('md')]: {
+      height: '100%',
+      overflowY: 'scroll',
+    },
   },
   content: {
-    padding: theme.spacing(4),
+    margin: theme.spacing(4),
+  },
+  calcButton: {
+    position: 'fixed',
+    right: theme.spacing(4),
+    bottom: theme.spacing(4),
   },
   crimePanel: {
     padding: theme.spacing(2),
   }
-}));
+}), { name: 'App' });
 
 export default function App() {
   const classes = useStyles();
@@ -73,20 +75,24 @@ export default function App() {
         </Toolbar>
       </AppBar>
       <Grid container component="main" className={classes.main}>
-        <Grid item xs={12} md={6} lg={7} xl={6} component={Paper} elevation={3} className={classes.formPanel}>
-          <SentencingForm />
-          <CalculateButton />
+        <Grid item xs={12} md={6} lg={7} xl={6} component={Paper} elevation={3} className={classes.pane}>
+          <div className={classes.content}>
+            <SentencingForm />
+          </div>
         </Grid>
-        <Grid item xs={12} md={6} lg={5} xl={6} className={classes.content}>
-          <Paper elevation={1} className={classes.crimePanel}>
-            <Typography variant="overline" gutterBottom>量刑預測</Typography>
-            <Typography variant="h4" component="div">{ formatSentence(33) }</Typography>
-          </Paper>
-          { data.related_cases.map((i) => (
-            <CaseAccordion {...i} />
-          )) }
+        <Grid item xs={12} md={6} lg={5} xl={6} className={classes.pane}>
+          <div className={classes.content}>
+            <Paper elevation={1} className={classes.crimePanel}>
+              <Typography variant="overline" gutterBottom>量刑預測</Typography>
+              <Typography variant="h4" component="div">{ formatSentence(33) }</Typography>
+            </Paper>
+            { data.related_cases.map((i) => (
+              <CaseAccordion {...i} />
+            )) }
+          </div>
         </Grid>
       </Grid>
+      <CalculateButton className={classes.calcButton} />
     </div>
   );
 }
