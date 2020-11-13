@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: theme.spacing(2),
     marginRight: theme.spacing(2),
   },
-}));
+}), { name: 'FactorSlider' });
 
 const SwitchLikeSlider = withStyles((theme) => ({
   root: {
