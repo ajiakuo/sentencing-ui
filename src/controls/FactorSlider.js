@@ -5,14 +5,25 @@ import { scales } from '../scope';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    paddingRight: theme.spacing(4),
+    display: 'flex',
+    alignItems: 'center',
+  },
+  label: {
+    flexGrow: 1,
+  },
+  switch: {
+    minWidth: 64,
+    width: 80,
+    maxWidth: 96,
+    marginLeft: theme.spacing(2),
+    marginRight: theme.spacing(2),
   },
 }));
 
 const SwitchLikeSlider = withStyles((theme) => ({
   root: {
     height: 14,
-    padding: '12px 0',
+    padding: '14px 0',
     marginBottom: 0,
     color: theme.palette.grey[50],
     transition: theme.transitions.create(['color'], {
@@ -83,20 +94,16 @@ export default function FactorSlider(props) {
   const [value, setValue] = useState(0);
 
   return (
-    <Grid container spacing={2} className={classes.root}>
-      <Grid item xs={8}>
-        <Typography id={`${props.name}Label`} gutterBottom>
-          {props.label}
-        </Typography>
-      </Grid>
-      <Grid item xs={4}>
-        <SwitchLikeSlider
-          name={props.name} value={value} onChange={(e, newValue) => setValue(newValue)}
-          aria-labelledby={`${props.name}Label`}
-          min={-1} max={1} steps={null} marks={scales}
-          data-state={value === 0 ? 'neutral' : value === -1 ? 'lighter' : 'heavier'}
-        />
-      </Grid>
-    </Grid>
+    <div className={classes.root}>
+      <Typography id={`${props.name}Label`} component="span" className={classes.label}>
+        {props.label}
+      </Typography>
+      <SwitchLikeSlider className={classes.switch}
+        name={props.name} value={value} onChange={(e, newValue) => setValue(newValue)}
+        aria-labelledby={`${props.name}Label`}
+        min={-1} max={1} steps={null} marks={scales}
+        data-state={value === 0 ? 'neutral' : value === -1 ? 'lighter' : 'heavier'}
+      />
+    </div>
   );
 };

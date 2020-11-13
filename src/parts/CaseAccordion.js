@@ -46,7 +46,7 @@ export default function CaseAccordion(props) {
             <TableBody>
               { props.labels.map((label) =>
                 <TableRow>
-                  <TableCell component="th" scope="row">{ label.factor }</TableCell>
+                  <TableCell component="th" scope="row">{ factors.find(i => i.name == label.factor).text }</TableCell>
                   <TableCell>{ label.summary }</TableCell>
                 </TableRow>
               ) }

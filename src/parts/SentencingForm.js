@@ -13,10 +13,16 @@ const renderGroup = (group) => {
 
   return (
     <>
-      <Typography variant="h6">{group.title}</Typography>
+      <Grid item xs={12}>
+        <Typography variant="h6">{group.title}</Typography>
+      </Grid>
       { group.factors.map((name) => {
         let factor = factors.find(i => i.name === name);
-        return (!factor.valid_before && renderItem(factor));
+        return (!factor.valid_before && (
+          <Grid item xs={12}>
+            {renderItem(factor)}
+          </Grid>
+        ));
       })}
     </>
   );
@@ -34,9 +40,9 @@ export default function SentencingForm() {
           <FormHelperText>§367 吞食玻璃不傷身體罪</FormHelperText>
         </FormControl>
       </div>
-      <Grid container direction="column">
+      <Grid container spacing={2}>
         { ["tristate", "binary"].map((type) => (
-          <Grid item xs={12} lg={6}>
+          <Grid item container xs={12} sm={6} md={12} lg={6} alignContent="flex-start">
             { factorGroups.filter(group => group.type === type).map(renderGroup) }
           </Grid>
         )) }
