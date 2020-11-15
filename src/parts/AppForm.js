@@ -5,6 +5,7 @@ import { crimes, factorGroups, factors } from '../scope';
 import FactorCheckBox from '../controls/FactorCheckBox';
 import FactorSlider from '../controls/FactorSlider';;
 import FormAccordion from '../controls/FormAccordion';
+import CrimeSelector from './CrimeSelector';
 
 const useStyles = makeStyles((theme) => ({
   root: {},
@@ -43,6 +44,7 @@ export default function SentencingForm() {
               </FormControl>
             </>
           )}>
+          <CrimeSelector />
         </FormAccordion>
       </Grid>
       <Grid item xs={12} sm={6} md={12} lg={6}>
