@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }), { name: 'AppForm' });
 
-export default function SentencingForm() {
+export default function AppForm() {
   const classes = useStyles();
 
   return (
@@ -32,13 +32,13 @@ export default function SentencingForm() {
             <>
               <Typography variant="h6">罪名</Typography>
               <FormControl className={classes.selectWrapper}>
-                <Select name="crime" displayEmpty
+                <Select name="crime" displayEmpty value={""}
                   inputProps={{ "aria-label": "罪名" }}
                   IconComponent="div" className={classes.select}
                   onClick={(e) => e.stopPropagation()}>
                   <MenuItem value="" disabled>適用條文</MenuItem>
                   { crimes.map((crime) => (
-                    <MenuItem value={crime.value}>{crime.text}</MenuItem>
+                    <MenuItem key={crime.value} value={crime.value}>{crime.text}</MenuItem>
                   )) }
                 </Select>
               </FormControl>
@@ -49,13 +49,13 @@ export default function SentencingForm() {
       </Grid>
       <Grid item xs={12} sm={6} md={12} lg={6}>
         { factorGroups.map((group) => (
-          <FormAccordion
+          <FormAccordion key={group.title}
             defaultExpanded={group.type !== "binary"}
             summary={(<Typography variant="h6">{group.title}</Typography>)}>
             { group.factors.map((name) => {
               let factor = factors.find(i => i.name === name);
               return (!factor.valid_before && (
-                <div>
+                <div key={factor.name}>
                   { group.type === "binary" ?
                     <FactorCheckBox name={factor.name} label={factor.text} vibe={group.vibe} /> :
                     <FactorSlider name={factor.name} label={factor.text} />

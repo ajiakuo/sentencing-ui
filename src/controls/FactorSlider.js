@@ -56,6 +56,8 @@ const SwitchLikeSlider = withStyles((theme) => ({
     '&$active': {
       boxShadow: '0px 0px 0px 14px rgba(0, 0, 0, 0.16)',
     },
+    active: {},
+    focusVisible: {},
   },
   track: {
     height: 14,

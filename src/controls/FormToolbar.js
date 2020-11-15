@@ -26,9 +26,10 @@ const useStyles = makeStyles((theme) => ({
 
 export default function FormToolbar(props) {
   const classes = useStyles();
+  let {onClear, onSubmit, ...otherProps} = props;
 
   return (
-    <div {...props} className={clsx([classes.root, props.className])}>
+    <div {...otherProps} className={clsx([classes.root, props.className])}>
       <div className={classes.space} />
       <Fab className={classes.button} size="medium" variant="extended" onClick={props.onClear}>
         <ClearAllIcon className={classes.iconSmall} />
