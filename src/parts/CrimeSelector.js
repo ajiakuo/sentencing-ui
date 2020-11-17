@@ -28,6 +28,8 @@ const useStyles = makeStyles((theme) => ({
 
 export default function CrimeSelector(props) {
   const classes = useStyles();
+  const value = props.value;
+
   const [tabIndex, setTabIndex] = useState(0); // index of the active tab, not tab index
   const [kind, setKind] = useState(0);  // the primary category of the crime
 
@@ -51,7 +53,7 @@ export default function CrimeSelector(props) {
           <FormControl className={classes.stages}>
             <Typography variant="subtitle2" gutterBottom>階段</Typography>
             <ButtonGroup color="primary" aria-label="犯罪階段">
-              { kind == 0 && <Button value="preparatory" className={classes.stage}>預備</Button> }
+              { (kind == 0 || kind == 1) && <Button value="preparatory" className={classes.stage}>預備</Button> }
               <Button value="attempted" className={classes.stage}>未遂</Button>
               <Button value="accomplished" className={classes.stage}>既遂</Button>
             </ButtonGroup>

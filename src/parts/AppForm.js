@@ -1,5 +1,5 @@
-import { React } from 'react';
-import { FormControl, FormHelperText, Grid, InputLabel, ListSubheader, MenuItem, Select, Typography } from '@material-ui/core';
+import { React, useState } from 'react';
+import { FormControl, Grid, ListSubheader, MenuItem, Select, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { crimes, factorGroups, factors } from '../scope';
 import FactorCheckBox from '../controls/FactorCheckBox';
@@ -23,6 +23,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function AppForm() {
   const classes = useStyles();
+  const [crime, setCrime] = useState(-1);
 
   return (
     <Grid container spacing={4}>
@@ -32,10 +33,11 @@ export default function AppForm() {
             <>
               <Typography variant="h6">罪名</Typography>
               <FormControl className={classes.selectWrapper}>
-                <Select name="crime" displayEmpty value={""}
+                <Select name="crime" displayEmpty value={crime >= 0 ? crime : ""}
                   inputProps={{ "aria-label": "罪名" }}
                   IconComponent="div" className={classes.select}
-                  onClick={(e) => e.stopPropagation()}>
+                  onClick={(e) => e.stopPropagation()}
+                  onChange={(e) => setCrime(e.target.value)}>
                   <MenuItem value="" disabled>適用條文</MenuItem>
                   { crimes.map((crime) => (
                     <MenuItem key={crime.value} value={crime.value}>{crime.text}</MenuItem>
@@ -44,7 +46,7 @@ export default function AppForm() {
               </FormControl>
             </>
           )}>
-          <CrimeSelector />
+          <CrimeSelector value={crime} onChange={(e, newValue) => setCrime(newValue)} />
         </FormAccordion>
       </Grid>
       <Grid item xs={12} sm={6} md={12} lg={6}>

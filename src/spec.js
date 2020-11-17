@@ -2,39 +2,141 @@
 // 日期皆為新條文公布日。
 // 早於民國 94 年刑法修正的日期不列入條件。
 
-const PENAL_CODE_AMENDMENT_DATE = '2019-5-29';
+const PENAL_CODE_AMENDMENT_DATE = new Date("2019-05-29T00:00:00+08:00");
 
 const crimes = [
-  { value: 1, text: "§271(1) 殺人罪" },
-  { value: 2, text: "§271(2),(1) 殺人未遂罪" },
-  { value: 3, text: "§271(3) 預備殺人罪" },
-  { value: 4, valid_before: PENAL_CODE_AMENDMENT_DATE, text: "§272(1) 殺害直系血親尊親屬罪" },
-  { value: 5, valid_before: PENAL_CODE_AMENDMENT_DATE, text: "§272(2),(1) 殺害直系血親尊親屬未遂罪" },
-  { value: 6, valid_before: PENAL_CODE_AMENDMENT_DATE, text: "§272(3) 預備殺害直系血親尊親屬罪" },
-  { value: 7, text: "§273(1) 義憤殺人罪" },
-  { value: 8, text: "§273(2),(1) 義憤殺人未遂罪" },
-  { value: 9, text: "§274(1) 母殺嬰兒罪" },
-  { value: 10, text: "§274(2),(1) 母殺嬰兒未遂罪" },
-  { value: 11, text: "§275(1) 加工自殺罪" },
-  { value: 12, text: "§275(3),(1) 加工自殺未遂罪" /*{ "*": "§275(3),(1) 加工自殺未遂罪", PENAL_CODE_AMENDMENT_DATE: "§275(2) 加工自殺未遂罪" }*/ },
-  { value: 13, text: "§277(2)前段 傷害致人於死罪" },
-  { value: 14, text: "§278(2) 使人受重傷因而致人於死罪" },
-  { value: 15, text: "§279但書 義憤傷害因而致人於死罪" },
-  { value: 16, text: "§280,§277(2) 傷害直系血親尊親屬致死罪" },
-  { value: 17, text: "§280,§278(2) 重傷害直系血親尊親屬致死罪" },
-  { value: 18, text: "§282(1)前段 加工自傷因而致死罪" /*{ "*": "§282(1)前段 加工自傷因而致死罪", PENAL_CODE_AMENDMENT_DATE: "§282中段 加工自傷因而致死罪" }*/ },
-  { value: 19, valid_before: PENAL_CODE_AMENDMENT_DATE, text: "§282前段 教唆或幫助自傷因而致死罪" },
-  { value: 20, valid_after: PENAL_CODE_AMENDMENT_DATE, text: "§282(2)前段 教唆或幫助自傷因而致死罪" },
-  { value: 21, text: "§275(4),§275(1) 謀為同死，加工自殺罪" /*{ "*": "§275(4),§275(1) 謀為同死，加工自殺罪", PENAL_CODE_AMENDMENT_DATE: "§275(3) 謀為同死，加工自殺罪" }*/ },
-  { value: 22, valid_before: PENAL_CODE_AMENDMENT_DATE, text: "§275(1) 教唆或幫助自殺罪" },
-  { value: 23, valid_before: PENAL_CODE_AMENDMENT_DATE, text: "§275(3),§275(1) 謀為同死，教唆或幫助自殺罪" },
-  { value: 24, valid_before: PENAL_CODE_AMENDMENT_DATE, text: "§275(2),(1) 教唆或幫助自殺未遂罪" },
-  { value: 25, valid_after: PENAL_CODE_AMENDMENT_DATE, text: "§275(2) 教唆或幫助自殺罪" },
-  { value: 26, valid_after: PENAL_CODE_AMENDMENT_DATE, text: "§275(4),§275(2) 謀為同死，教唆或幫助自殺罪" },
-  { value: 27, valid_after: PENAL_CODE_AMENDMENT_DATE, text: "§272,§271(1) 殺害直系血親尊親屬罪" },
-  { value: 28, valid_after: PENAL_CODE_AMENDMENT_DATE, text: "§272,§271(2),(1) 殺害直系血親尊親屬未遂罪" },
-  { value: 29, valid_after: PENAL_CODE_AMENDMENT_DATE, text: "§272,§271(3) 預備殺害直系血親尊親屬罪" },
-  { value: 30, valid_before: PENAL_CODE_AMENDMENT_DATE, text: "§283,§277(2)前段 聚眾鬥毆致人於死罪" }
+  {
+    value: 1, text: "§271(1) 殺人罪",
+    category: "殺人", kind: "普通殺人", stage: "accomplished"
+  },
+  {
+    value: 2, text: "§271(2),(1) 殺人未遂罪",
+    category: "殺人", kind: "普通殺人", stage: "attempted"
+  },
+  {
+    value: 3, text: "§271(3) 預備殺人罪",
+    category: "殺人", kind: "普通殺人", stage: "preparatory"
+  },
+  {
+    value: 4, text: "§272(1) 殺害直系血親尊親屬罪",
+    category: "殺人", kind: "殺害直系血親尊親屬", stage: "accomplished", valid_before: PENAL_CODE_AMENDMENT_DATE
+  },
+  {
+    value: 27, text: "§272,§271(1) 殺害直系血親尊親屬罪",
+    category: "殺人", kind: "殺害直系血親尊親屬", stage: "accomplished", valid_after: PENAL_CODE_AMENDMENT_DATE
+  },
+  {
+    value: 5, text: "§272(2),(1) 殺害直系血親尊親屬未遂罪",
+    category: "殺人", kind: "殺害直系血親尊親屬", stage: "attempted", valid_before: PENAL_CODE_AMENDMENT_DATE
+  },
+  {
+    value: 28, text: "§272,§271(2),(1) 殺害直系血親尊親屬未遂罪",
+    category: "殺人", kind: "殺害直系血親尊親屬", stage: "attempted", valid_after: PENAL_CODE_AMENDMENT_DATE
+  },
+  {
+    value: 6, text: "§272(3) 預備殺害直系血親尊親屬罪",
+    category: "殺人", kind: "殺害直系血親尊親屬", stage: "preparatory", valid_before: PENAL_CODE_AMENDMENT_DATE
+  },
+  {
+    value: 29, text: "§272,§271(3) 預備殺害直系血親尊親屬罪",
+    category: "殺人", kind: "殺害直系血親尊親屬", stage: "preparatory", valid_after: PENAL_CODE_AMENDMENT_DATE
+  },
+  {
+    value: 7, text: "§273(1) 義憤殺人罪",
+    category: "殺人", kind: "義憤殺人", stage: "accomplished"
+  },
+  {
+    value: 8, text: "§273(2),(1) 義憤殺人未遂罪",
+    category: "殺人", kind: "義憤殺人", stage: "attempted"
+  },
+  {
+    value: 9, text: "§274(1) 母殺嬰兒罪",
+    category: "殺人", kind: "母殺嬰兒", stage: "accomplished"
+  },
+  {
+    value: 10, text: "§274(2),(1) 母殺嬰兒未遂罪",
+    category: "殺人", kind: "母殺嬰兒", stage: "attempted"
+  },
+  {
+    value: 11, text: "§275(1) 加工自殺罪",
+    category: "殺人", kind: "加工自殺", stage: "accomplished"
+  },
+  {
+    value: 12, text: "§275(2) 加工自殺未遂罪",
+    category: "殺人", kind: "加工自殺", stage: "attempted", valid_before: PENAL_CODE_AMENDMENT_DATE
+  },
+  {
+    value: 12, text: "§275(3),(1) 加工自殺未遂罪",
+    category: "殺人", kind: "加工自殺", stage: "attempted", valid_after: PENAL_CODE_AMENDMENT_DATE
+  },
+  {
+    value: 21, text: "§275(4),§275(1) 謀為同死，加工自殺罪",
+    category: "殺人", kind: "加工自殺", stage: "accomplished", variant: "謀為同死", valid_after: PENAL_CODE_AMENDMENT_DATE
+  },
+  {
+    value: 21, text: "§275(3) 謀為同死，加工自殺罪",
+    category: "殺人", kind: "加工自殺", stage: "accomplished", variant: "謀為同死", valid_before: PENAL_CODE_AMENDMENT_DATE
+  },
+  {
+    value: 22, text: "§275(1) 教唆或幫助自殺罪",
+    category: "殺人", kind: "教唆幫助自殺", stage: "accomplished", valid_before: PENAL_CODE_AMENDMENT_DATE
+  },
+  {
+    value: 25, text: "§275(2) 教唆或幫助自殺罪",
+    category: "殺人", kind: "教唆幫助自殺", stage: "accomplished", valid_after: PENAL_CODE_AMENDMENT_DATE
+  },
+  {
+    value: 24, text: "§275(2),(1) 教唆或幫助自殺未遂罪",
+    category: "殺人", kind: "教唆幫助自殺", stage: "attempted", valid_before: PENAL_CODE_AMENDMENT_DATE
+  },
+  {
+    value: 23, text: "§275(3),§275(1) 謀為同死，教唆或幫助自殺罪",
+    category: "殺人", kind: "教唆幫助自殺", stage: "accomplished", variant: "謀為同死", valid_before: PENAL_CODE_AMENDMENT_DATE
+  },
+  {
+    value: 26, text: "§275(4),§275(2) 謀為同死，教唆或幫助自殺罪",
+    category: "殺人", kind: "教唆幫助自殺", stage: "accomplished", variant: "謀為同死", valid_after: PENAL_CODE_AMENDMENT_DATE
+  },
+  {
+    value: 13, text: "§277(2)前段 傷害致人於死罪",
+    category: "傷害致死", kind: "傷害致死"
+  },
+  {
+    value: 14, text: "§278(2) 使人受重傷因而致人於死罪",
+    category: "傷害致死", kind: "重傷致死"
+  },
+  {
+    value: 15, text: "§279但書 義憤傷害因而致人於死罪",
+    category: "傷害致死", kind: "義憤傷害致死"
+  },
+  {
+    value: 16, text: "§280,§277(2) 傷害直系血親尊親屬致死罪",
+    category: "傷害致死", kind: "傷害直系血親尊親屬致死"
+  },
+  {
+    value: 17, text: "§280,§278(2) 重傷害直系血親尊親屬致死罪",
+    category: "傷害致死", kind: "重傷直系血親尊親屬致死"
+  },
+  {
+    value: 18, text: "§282中段 加工自傷因而致死罪",
+    category: "傷害致死", kind: "加工自傷致死", valid_before: PENAL_CODE_AMENDMENT_DATE
+  },
+  {
+    value: 18, text: "§282(1)前段 加工自傷因而致死罪",
+    category: "傷害致死", kind: "加工自傷致死", valid_after: PENAL_CODE_AMENDMENT_DATE
+  },
+  {
+    value: 19, text: "§282前段 教唆或幫助自傷因而致死罪",
+    category: "傷害致死", kind: "教唆幫助自傷致死", valid_before: PENAL_CODE_AMENDMENT_DATE
+  },
+  {
+    value: 20, text: "§282(2)前段 教唆或幫助自傷因而致死罪",
+    category: "傷害致死", kind: "教唆幫助自傷致死", valid_after: PENAL_CODE_AMENDMENT_DATE
+  },
+  {
+    value: 30, text: "§283,§277(2)前段 聚眾鬥毆致人於死罪",
+    category: "傷害致死", kind: "聚眾鬥毆致死", valid_before: PENAL_CODE_AMENDMENT_DATE
+  }
 ];
 
 const factors = [
