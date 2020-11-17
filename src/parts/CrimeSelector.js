@@ -39,8 +39,7 @@ export default function CrimeSelector(props) {
         indicatorColor="primary" textColor="primary" variant="fullWidth"
         aria-label="罪名分類">
         <Tab label="殺人" id="crime-tab-1" aria-controls="crime-panel-1" className={classes.tab} />
-        <Tab label="傷害" className={classes.tab} />
-        <Tab label="其他" className={classes.tab} />
+        <Tab label="傷害致死" className={classes.tab} />
       </Tabs>
       <div>
         <div id="crime-panel-1" className={classes.tabPage}>{ /* aria-labelled-by="crime-tab-1" --> */ }

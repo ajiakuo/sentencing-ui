@@ -73,7 +73,7 @@ export default function App() {
             <GavelIcon />
           </Avatar>
           <Typography variant="h6" noWrap className={classes.title}>
-            司法院量刑系統
+            司法院量刑資訊系統
           </Typography>
           <AppMenu />
         </Toolbar>

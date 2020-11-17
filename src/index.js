@@ -1,3 +1,5 @@
+/*! sentencing-ui: https://github.com/rschiang/sentencing-ui */
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 import CSSBaseline from '@material-ui/core/CssBaseline';
