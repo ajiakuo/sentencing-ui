@@ -23,6 +23,7 @@ class AppMenu extends Component {
   }
 
   handleFilterItemClick() {
+    // TODO: Use props showFilter and onShowFilterChanged
     this.setState({ showFilter: !this.state.showFilter });
     this.handleMenuClose();  // Should we close menu for this one?
   }
@@ -46,7 +47,7 @@ class AppMenu extends Component {
           id="menu" keepMounted anchorEl={this.state.anchorEl}
           anchorOrigin={anchorOrigin} transformOrigin={transformOrigin}
           open={Boolean(this.state.anchorEl)} onClose={this.handleMenuClose}>
-          <MenuItem onClick={this.handleFilterItemClick}>
+          <MenuItem onClick={this.handleFilterItemClick} disabled>
             <ListItemIcon>
               { this.state.showFilter ? <CheckBoxIcon color="secondary" /> : <UncheckedBoxIcon /> }
             </ListItemIcon>

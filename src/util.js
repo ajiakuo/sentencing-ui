@@ -1,6 +1,6 @@
-import { courts } from './scope';
+import { crimes, factors, factorGroups, courts } from './spec';
 
-const parseCaseID = (id) => {
+export function parseCaseID(id) {
   let m = id.match((/^(?<court>[A-Z]+),(?<year>\d+),(?<case>[^,]+),(?<no>\d+)$/));
   if (m != null) {
     // Leave out the court name if it’s Supreme Court
@@ -16,7 +16,7 @@ const parseCaseID = (id) => {
   }
 };
 
-const formatSentence = (sentence) => {
+export function formatSentence(sentence) {
   if (sentence > 0) {
     let year = Math.floor(sentence / 12);
     if (year > 0) {
@@ -30,6 +30,41 @@ const formatSentence = (sentence) => {
            '無罪'; // 無罪推定！(*ﾟ∀ﾟ)
 };
 
-const formatCaseURL = ((cid) => `https://law.judicial.gov.tw/FJUD/qryresult.aspx?jud_court=${cid.court}&jud_sys=M&jud_year=${cid.year}&jud_case=${cid.case}&jud_no=${cid.no}&judtype=JUDBOOK`);
+export function formatCaseURL(cid) {
+  return `https://law.judicial.gov.tw/FJUD/qryresult.aspx?jud_court=${cid.court}&jud_sys=M&jud_year=${cid.year}&jud_case=${cid.case}&jud_no=${cid.no}&judtype=JUDBOOK`;
+}
 
-export { parseCaseID, formatSentence, formatCaseURL };
+export function useCrimes() {
+  const date = new Date(); // TODO: Allow selecting pre-amendment items?
+  return crimes.filter((crime) => (
+    (crime.valid_before === undefined || date < crime.valid_before) &&
+    (crime.valid_after === undefined || date >= crime.valid_after)
+  ));
+}
+
+export function useFactorGroups() {
+  // TODO
+  return factorGroups;
+}
+
+export function buildSpec() {
+  const crimes = useCrimes();
+
+  // TODO: Build up crime categories
+  const kinds = new Map();
+  filteredCrimes.forEach((crime) => {
+    if (!kinds.has(crime.kind)) {
+      kinds[crime.kind] = {
+        text: crime.kind,
+        stages: [],
+        variants: [],
+      }
+    }
+  });
+
+  return {
+    crimes: filteredCrimes,
+    factors: factors,
+    factorGroups: factorGroups,
+  }
+}

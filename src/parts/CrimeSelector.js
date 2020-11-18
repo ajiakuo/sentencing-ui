@@ -2,7 +2,6 @@ import { React, useState, useContext } from 'react';
 //import SwipeableViews from 'react-swipeable-views';
 import { Tabs, Tab, ButtonGroup, Button, FormControl, Typography, FormControlLabel, Radio } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import { AppContext } from './AppContext';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -29,7 +28,6 @@ const useStyles = makeStyles((theme) => ({
 
 export default function CrimeSelector(props) {
   const classes = useStyles();
-  const spec = useContext(AppContext);
   const value = props.value;
 
   const [tabIndex, setTabIndex] = useState(0); // index of the active tab, not tab index
@@ -39,7 +37,7 @@ export default function CrimeSelector(props) {
 
   return (
     <div className={classes.root}>
-      <Tabs value={tabIndex} onChange={(e, newValue) => setTabIndex(newValue)}
+      <Tabs value={tabIndex} onChange={(_, newValue) => setTabIndex(newValue)}
         indicatorColor="primary" textColor="primary" variant="fullWidth"
         aria-label="罪名分類">
         <Tab label="殺人" id="crime-tab-1" aria-controls="crime-panel-1" className={classes.tab} />

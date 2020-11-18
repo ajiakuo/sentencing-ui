@@ -1,16 +1,13 @@
 import { React, useState } from 'react';
-import {
-  AppBar, Avatar, Grid, Paper, Toolbar, Typography
-  } from '@material-ui/core';
+import { AppBar, Avatar, Grid, Paper, Toolbar, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import GavelIcon from '@material-ui/icons/Gavel';
 import FormToolbar from './controls/FormToolbar';
-import { AppContext, createContext } from './parts/AppContext';
-import AppForm from './parts/AppForm';
-import AppMenu from './parts/AppMenu';
-import CaseAccordion from './parts/CaseAccordion';
-import mockupData from './mockup';
-import { formatSentence } from './util';
+import AppForm from './AppForm';
+import AppMenu from './AppMenu';
+import CaseAccordion from './CaseAccordion';
+import mockupData from '../mockup';
+import { formatSentence } from '../util';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -63,12 +60,22 @@ const useStyles = makeStyles((theme) => ({
 
 export default function App() {
   const classes = useStyles();
-  const [spec, setSpec] = useState(createContext());
+
   const [loaded, setLoaded] = useState(false);
-  const [data, setData] = useState(mockup);
+  const [data, setData] = useState({});
+  const [showFilter, setShowFilter] = useState(false);
+
+  const handleSubmitForm = () => {
+    setData(mockupData);
+    setLoaded(true);
+  };
+
+  const handleClearForm = () => {
+    setLoaded(false);
+    setData({});
+  };
 
   return (
-    <AppContext.Provider value={spec}>
     <div className={classes.root}>
       <AppBar position="fixed">
         <Toolbar>
@@ -78,32 +85,32 @@ export default function App() {
           <Typography variant="h6" noWrap className={classes.title}>
             司法院量刑資訊系統
           </Typography>
-          <AppMenu />
+          <AppMenu showFilter={showFilter} onShowFilterChanged={(_, newValue) => setShowFilter(newValue)} />
         </Toolbar>
       </AppBar>
       <Grid container component="main" className={classes.main}>
         <Grid item xs={12} md={6} lg={7} xl={6} component={Paper} elevation={3} className={classes.pane}>
           <div className={classes.content}>
-            <AppForm />
-            <FormToolbar className={classes.controls}
-              onSubmit={() => setLoaded(true)} onClear={() => setLoaded(false)} />
+            <AppForm showFilter={showFilter} />
+            <FormToolbar className={classes.controls} onSubmit={handleSubmitForm} onClear={handleClearForm} />
           </div>
         </Grid>
         <Grid item xs={12} md={6} lg={5} xl={6} className={classes.pane}>
           <div className={classes.content}>
             { loaded &&
-              <Paper elevation={1} className={classes.crimePanel}>
-                <Typography variant="overline" gutterBottom>量刑預測</Typography>
-                <Typography variant="h4" component="div">{ formatSentence(data.estimation) }</Typography>
-              </Paper>
+              <>
+                <Paper elevation={1} className={classes.crimePanel}>
+                  <Typography variant="overline" gutterBottom>量刑預測</Typography>
+                  <Typography variant="h4" component="div">{ formatSentence(data.estimation) }</Typography>
+                </Paper>
+                { data.related_cases.map((i) =>
+                  <CaseAccordion key={i.id} {...i} />
+                )}
+              </>
             }
-            { loaded && data.related_cases.map((i) => (
-              <CaseAccordion {...i} />
-            )) }
           </div>
         </Grid>
       </Grid>
     </div>
-    </AppContext.Provider>
   );
 }
