@@ -48,11 +48,15 @@ function TabPanel(props) {
 
 export default function CrimeSelector(props) {
   const classes = useStyles();
+  const crimes = useCrimes();
   const categories = useCrimeCategories();
   const listOfCategories = [...categories.values()];
 
+  // Props
+  const { value, onChange } = props;
+
   // Calculate controls’ state base on prop value
-  const crime = useCrimes().find((c) => c.value === props.value);
+  const crime = crimes.find((c) => c.value === value);
   const category = crime ? categories.get(crime.category) : listOfCategories[0];
   const kind = crime ? category.kinds.get(crime.kind) : null;
 
@@ -61,12 +65,12 @@ export default function CrimeSelector(props) {
 
   // Event handlers
   const handleTabChange = (_, newValue) => setCurrentIndex(newValue);
-  const handleKindRadioChange = (e) => true || setKind(e.target.value);
-  const handleStageButtonClick = (e) => true || setStage(e.target.value);
-  const handleVariantCheckboxChange = (e) => true || setVariant(e.target.value);
-
-  // Prop callbacks
-  const setValue = (e, newValue) => props.onChange(e, newValue);
+  const handleKindRadioChange = (e) => {
+    let crime = crimes.find((c) => c.kind === e.target.value);
+    if (crime) onChange(e, crime.value);
+  };
+  const handleStageButtonClick = (e) => console.log(e);
+  const handleVariantCheckboxChange = (e) => console.log(e);
 
   return (
     <div className={classes.root}>
