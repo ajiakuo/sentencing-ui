@@ -1,10 +1,10 @@
-import { React, useState } from 'react';
+import { React, useState, useContext } from 'react';
 import { FormControl, Grid, ListSubheader, MenuItem, Select, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import { crimes, factorGroups, factors } from '../scope';
 import FactorCheckBox from '../controls/FactorCheckBox';
 import FactorSlider from '../controls/FactorSlider';;
 import FormAccordion from '../controls/FormAccordion';
+import { AppContext } from './AppContext';
 import CrimeSelector from './CrimeSelector';
 
 const useStyles = makeStyles((theme) => ({
@@ -23,6 +23,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function AppForm() {
   const classes = useStyles();
+  const spec = useContext(AppContext);
   const [crime, setCrime] = useState(-1);
 
   return (
@@ -39,7 +40,7 @@ export default function AppForm() {
                   onClick={(e) => e.stopPropagation()}
                   onChange={(e) => setCrime(e.target.value)}>
                   <MenuItem value="" disabled>適用條文</MenuItem>
-                  { crimes.map((crime) => (
+                  { spec.crimes.map((crime) => (
                     <MenuItem key={crime.value} value={crime.value}>{crime.text}</MenuItem>
                   )) }
                 </Select>
@@ -50,12 +51,12 @@ export default function AppForm() {
         </FormAccordion>
       </Grid>
       <Grid item xs={12} sm={6} md={12} lg={6}>
-        { factorGroups.map((group) => (
+        { spec.factorGroups.map((group) => (
           <FormAccordion key={group.title}
             defaultExpanded={group.type !== "binary"}
             summary={(<Typography variant="h6">{group.title}</Typography>)}>
             { group.factors.map((name) => {
-              let factor = factors.find(i => i.name === name);
+              let factor = spec.factors.find(i => i.name === name);
               return (!factor.valid_before && (
                 <div key={factor.name}>
                   { group.type === "binary" ?

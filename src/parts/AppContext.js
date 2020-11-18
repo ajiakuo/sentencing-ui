@@ -1,5 +1,5 @@
 import React from 'react';
-import { crimes } from '../spec';
+import { crimes, factors, factorGroups } from '../spec';
 
 export function createContext() {
   const date = new Date(); // TODO: Allow selecting pre-amendment items?
@@ -23,12 +23,12 @@ export function createContext() {
   return {
     crimes: filteredCrimes,
     factors: factors,
-    courts: courts,
+    factorGroups: factorGroups,
   }
 }
 
 export const AppContext = React.createContext({
   crimes: [],
   factors: [],
-  courts: [],
+  factorGroups: [],
 });

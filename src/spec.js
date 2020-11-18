@@ -190,12 +190,6 @@ const factorGroups = [
   }
 ];
 
-const scales = [
-  { value: -1, label: '−', description: '減輕' },
-  { value: 0, label: '', description: '不影響' },
-  { value: 1, label: '+', description: '加重' },
-];
-
 const courts = [
   { "id":  1, "value": "TPC", "text": "司法院刑事補償", "description": "司法院刑事補償" },
   { "id":  2, "value": "TPU", "text": "司法院訴願決定", "description": "司法院訴願決定" },
@@ -239,4 +233,4 @@ const courts = [
   { "id": 41, "value": "KSY", "text": "高雄少家法院", "description": "臺灣高雄少年及家事法院" },
 ];
 
-export { crimes, factors, factorGroups, scales, courts };
+export { crimes, factors, factorGroups, courts };

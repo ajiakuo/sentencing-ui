@@ -3,8 +3,8 @@ import { Accordion, AccordionSummary, AccordionDetails, Button, Table, TableCont
 import { makeStyles } from '@material-ui/core/styles';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import OpenInNewIcon from '@material-ui/icons/OpenInNew';
-import { factors } from '../scope';
-import { parseCaseID, formatSentence } from '../util';
+import { factors } from '../spec';
+import { parseCaseID, formatSentence, formatCaseURL } from '../util';
 
 const useStyles = makeStyles((theme) => ({
   heading: {
@@ -26,8 +26,6 @@ const useStyles = makeStyles((theme) => ({
     alignSelf: 'start',
   },
 }));
-
-const formatCaseURL = ((cid) => `https://law.judicial.gov.tw/FJUD/qryresult.aspx?jud_court=${cid.court}&jud_sys=M&jud_year=${cid.year}&jud_case=${cid.case}&jud_no=${cid.no}&judtype=JUDBOOK`);
 
 export default function CaseAccordion(props) {
   const classes = useStyles();

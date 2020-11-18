@@ -5,6 +5,7 @@ import {
 import { makeStyles } from '@material-ui/core/styles';
 import GavelIcon from '@material-ui/icons/Gavel';
 import FormToolbar from './controls/FormToolbar';
+import { AppContext, createContext } from './parts/AppContext';
 import AppForm from './parts/AppForm';
 import AppMenu from './parts/AppMenu';
 import CaseAccordion from './parts/CaseAccordion';
@@ -62,10 +63,12 @@ const useStyles = makeStyles((theme) => ({
 
 export default function App() {
   const classes = useStyles();
+  const [spec, setSpec] = useState(createContext());
   const [loaded, setLoaded] = useState(false);
-  let data = mockupData;
+  const [data, setData] = useState(mockup);
 
   return (
+    <AppContext.Provider value={spec}>
     <div className={classes.root}>
       <AppBar position="fixed">
         <Toolbar>
@@ -101,5 +104,6 @@ export default function App() {
         </Grid>
       </Grid>
     </div>
+    </AppContext.Provider>
   );
 }

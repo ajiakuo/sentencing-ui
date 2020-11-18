@@ -1,7 +1,12 @@
 import { React, useState } from 'react';
-import { Grid, Slider, Typography } from '@material-ui/core';
+import { Slider, Typography } from '@material-ui/core';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
-import { scales } from '../scope';
+
+const scales = [
+  { value: -1, label: '−', description: '減輕' },
+  { value: 0, label: '', description: '不影響' },
+  { value: 1, label: '+', description: '加重' },
+];
 
 const useStyles = makeStyles((theme) => ({
   root: {

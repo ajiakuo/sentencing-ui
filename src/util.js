@@ -30,4 +30,6 @@ const formatSentence = (sentence) => {
            '無罪'; // 無罪推定！(*ﾟ∀ﾟ)
 };
 
-export { parseCaseID, formatSentence };
+const formatCaseURL = ((cid) => `https://law.judicial.gov.tw/FJUD/qryresult.aspx?jud_court=${cid.court}&jud_sys=M&jud_year=${cid.year}&jud_case=${cid.case}&jud_no=${cid.no}&judtype=JUDBOOK`);
+
+export { parseCaseID, formatSentence, formatCaseURL };

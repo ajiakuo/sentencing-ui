@@ -1,7 +1,8 @@
-import { React, useState } from 'react';
+import { React, useState, useContext } from 'react';
 //import SwipeableViews from 'react-swipeable-views';
 import { Tabs, Tab, ButtonGroup, Button, FormControl, Typography, FormControlLabel, Radio } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import { AppContext } from './AppContext';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -28,6 +29,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function CrimeSelector(props) {
   const classes = useStyles();
+  const spec = useContext(AppContext);
   const value = props.value;
 
   const [tabIndex, setTabIndex] = useState(0); // index of the active tab, not tab index
