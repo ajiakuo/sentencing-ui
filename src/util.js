@@ -87,10 +87,7 @@ export function useCrimeCategories() {
       // Expand as array, or null out if there are no alternatives
       kind.stages = kind.stages.size > 1 ? [...kind.stages] : null;
       kind.variants = kind.variants.size > 0 ? [...kind.variants] : null;
-      console.log(kind);
     }
-
-  console.log(categories);
 
   return categories;
 }

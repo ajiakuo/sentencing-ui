@@ -36,6 +36,7 @@ const CondenseAccordionSummary = withStyles(() => ({
   },
   content: {
     margin: '12px 0',
+    maxWidth: 'calc(100% - 32px)',
     '&$expanded': {
       margin: '12px 0',
     }

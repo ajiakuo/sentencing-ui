@@ -9,9 +9,13 @@ import { useCrimes, useFactorGroups } from '../util';
 
 const useStyles = makeStyles((theme) => ({
   root: {},
+  selectTitle: {
+    flexShrink: 0,
+  },
   selectControl: {
     marginLeft: theme.spacing(2),
     flexGrow: 1,
+    flexShrink: 1,
   },
 }), { name: 'AppForm' });
 
@@ -49,7 +53,7 @@ export default function AppForm() {
         <FormAccordion defaultExpanded={true}
           summary={(
             <>
-              <Typography variant="h6">罪名</Typography>
+              <Typography variant="h6" className={classes.selectTitle}>罪名</Typography>
               <FormControl className={classes.selectControl}>
                 <CrimeSelect name="crime" value={crime}
                   onChange={(e) => setCrime(e.target.value)}

@@ -4,11 +4,11 @@ import { Tabs, Tab, ButtonGroup, Button, Checkbox, FormControl, FormControlLabel
 import { makeStyles } from '@material-ui/core/styles';
 import { useCrimes, useCrimeCategories } from '../util';
 
-const nameOfStages = {
-  "preparatory": "預備",
-  "attempted": "未遂",
-  "accomplished": "既遂",
-};
+const nameOfStages = new Map([
+  ["preparatory", "預備"],
+  ["attempted", "未遂"],
+  ["accomplished", "既遂"],
+]);
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -30,6 +30,10 @@ const useStyles = makeStyles((theme) => ({
   },
   stage: {
     flexGrow: 1,
+    '&[data-checked]': {
+      backgroundColor: theme.palette.secondary.main,
+      color: theme.palette.secondary.contrastText,
+    }
   },
 }), { name: 'CrimeSelector' });
 
@@ -87,15 +91,15 @@ export default function CrimeSelector(props) {
           <FormControl className={classes.stages}>
             <Typography variant="subtitle2" gutterBottom>階段</Typography>
             <ButtonGroup color="primary" aria-label="犯罪階段">
-              { kind.stages.map((s) =>
-                <Button key={s} value={s} checked={crime.stage === s} onClick={handleStageButtonClick} className={classes.stage}>{nameOfStages[s]}</Button>
+              { Array.from(nameOfStages.keys(), (s) => kind.stages.includes(s) &&
+                <Button key={s} value={s} data-checked={crime.stage === s || null} onClick={handleStageButtonClick} className={classes.stage}>{nameOfStages.get(s)}</Button>
               )}
             </ButtonGroup>
           </FormControl>
         }
         { (kind?.variants) &&
           <FormControl component="fieldset">
-            <Typography component="legend" variant="subtitle2" gutterBottom>階段</Typography>
+            <Typography component="legend" variant="subtitle2" gutterBottom>特別規定</Typography>
             <FormGroup>
               { kind.variants.map((v) =>
                 <FormControlLabel key={v} label={v} control={
