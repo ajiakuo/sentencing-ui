@@ -64,11 +64,15 @@ export function useCrimeCategories() {
 
   crimes.forEach((crime) => {
     if (!categories.has(crime.category))
-      categories[crime.category] = new Map(); // of kinds
+      categories[crime.category] = {
+        title: crime.category,
+        kinds: new Map(),
+      };
 
-    let category = categories[crime.category];
-    if (!category.has(crime.kind))
-      category[crime.kind] = {
+    let kinds = categories[crime.category].kinds;
+    if (!kinds.has(crime.kind))
+      kinds[crime.kind] = {
+        text: crime.kind,
         stages: new Set(),
         variants: new Set(),
       };
@@ -78,18 +82,12 @@ export function useCrimeCategories() {
     if (crime.variant) kind.variants.add(crime.variant);
   });
 
-  return Array.from(categories, (i) => {
-    let [category, kinds] = i;
-    return {
-      title: category,
-      kinds: Array.from(kinds, (j) => {
-        let [text, kind] = j;
-        return {
-          text: text,
-          stages: kind.stages.size > 1 ? [...kind.stages] : null,
-          variants: kind.variants.size > 0 ? [...kind.variants] : null
-        };
-      }),
-    };
-  });
+  for (let category in categories.values())
+    for (let kind in category.kinds.values()) {
+      // Expand as array, or null out if there are no alternatives
+      kind.stages = kind.stages.size > 1 ? [...kind.stages] : null;
+      kind.variants = kind.variants.size > 0 ? [...kind.variants] : null;
+    }
+
+  return categories;
 }
