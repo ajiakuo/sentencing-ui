@@ -1,7 +1,14 @@
-import { React, useState, useContext } from 'react';
+import { React, useState } from 'react';
 //import SwipeableViews from 'react-swipeable-views';
 import { Tabs, Tab, ButtonGroup, Button, FormControl, Typography, FormControlLabel, Radio } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import { useCrimeCategories } from '../util';
+
+const stages = [
+  { value: "preparatory", label: "預備" },
+  { value: "attempted", label: "未遂" },
+  { value: "accomplished", label: "既遂" },
+];
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -11,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
     minWidth: 64,
     flexGrow: 1,
   },
-  tabPage: {
+  panel: {
     margin: theme.spacing(1),
   },
   stages: {
@@ -26,40 +33,51 @@ const useStyles = makeStyles((theme) => ({
   },
 }), { name: 'CrimeSelector' });
 
+function TabPanel(props) {
+  const { children, value, index, ...others } = props;
+  return (
+    <div role="tabpanel" hidden={value !== index} id={`crime-panel-${index}`} aria-labelled-by={`crime-tab-${index}`} {...others}>
+      { value === index && children }
+    </div>
+  );
+};
+
 export default function CrimeSelector(props) {
   const classes = useStyles();
   const value = props.value;
+  const categories = useCrimeCategories();
 
-  const [tabIndex, setTabIndex] = useState(0); // index of the active tab, not tab index
-  const [kind, setKind] = useState(0);  // the primary category of the crime
+  const [category, setCategory] = useState(""); // index of the active tab
+  const [kind, setKind] = useState("");  // the primary category of the crime
 
-  const handleRadioChange = (e) => { setKind(e.target.value); console.log(e.target.value); };
+  const handleRadioChange = (e) => { setKind(e.target.value); };
 
   return (
     <div className={classes.root}>
-      <Tabs value={tabIndex} onChange={(_, newValue) => setTabIndex(newValue)}
-        indicatorColor="primary" textColor="primary" variant="fullWidth"
-        aria-label="罪名分類">
-        <Tab label="殺人" id="crime-tab-1" aria-controls="crime-panel-1" className={classes.tab} />
-        <Tab label="傷害致死" className={classes.tab} />
+      <Tabs value={category} onChange={(_, newValue) => setCategory(newValue)}
+        indicatorColor="primary" textColor="primary" variant="fullWidth" aria-label="罪名分類">
+        { categories.map((category, index) =>
+          <Tab key={category.title} value={category.title} label={category.title}
+            id={`crime-tab-${index}`} aria-controls={`crime-panel-${index}`} className={classes.tab} />
+        )}
       </Tabs>
-      <div>
-        <div id="crime-panel-1" className={classes.tabPage}>{ /* aria-labelled-by="crime-tab-1" --> */ }
+      { categories.map((category, index) =>
+        <TabPanel key={category.title} value={category} index={index} className={classes.panel}>
           <FormControl component="fieldset">
-            { ["普通殺人", "殺害直系血親尊親屬", "義憤殺人", "母殺嬰兒", "加工自殺"].map((name, i) =>
-              <FormControlLabel key={i} value={i} checked={kind == i} control={<Radio />} label={name} onClick={handleRadioChange} />
+            { category.kinds.map((kind, i) =>
+              <FormControlLabel key={i} value={i} checked={kind === i} control={<Radio />} label={kind.text} onClick={handleRadioChange} />
             ) }
           </FormControl>
           <FormControl className={classes.stages}>
             <Typography variant="subtitle2" gutterBottom>階段</Typography>
             <ButtonGroup color="primary" aria-label="犯罪階段">
-              { (kind == 0 || kind == 1) && <Button value="preparatory" className={classes.stage}>預備</Button> }
+              <Button value="preparatory" className={classes.stage}>預備</Button>
               <Button value="attempted" className={classes.stage}>未遂</Button>
               <Button value="accomplished" className={classes.stage}>既遂</Button>
             </ButtonGroup>
           </FormControl>
-        </div>
-      </div>
+        </TabPanel>
+      )}
     </div>
   );
 };

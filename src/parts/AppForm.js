@@ -9,7 +9,7 @@ import { useCrimes, useFactorGroups } from '../util';
 
 const useStyles = makeStyles((theme) => ({
   root: {},
-  selectWrapper: {
+  selectControl: {
     marginLeft: theme.spacing(2),
     flexGrow: 1,
   },
@@ -49,7 +49,7 @@ export default function AppForm() {
           summary={(
             <>
               <Typography variant="h6">罪名</Typography>
-              <FormControl className={classes.selectWrapper}>
+              <FormControl className={classes.selectControl}>
                 <CrimeSelect name="crime" value={crime}
                   onChange={(e) => setCrime(e.target.value)}
                   onClick={(e) => e.stopPropagation()} />
@@ -64,17 +64,14 @@ export default function AppForm() {
           <FormAccordion key={group.title}
             defaultExpanded={group.type !== "binary"}
             summary={(<Typography variant="h6">{group.title}</Typography>)}>
-            { group.factors.map((name) => {
-              let factor = spec.factors.find(i => i.name === name);
-              return (!factor.valid_before && (
-                <div key={factor.name}>
-                  { group.type === "binary" ?
-                    <FactorCheckBox name={factor.name} label={factor.text} vibe={group.vibe} /> :
-                    <FactorSlider name={factor.name} label={factor.text} />
-                  }
-                </div>
-              ));
-            })}
+            { group.factors.map((factor) => (
+              <div key={factor.name}>
+                { group.type === "binary" ?
+                  <FactorCheckBox name={factor.name} label={factor.text} vibe={group.vibe} /> :
+                  <FactorSlider name={factor.name} label={factor.text} />
+                }
+              </div>
+              ))}
           </FormAccordion>
         )) }
       </Grid>

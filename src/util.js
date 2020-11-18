@@ -34,37 +34,62 @@ export function formatCaseURL(cid) {
   return `https://law.judicial.gov.tw/FJUD/qryresult.aspx?jud_court=${cid.court}&jud_sys=M&jud_year=${cid.year}&jud_case=${cid.case}&jud_no=${cid.no}&judtype=JUDBOOK`;
 }
 
-export function useCrimes() {
+function filterSpec(list) {
   const date = new Date(); // TODO: Allow selecting pre-amendment items?
-  return crimes.filter((crime) => (
-    (crime.valid_before === undefined || date < crime.valid_before) &&
-    (crime.valid_after === undefined || date >= crime.valid_after)
+  return list.filter((item) => (
+    (item.valid_before === undefined || date < item.valid_before) &&
+    (item.valid_after === undefined || date >= item.valid_after)
   ));
 }
 
-export function useFactorGroups() {
-  // TODO
-  return factorGroups;
+export function useCrimes() {
+  return filterSpec(crimes);
 }
 
-export function buildSpec() {
-  const crimes = useCrimes();
+export function useFactors() {
+  return filterSpec(factors);
+}
 
-  // TODO: Build up crime categories
-  const kinds = new Map();
-  filteredCrimes.forEach((crime) => {
-    if (!kinds.has(crime.kind)) {
-      kinds[crime.kind] = {
-        text: crime.kind,
-        stages: [],
-        variants: [],
-      }
-    }
+export function useFactorGroups() {
+  const factors = useFactors();
+  return factorGroups.map((group) => ({
+    factors: group.factors.map((name) => factors.find((factor) => factor.name === name)),
+    ...group
+  }));
+}
+
+export function useCrimeCategories() {
+  const crimes = useCrimes();
+  const categories = new Map();
+
+  crimes.forEach((crime) => {
+    if (!categories.has(crime.category))
+      categories[crime.category] = new Map(); // of kinds
+
+    let category = categories[crime.category];
+    if (!category.has(crime.kind))
+      category[crime.kind] = {
+        stages: new Set(),
+        variants: new Set(),
+      };
+
+    let kind = category[crime.kind];
+    if (crime.stage) kind.stages.add(crime.stage);
+    if (crime.variant) kind.variants.add(crime.variant);
   });
 
-  return {
-    crimes: filteredCrimes,
-    factors: factors,
-    factorGroups: factorGroups,
-  }
+  return Array.from(categories, (i) => {
+    let [category, kinds] = i;
+    return {
+      title: category,
+      kinds: Array.from(kinds, (j) => {
+        let [text, kind] = j;
+        return {
+          text: text,
+          stages: kind.stages.size > 1 ? [...kind.stages] : null,
+          variants: kind.variants.size > 0 ? [...kind.variants] : null
+        };
+      }),
+    };
+  });
 }
