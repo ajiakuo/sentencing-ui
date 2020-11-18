@@ -53,8 +53,8 @@ export function useFactors() {
 export function useFactorGroups() {
   const factors = useFactors();
   return factorGroups.map((group) => ({
+    ...group,
     factors: group.factors.map((name) => factors.find((factor) => factor.name === name)),
-    ...group
   }));
 }
 
@@ -64,30 +64,33 @@ export function useCrimeCategories() {
 
   crimes.forEach((crime) => {
     if (!categories.has(crime.category))
-      categories[crime.category] = {
+      categories.set(crime.category, {
         title: crime.category,
         kinds: new Map(),
-      };
+      });
 
-    let kinds = categories[crime.category].kinds;
+    let kinds = categories.get(crime.category).kinds;
     if (!kinds.has(crime.kind))
-      kinds[crime.kind] = {
+      kinds.set(crime.kind, {
         text: crime.kind,
         stages: new Set(),
         variants: new Set(),
-      };
+      });
 
-    let kind = category[crime.kind];
+    let kind = kinds.get(crime.kind);
     if (crime.stage) kind.stages.add(crime.stage);
     if (crime.variant) kind.variants.add(crime.variant);
   });
 
-  for (let category in categories.values())
-    for (let kind in category.kinds.values()) {
+  for (let category of categories.values())
+    for (let kind of category.kinds.values()) {
       // Expand as array, or null out if there are no alternatives
       kind.stages = kind.stages.size > 1 ? [...kind.stages] : null;
       kind.variants = kind.variants.size > 0 ? [...kind.variants] : null;
+      console.log(kind);
     }
+
+  console.log(categories);
 
   return categories;
 }

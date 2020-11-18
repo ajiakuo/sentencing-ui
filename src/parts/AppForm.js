@@ -23,12 +23,13 @@ const CrimeSelect = withStyles((theme) => ({
     }
   },
 }), { name: 'CrimeSelect' })((props) => {
+  const {value, ...others} = props;
   const crimes = useCrimes();
   crimes.sort((a, b) => a.value - b.value);
 
   return (
-    <Select displayEmpty value={props.value >= 0 ? props.value : ""}
-      inputProps={{ "aria-label": "罪名" }} IconComponent="div" {...props}>
+    <Select displayEmpty value={value >= 0 ? value : ""}
+      inputProps={{ "aria-label": "罪名" }} IconComponent="div" {...others}>
       <MenuItem value="" disabled>適用條文</MenuItem>
       { crimes.map((crime) => (
         <MenuItem key={crime.value} value={crime.value}>{crime.text}</MenuItem>

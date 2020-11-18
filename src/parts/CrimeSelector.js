@@ -49,17 +49,17 @@ export default function CrimeSelector(props) {
 
   // Calculate controls’ state base on prop value
   const crime = useCrimes().find((c) => c.value === props.value);
-  const category = crime ? categories[crime.category] : listOfCategories[0];
-  const kind = crime ? category.kinds[crime.kind] : null;
+  const category = crime ? categories.get(crime.category) : listOfCategories[0];
+  const kind = crime ? category.kinds.get(crime.kind) : null;
 
   // Our only state; index of the active tab should be independent from prop value or you will never be able to change tabs
   const [currentIndex, setCurrentIndex] = useState(0);
 
   // Event handlers
   const handleTabChange = (_, newValue) => setCurrentIndex(newValue);
-  const handleKindRadioChange = (e) => setKind(e.target.value);
-  const handleStageButtonClick = (e) => setStage(e.target.value);
-  const handleVariantCheckboxChange = (e) => setVariant(e.target.value);
+  const handleKindRadioChange = (e) => true || setKind(e.target.value);
+  const handleStageButtonClick = (e) => true || setStage(e.target.value);
+  const handleVariantCheckboxChange = (e) => true || setVariant(e.target.value);
 
   // Prop callbacks
   const setValue = (e, newValue) => props.onChange(e, newValue);
@@ -74,16 +74,16 @@ export default function CrimeSelector(props) {
         )}
       </Tabs>
       { listOfCategories.map((c, index) =>
-        <TabPanel key={c.title} currentIndex={index} index={index} className={classes.panel}>
+        <TabPanel key={c.title} currentIndex={currentIndex} index={index} className={classes.panel}>
           <FormControl component="fieldset">
             { Array.from(c.kinds.values(), (k) =>
-              <FormControlLabel key={k.text} value={k.text} checked={k.text === kind.text} control={<Radio />} label={k.text} onClick={handleKindRadioChange} />
+              <FormControlLabel key={k.text} value={k.text} checked={k.text === kind?.text} control={<Radio />} label={k.text} onClick={handleKindRadioChange} />
             )}
           </FormControl>
         </TabPanel>
       )}
       <div className={classes.panel}>
-        { kind && kind.stages &&
+        { (kind?.stages) &&
           <FormControl className={classes.stages}>
             <Typography variant="subtitle2" gutterBottom>階段</Typography>
             <ButtonGroup color="primary" aria-label="犯罪階段">
