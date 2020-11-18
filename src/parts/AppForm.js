@@ -72,7 +72,7 @@ export default function AppForm() {
             { group.factors.map((factor) => (
               <div key={factor.name}>
                 { group.type === "binary" ?
-                  <FactorCheckBox name={factor.name} label={factor.text} vibe={group.vibe} /> :
+                  <FactorCheckBox name={factor.name} label={factor.text} vibe={group.vibe} disabled={factor.calculated} /> :
                   <FactorSlider name={factor.name} label={factor.text} />
                 }
               </div>

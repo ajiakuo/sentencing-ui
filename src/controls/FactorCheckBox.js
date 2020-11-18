@@ -29,17 +29,16 @@ const ColoredCheckbox = withStyles((theme) => ({
 
 export default function FactorCheckBox(props) {
   const classes = useStyles();
+  const { name, label, vibe, ...others } = props;
   const [value, setValue] = useState(0);
 
   return (
     <label className={classes.root}>
-      <Typography component="span" className={classes.label}>
-        {props.label}
-      </Typography>
+      <Typography component="span" className={classes.label}>{label}</Typography>
       <ColoredCheckbox
-        name={props.name} data-vibe={props.vibe}
+        name={name} data-vibe={vibe}
         checked={value === 1}
-        onChange={(e) => setValue(e.target.checked ? 1 : 0)} />
+        onChange={(e) => setValue(e.target.checked ? 1 : 0)} {...others} />
     </label>
   );
 };
