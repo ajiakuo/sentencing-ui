@@ -20,11 +20,11 @@ const useStyles = makeStyles((theme) => ({
 }), { name: 'AppForm' });
 
 const CrimeSelect = withStyles((theme) => ({
-  root: {
+  select: {
     color: theme.palette.text.secondary,
-    '&:before': {
-      display: 'none',
-    }
+    '&:focus': {
+      color: theme.palette.text.primary,
+    },
   },
 }), { name: 'CrimeSelect' })((props) => {
   const {value, ...others} = props;

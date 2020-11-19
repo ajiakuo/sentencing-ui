@@ -1,6 +1,6 @@
 import { React, useState } from 'react';
 //import SwipeableViews from 'react-swipeable-views';
-import { Tabs, Tab, ButtonGroup, Button, Checkbox, FormControl, FormLabel, FormControlLabel, FormGroup, Radio, Typography } from '@material-ui/core';
+import { Tabs, Tab, ButtonGroup, Button, Checkbox, FormControl, FormControlLabel, FormGroup, Radio, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
 import { useCrimes, useCrimeCategories, alpha } from '../util';
@@ -115,7 +115,7 @@ export default function CrimeSelector(props) {
             <Typography component="label" id="stages-label" className={classes.label} gutterBottom>犯罪階段</Typography>
             <ButtonGroup color="primary" variant="outlined" role="radiogroup" aria-labelledby="stages-label">
               { Array.from(nameOfStages.keys(), (s) => kind.stages.includes(s) &&
-                <ToggleButton key={s} checked={crime.stage === s} onClick={(e) => handleFiltering(e, crime.kind, s)} className={classes.stage}>{nameOfStages.get(s)}</ToggleButton>
+                <ToggleButton key={s} role="radio" checked={crime.stage === s} onClick={(e) => handleFiltering(e, crime.kind, s)} className={classes.stage}>{nameOfStages.get(s)}</ToggleButton>
               )}
             </ButtonGroup>
           </FormControl>

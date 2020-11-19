@@ -102,12 +102,12 @@ export default function FactorSlider(props) {
 
   return (
     <div className={classes.root}>
-      <Typography id={`${props.name}Label`} component="span" className={classes.label}>
+      <Typography id={`${props.name}-label`} component="label" className={classes.label}>
         {props.label}
       </Typography>
       <SwitchLikeSlider className={classes.switch}
         name={props.name} value={value} onChange={(e, newValue) => setValue(newValue)}
-        aria-labelledby={`${props.name}Label`}
+        aria-labelledby={`${props.name}-label`}
         min={-1} max={1} steps={null} marks={scales}
         data-state={value === 0 ? 'neutral' : value === -1 ? 'lighter' : 'heavier'}
       />
