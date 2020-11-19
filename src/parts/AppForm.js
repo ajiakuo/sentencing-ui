@@ -8,7 +8,17 @@ import CrimeSelector from './CrimeSelector';
 import { useCrimes, useFactorGroups } from '../util';
 
 const useStyles = makeStyles((theme) => ({
-  root: {},
+  root: {
+    // Dynamic grid spacing (2 -> 4)
+    margin: `-${theme.spacing(1)}px`,
+    width: `calc(100% + ${theme.spacing(2)}px)`,
+    '& > div': { padding: theme.spacing(1) },
+    [theme.breakpoints.up('md')]: {
+      margin: `-${theme.spacing(2)}px`,
+      width: `calc(100% + ${theme.spacing(4)}px)`,
+      '& > div': { padding: theme.spacing(2) },
+    }
+  },
   selectTitle: {
     flexShrink: 0,
   },
@@ -48,7 +58,7 @@ export default function AppForm() {
   const [crime, setCrime] = useState(-1);
 
   return (
-    <Grid container spacing={4}>
+    <Grid container className={classes.root}>
       <Grid item xs={12} sm={6} md={12} lg={6}>
         <FormAccordion defaultExpanded={true}
           summary={(

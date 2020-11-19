@@ -6,7 +6,12 @@ const theme = createMuiTheme({
   palette: {
     primary: indigo,
     secondary: blue
-  }
+  },
+  typography: {
+    fontFamily: [
+      'Inter', 'system-ui', '"Segoe UI"', 'Roboto', 'Helvetica', 'Arial', 'sans-serif'
+    ].join(','),
+  },
 });
 
 export default theme;
