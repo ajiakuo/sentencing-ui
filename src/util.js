@@ -91,3 +91,9 @@ export function useCrimeCategories() {
 
   return categories;
 }
+
+// Polyfill for pre-Material UI 5.0
+import { fade } from '@material-ui/core/styles/colorManipulator';
+export function alpha(color, value) {
+  return fade(color, 1 - value);
+}

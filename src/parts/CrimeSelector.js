@@ -1,8 +1,9 @@
 import { React, useState } from 'react';
 //import SwipeableViews from 'react-swipeable-views';
-import { Tabs, Tab, ButtonGroup, Button, Checkbox, FormControl, FormControlLabel, FormGroup, Radio, Typography } from '@material-ui/core';
+import { Tabs, Tab, ButtonGroup, Button, Checkbox, FormControl, FormLabel, FormControlLabel, FormGroup, Radio, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import { useCrimes, useCrimeCategories } from '../util';
+import clsx from 'clsx';
+import { useCrimes, useCrimeCategories, alpha } from '../util';
 
 const nameOfStages = new Map([
   ["preparatory", "預備"],
@@ -21,29 +22,48 @@ const useStyles = makeStyles((theme) => ({
   panel: {
     margin: theme.spacing(1),
   },
-  stages: {
+  controls: {
     display: 'flex',
-    marginTop: theme.spacing(1),
+    marginBottom: theme.spacing(2),
+    '&:last-child': {
+      marginBottom: 0,
+    }
   },
-  stageLabel: {
-    marginBottom: theme.spacing(1),
+  label: {
+    color: theme.palette.text.secondary,
+    ...theme.typography.subtitle2,
   },
   stage: {
     flexGrow: 1,
-    '&[data-checked]': {
-      backgroundColor: theme.palette.secondary.main,
-      color: theme.palette.secondary.contrastText,
-    }
   },
 }), { name: 'CrimeSelector' });
 
-function TabPanel(props) {
+const TabPanel = (props) => {
   const { children, currentIndex, index, ...others } = props;
   return (
-    <div role="tabpanel" hidden={currentIndex !== index} id={`crime-panel-${index}`} aria-labelled-by={`crime-tab-${index}`} {...others}>
+    <div role="tabpanel" hidden={currentIndex !== index} id={`crime-panel-${index}`} aria-labelledby={`crime-tab-${index}`} {...others}>
       { currentIndex === index && children }
     </div>
   );
+};
+
+const ToggleButton = (props) => {
+  const classes = makeStyles((theme) => ({
+    root: {
+    },
+    checked: {
+      backgroundColor: theme.palette.secondary.main,
+      color: theme.palette.secondary.contrastText,
+      '&:hover': {
+        backgroundColor: alpha(theme.palette.secondary.main, theme.palette.action.hoverOpacity),
+        '@media (hover: none)': {
+          backgroundColor: 'transparent',
+        },
+      },
+    },
+  }), { name: 'ToggleButton' })();
+  const { checked, className, ...others } = props;
+  return <Button aria-checked={checked} className={clsx(classes.root, checked ? classes.checked : null, className)} {...others} />;
 };
 
 export default function CrimeSelector(props) {
@@ -65,12 +85,11 @@ export default function CrimeSelector(props) {
 
   // Event handlers
   const handleTabChange = (_, newValue) => setCurrentIndex(newValue);
-  const handleKindRadioChange = (e) => {
-    let crime = crimes.find((c) => c.kind === e.target.value);
-    if (crime) onChange(e, crime.value);
+
+  const handleFiltering = (e, kind, stage, variant) => {
+    let candidate = crimes.find((c) => (kind === c.kind && (!stage || stage === c.stage) && (!variant || variant === c.variant)));
+    if (candidate) onChange(e, candidate.value);
   };
-  const handleStageButtonClick = (e) => console.log(e);
-  const handleVariantCheckboxChange = (e) => console.log(e);
 
   return (
     <div className={classes.root}>
@@ -85,29 +104,29 @@ export default function CrimeSelector(props) {
         <TabPanel key={c.title} currentIndex={currentIndex} index={index} className={classes.panel}>
           <FormControl component="fieldset">
             { Array.from(c.kinds.values(), (k) =>
-              <FormControlLabel key={k.text} value={k.text} checked={k.text === kind?.text} control={<Radio />} label={k.text} onClick={handleKindRadioChange} />
+              <FormControlLabel key={k.text} value={k.text} checked={k.text === kind?.text} control={<Radio />} label={k.text} onClick={(e) => handleFiltering(e, e.target.value)} />
             )}
           </FormControl>
         </TabPanel>
       )}
       <div className={classes.panel}>
         { (kind?.stages) &&
-          <FormControl className={classes.stages}>
-            <Typography variant="subtitle2" gutterBottom>階段</Typography>
-            <ButtonGroup color="primary" aria-label="犯罪階段">
+          <FormControl component="fieldset" className={classes.controls}>
+            <Typography component="label" id="stages-label" className={classes.label} gutterBottom>犯罪階段</Typography>
+            <ButtonGroup color="primary" variant="outlined" role="radiogroup" aria-labelledby="stages-label">
               { Array.from(nameOfStages.keys(), (s) => kind.stages.includes(s) &&
-                <Button key={s} value={s} data-checked={crime.stage === s || null} onClick={handleStageButtonClick} className={classes.stage}>{nameOfStages.get(s)}</Button>
+                <ToggleButton key={s} checked={crime.stage === s} onClick={(e) => handleFiltering(e, crime.kind, s)} className={classes.stage}>{nameOfStages.get(s)}</ToggleButton>
               )}
             </ButtonGroup>
           </FormControl>
         }
         { (kind?.variants) &&
-          <FormControl component="fieldset">
-            <Typography component="legend" variant="subtitle2" gutterBottom>特別規定</Typography>
+          <FormControl component="fieldset" className={classes.controls}>
+            <Typography component="legend" className={classes.label}>特別規定</Typography>
             <FormGroup>
               { kind.variants.map((v) =>
                 <FormControlLabel key={v} label={v} control={
-                  <Checkbox checked={crime.variant === v} onChange={handleVariantCheckboxChange} />
+                  <Checkbox checked={crime.variant === v} onChange={(e) => handleFiltering(e, crime.kind, crime.stage, e.target.checked ? v : null)} />
                 } />
               )}
             </FormGroup>
