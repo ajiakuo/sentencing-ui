@@ -55,7 +55,11 @@ const useStyles = makeStyles((theme) => ({
   },
   crimePanel: {
     padding: theme.spacing(2),
-  }
+  },
+  onboardingPanel: {
+    color: theme.palette.text.secondary,
+    textAlign: 'center',
+  },
 }), { name: 'App' });
 
 export default function App() {
@@ -97,7 +101,7 @@ export default function App() {
         </Grid>
         <Grid item xs={12} md={6} lg={5} xl={6} className={classes.pane}>
           <div className={classes.content}>
-            { loaded &&
+            { loaded ?
               <>
                 <Paper elevation={1} className={classes.crimePanel}>
                   <Typography variant="overline" gutterBottom>量刑預測</Typography>
@@ -106,7 +110,10 @@ export default function App() {
                 { data.related_cases.map((i) =>
                   <CaseAccordion key={i.id} {...i} />
                 )}
-              </>
+              </> :
+              <div className={classes.onboardingPanel}>
+                <Typography variant="body1">輸入變項後，按一下「計算」以取得預測結果。</Typography>
+              </div>
             }
           </div>
         </Grid>

@@ -15,6 +15,8 @@ class AppMenu extends Component {
     this.state = { anchorEl: null, showFilter: false };
     this.handleButtonClick = this.handleButtonClick.bind(this);
     this.handleFilterItemClick = this.handleFilterItemClick.bind(this);
+    this.handleHelpItemClick = this.handleHelpItemClick.bind(this);
+    this.handleFeedbackItemClick = this.handleFeedbackItemClick.bind(this);
     this.handleMenuClose = this.handleMenuClose.bind(this);
   }
 
@@ -26,6 +28,16 @@ class AppMenu extends Component {
     // TODO: Use props showFilter and onShowFilterChanged
     this.setState({ showFilter: !this.state.showFilter });
     this.handleMenuClose();  // Should we close menu for this one?
+  }
+
+  handleHelpItemClick() {
+    this.handleMenuClose();
+  }
+
+  handleFeedbackItemClick() {
+    // Well, we’re just doing our part. Don’t nag us for model inaccuracies.
+    window.open("https://github.com/rschiang/sentencing-ui/issues", "_blank");
+    this.handleMenuClose();
   }
 
   handleMenuClose() {
@@ -54,11 +66,11 @@ class AppMenu extends Component {
             <ListItemText primary="顯示修正前條文" />
           </MenuItem>
           <Divider />
-          <MenuItem onClick={this.handleMenuClose}>
+          <MenuItem onClick={this.handleHelpItemClick}>
             <ListItemIcon><HelpIcon /></ListItemIcon>
             <ListItemText primary="使用說明" />
           </MenuItem>
-          <MenuItem onClick={this.handleMenuClose}>
+          <MenuItem onClick={this.handleFeedbackItemClick}>
             <ListItemIcon><FeedbackIcon /></ListItemIcon>
             <ListItemText primary="回報問題" />
           </MenuItem>
