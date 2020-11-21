@@ -3,6 +3,7 @@
 // 早於民國 94 年刑法修正的日期不列入條件。
 
 const PENAL_CODE_AMENDMENT_DATE = new Date("2019-05-29T00:00:00+08:00");
+const ERROR_MARGIN = 18; // MAE as given
 
 const crimes = [
   {

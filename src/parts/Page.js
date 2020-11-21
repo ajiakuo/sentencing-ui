@@ -105,7 +105,11 @@ export default function App() {
               <>
                 <Paper elevation={1} className={classes.crimePanel}>
                   <Typography variant="overline" gutterBottom>量刑預測</Typography>
-                  <Typography variant="h4" component="div">{ formatSentence(data.estimation) }</Typography>
+                  <Typography variant="h4" component="div">{
+                    data.estimation > 18 ?
+                    `${formatSentence(data.estimation - 18)} ~ ${formatSentence(data.estimation + 18)}` :
+                    formatSentence(data.estimation)
+                  }</Typography>
                 </Paper>
                 { data.related_cases.map((i) =>
                   <CaseAccordion key={i.id} {...i} />
