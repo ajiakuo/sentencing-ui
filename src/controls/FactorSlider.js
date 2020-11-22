@@ -98,18 +98,19 @@ const SwitchLikeSlider = withStyles((theme) => ({
 
 export default function FactorSlider(props) {
   const classes = useStyles();
-  const [value, setValue] = useState(0);
+  const { name, value, label, onChange, ...others } = props;
 
   return (
     <div className={classes.root}>
-      <Typography id={`${props.name}-label`} component="label" className={classes.label}>
-        {props.label}
+      <Typography id={`${name}-label`} component="label" className={classes.label}>
+        {label}
       </Typography>
       <SwitchLikeSlider className={classes.switch}
-        name={props.name} value={value} onChange={(e, newValue) => setValue(newValue)}
-        aria-labelledby={`${props.name}-label`}
+        name={name} value={value} onChange={(e, newValue) => onChange(e, name, newValue)}
+        aria-labelledby={`${name}-label`}
         min={-1} max={1} steps={null} marks={scales}
         data-state={value === 0 ? 'neutral' : value === -1 ? 'lighter' : 'heavier'}
+        {...others}
       />
     </div>
   );

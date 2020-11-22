@@ -56,6 +56,9 @@ export default function AppForm() {
   const classes = useStyles();
   const factorGroups = useFactorGroups();
   const [crime, setCrime] = useState(-1);
+  const [factors, setFactors] = useState({});
+
+  const handleFactorChange = (_, name, newValue) => setFactors({...factors, [name]: newValue});
 
   return (
     <Grid container className={classes.root}>
@@ -82,8 +85,8 @@ export default function AppForm() {
             { group.factors.map((factor) => (
               <div key={factor.name}>
                 { group.type === "binary" ?
-                  <FactorCheckBox name={factor.name} label={factor.text} vibe={group.vibe} disabled={factor.calculated} /> :
-                  <FactorSlider name={factor.name} label={factor.text} />
+                  <FactorCheckBox name={factor.name} value={factors[factor]} label={factor.text} vibe={group.vibe} disabled={factor.calculated} onChange={handleFactorChange} /> :
+                  <FactorSlider name={factor.name} value={factors[factor]} label={factor.text} onChange={handleFactorChange} />
                 }
               </div>
               ))}
