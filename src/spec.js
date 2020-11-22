@@ -140,6 +140,9 @@ const crimes = [
   }
 ];
 
+// The naming of the factors do not conform to the midterm report.
+// See API-actual.md for details.
+
 const factors = [
   { name: "c57_1", text: "§57(1) 犯罪動機、目的" },
   { name: "c57_2", text: "§57(2) 犯罪時所受刺激" },
@@ -151,25 +154,25 @@ const factors = [
   { name: "c57_8", text: "§57(8) 行為人違反義務程度" },
   { name: "c57_9", text: "§57(9) 犯罪所生之危險或損害" },
   { name: "c57_10", text: "§57(10) 犯罪後之態度" },
-  { name: "c47", text: "§47 累犯" },
-  { name: "c112", text: "兒少§70 成年人教唆、幫助或利用兒童及少年犯罪", valid_before: new Date("2011-11-30T00:00:00+08:00") },
-  { name: "c112", text: "兒少§112 成年人教唆、幫助或利用兒童及少年犯罪", valid_after: new Date("2011-11-30T00:00:00+08:00") },
-  { name: "c134", text: "§134 公務員利用職權機會" },
-  { name: "c18_2", text: "§18Ⅱ 十四歲以上未滿十八歲" },
-  { name: "c18_3", text: "§18Ⅲ 滿八十歲" },
-  { name: "c19_2", text: "§19Ⅱ 辨識、控制能力顯著減低" },
-  { name: "c20", text: "§20 瘖啞" },
-  { name: "c23", text: "§23 防衛過當" },
-  { name: "c24_1", text: "§24Ⅰ 避難過當" },
-  { name: "c25_2", text: "§25Ⅱ 普通未遂" },
-  { name: "c27_1", text: "§27Ⅰ 中止犯" },
-  { name: "c30", text: "§30 幫助犯" },
-  { name: "c31_1", text: "§31Ⅰ 身分犯無特定關係之共犯" },
-  { name: "c59", text: "§59 情狀顯可憫恕" },
-  { name: "c62", text: "§62 自首" },
-  { name: "c63", text: "§63 老幼處刑", calculated: true },
-  { name: "cp14_1", text: "證保§14Ⅰ 污點證人" },
-  { name: "cp7", text: "速審§7 訴訟延滯", valid_after: new Date("2010-05-19T00:00:00+08:00") },
+  { name: "agg_c47", text: "§47 累犯" },
+  { name: "agg_c112", text: "兒少§70 成年人教唆、幫助或利用兒童及少年犯罪", valid_before: new Date("2011-11-30T00:00:00+08:00") },
+  { name: "agg_c112", text: "兒少§112 成年人教唆、幫助或利用兒童及少年犯罪", valid_after: new Date("2011-11-30T00:00:00+08:00") },
+  { name: "agg_c134", text: "§134 公務員利用職權機會" },
+  { name: "mit_c18_2", text: "§18Ⅱ 十四歲以上未滿十八歲" },
+  { name: "mit_c18_3", text: "§18Ⅲ 滿八十歲" },
+  { name: "mit_c19_2", text: "§19Ⅱ 辨識、控制能力顯著減低" },
+  { name: "mit_c20", text: "§20 瘖啞" },
+  { name: "mit_c23", text: "§23 防衛過當" },
+  { name: "mit_c24_1", text: "§24Ⅰ 避難過當" },
+  { name: "mit_c25_2", text: "§25Ⅱ 普通未遂" },
+  { name: "mit_c27_1", text: "§27Ⅰ 中止犯" },
+  { name: "mit_c30", text: "§30 幫助犯" },
+  { name: "mit_c31_1", text: "§31Ⅰ 身分犯無特定關係之共犯" },
+  { name: "mit_c59", text: "§59 情狀顯可憫恕" },
+  { name: "mit_c62", text: "§62 自首" },
+  { name: "mit_c63", text: "§63 老幼處刑", calculated: true },
+  { name: "mit_cp14_1", text: "證保§14Ⅰ 污點證人" },
+  { name: "mit_cp7", text: "速審§7 訴訟延滯", valid_after: new Date("2010-05-19T00:00:00+08:00") },
 ];
 
 const factorGroups = [
@@ -182,13 +185,13 @@ const factorGroups = [
     title: "法定加重事由",
     type: "binary",
     vibe: "negative",
-    factors: ["c47", "c112", "c134"]
+    factors: ["agg_c47", "agg_c112", "agg_c134"]
   },
   {
     title: "法定減輕事由",
     type: "binary",
     vibe: "positive",
-    factors: ["c18_2", "c18_3", "c19_2", "c20", "c23", "c24_1", "c25_2", "c27_1", "c30", "c31_1", "c59", "c62", "c63", "cp14_1", "cp7"]
+    factors: ["mit_c18_2", "mit_c18_3", "mit_c19_2", "mit_c20", "mit_c23", "mit_c24_1", "mit_c25_2", "mit_c27_1", "mit_c30", "mit_c31_1", "mit_c59", "mit_c62", "mit_c63", "mit_cp14_1", "mit_cp7"]
   }
 ];
 

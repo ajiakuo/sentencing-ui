@@ -5,13 +5,19 @@ const API_URL = 'http://ext-sentencing.rschiang.dev'; /*! The API used in this p
 
 console.info('%cNote: The API used in this project is not endorsed by project developer or the domain owner. See LICENSE.txt for details.', 'font-style: italic; color: gray');
 
-export const fetchPrediction = async (params) => {
+export const fetchPrediction = async (crime, factors) => {
+  // Map all the parameters to a FormData object
+  const formData = new FormData();
+  formData.append('Svalue', crime);
+  for (var name in factors)
+    formData.append(name, factors[name]);
+
   const response = await fetch(API_URL, {
     method: 'POST',
     headers: {
-      'X-Requested-With': 'SentencingUI',
+      'X-Requested-With': 'Sentencing-UI',
     },
-    body: new FormData(params),
+    body: formData,
     mode: 'no-cors',
     credentials: 'omit',
     cache: 'no-store',
@@ -23,8 +29,11 @@ export const fetchPrediction = async (params) => {
     */
   });
 
-  if (!response.ok)
+  if (!response.ok) {
     throw new Error(`API call failed: HTTP ${response.status}`);
+    // Note that the body of the error is just plain text error message
+    // instead of a proper JSON object. We’re not sniffing them here.
+  }
 
   const data = await response.json();
 
@@ -32,12 +41,14 @@ export const fetchPrediction = async (params) => {
   return {
     estimation: data.prison_m,
     related_cases: data.related_cases.map((c) => ({
-      id: c.caseindex,
+      _pk: c.caseindex,
+      id: c.shortid2,
       relevance: c.sim,
       crime: c.Svalue,
       sentence: c.prison_m,
+      subject: c.subject, /* Server side implementation is merely an inferior mirror of `crimes` spec. */
       labels: c.labels.map((l) => ({
-        factor: l.Ctype,
+        factor: l.Ctype, /* idk why but apparently there was a factor named `specialPoint` which has no point at all */
         summary: l.Ctext,
         value: l.Cvalue
       }))
