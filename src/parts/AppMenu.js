@@ -12,7 +12,7 @@ import {
 class AppMenu extends Component {
   constructor(props) {
     super(props);
-    this.state = { anchorEl: null, showFilter: false };
+    this.state = { anchorEl: null };
     this.handleButtonClick = this.handleButtonClick.bind(this);
     this.handleFilterItemClick = this.handleFilterItemClick.bind(this);
     this.handleHelpItemClick = this.handleHelpItemClick.bind(this);
@@ -25,8 +25,8 @@ class AppMenu extends Component {
   }
 
   handleFilterItemClick() {
-    // TODO: Use props showFilter and onShowFilterChanged
-    this.setState({ showFilter: !this.state.showFilter });
+    // Use props showFilter and onShowFilterChanged
+    this.onShowFilterChanged(!this.props.showFilter);
     this.handleMenuClose();  // Should we close menu for this one?
   }
 
@@ -61,7 +61,7 @@ class AppMenu extends Component {
           open={Boolean(this.state.anchorEl)} onClose={this.handleMenuClose}>
           <MenuItem onClick={this.handleFilterItemClick} disabled>
             <ListItemIcon>
-              { this.state.showFilter ? <CheckBoxIcon color="secondary" /> : <UncheckedBoxIcon /> }
+              { this.props.showFilter ? <CheckBoxIcon color="secondary" /> : <UncheckedBoxIcon /> }
             </ListItemIcon>
             <ListItemText primary="顯示修正前條文" />
           </MenuItem>

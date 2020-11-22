@@ -52,16 +52,13 @@ const CrimeSelect = withStyles((theme) => ({
   );
 });
 
-export default function AppForm() {
+export default function AppForm(props) {
   const classes = useStyles();
   const factorGroups = useFactorGroups();
-  const [crime, setCrime] = useState(-1);
-  const [factors, setFactors] = useState({});
-
-  const handleFactorChange = (_, name, newValue) => setFactors({...factors, [name]: newValue});
+  const { crime, factors, showFilter, onCrimeChanged, onFactorChanged, ...others } = props;
 
   return (
-    <Grid container className={classes.root}>
+    <Grid container component="form" className={classes.root} {...others}>
       <Grid item xs={12} sm={6} md={12} lg={6}>
         <FormAccordion defaultExpanded={true}
           summary={(
@@ -69,12 +66,12 @@ export default function AppForm() {
               <Typography variant="h6" className={classes.selectTitle}>罪名</Typography>
               <FormControl className={classes.selectControl}>
                 <CrimeSelect name="crime" value={crime}
-                  onChange={(e) => setCrime(e.target.value)}
+                  onChange={(e) => onCrimeChanged(e.target.value)}
                   onClick={(e) => e.stopPropagation()} />
               </FormControl>
             </>
           )}>
-          <CrimeSelector value={crime} onChange={(_, newValue) => setCrime(newValue)} />
+          <CrimeSelector value={crime} onChange={(_, newValue) => onCrimeChanged(newValue)} />
         </FormAccordion>
       </Grid>
       <Grid item xs={12} sm={6} md={12} lg={6}>
@@ -85,8 +82,8 @@ export default function AppForm() {
             { group.factors.map((factor) => (
               <div key={factor.name}>
                 { group.type === "binary" ?
-                  <FactorCheckBox name={factor.name} value={factors[factor]} label={factor.text} vibe={group.vibe} disabled={factor.calculated} onChange={handleFactorChange} /> :
-                  <FactorSlider name={factor.name} value={factors[factor]} label={factor.text} onChange={handleFactorChange} />
+                  <FactorCheckBox name={factor.name} value={factors[factor.name] !== undefined ? factors[factor.name] : 0} label={factor.text} vibe={group.vibe} disabled={factor.calculated} onChange={onFactorChanged} /> :
+                  <FactorSlider name={factor.name} value={factors[factor.name] !== undefined ? factors[factor.name] : 0} label={factor.text} onChange={onFactorChanged} />
                 }
               </div>
               ))}

@@ -55,14 +55,9 @@ const SwitchLikeSlider = withStyles((theme) => ({
     '&::after': {
       left: -11, top: -11, right: -11, bottom: -11,
     },
-    '&:hover, &$focusVisible': {
+    '&:hover': {
       boxShadow: '0px 0px 0px 8px rgba(0, 0, 0, 0.16)',
     },
-    '&$active': {
-      boxShadow: '0px 0px 0px 14px rgba(0, 0, 0, 0.16)',
-    },
-    active: {},
-    focusVisible: {},
   },
   track: {
     height: 14,
@@ -101,7 +96,7 @@ export default function FactorSlider(props) {
   const { name, value, label, onChange, ...others } = props;
 
   return (
-    <div className={classes.root}>
+    <div className={classes.root} {...others}>
       <Typography id={`${name}-label`} component="label" className={classes.label}>
         {label}
       </Typography>
@@ -110,7 +105,6 @@ export default function FactorSlider(props) {
         aria-labelledby={`${name}-label`}
         min={-1} max={1} steps={null} marks={scales}
         data-state={value === 0 ? 'neutral' : value === -1 ? 'lighter' : 'heavier'}
-        {...others}
       />
     </div>
   );

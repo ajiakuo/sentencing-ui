@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function FormToolbar(props) {
   const classes = useStyles();
-  let {onClear, onSubmit, ...otherProps} = props;
+  let {canSubmit, onClear, onSubmit, ...otherProps} = props;
 
   return (
     <div {...otherProps} className={clsx([classes.root, props.className])}>
@@ -35,7 +35,7 @@ export default function FormToolbar(props) {
         <ClearAllIcon className={classes.iconSmall} />
         清除
       </Fab>
-      <Fab className={classes.button} color="secondary" variant="extended" onClick={props.onSubmit}>
+      <Fab className={classes.button} color="secondary" variant="extended" disabled={!canSubmit} onClick={props.onSubmit}>
         <SpellcheckIcon className={classes.icon} />
         計算
       </Fab>
