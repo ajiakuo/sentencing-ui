@@ -3,8 +3,7 @@ import { Accordion, AccordionSummary, AccordionDetails, Button, Table, TableCont
 import { makeStyles } from '@material-ui/core/styles';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import OpenInNewIcon from '@material-ui/icons/OpenInNew';
-import { factors } from '../spec';
-import { parseCaseID, formatSentence, formatCaseURL } from '../util';
+import { parseCaseID, formatSentence, formatCaseURL, useFactors } from '../util';
 
 const useStyles = makeStyles((theme) => ({
   heading: {
@@ -29,13 +28,14 @@ const useStyles = makeStyles((theme) => ({
 
 export default function CaseAccordion(props) {
   const classes = useStyles();
+  const factors = useFactors();
   const case_id = parseCaseID(props.id);
 
   return (
     <Accordion>
       <AccordionSummary expandIcon={<ExpandMoreIcon />}>
         <Typography variant="subtitle1" className={classes.heading}>{ case_id.formatted_text }</Typography>
-        <Typography variant="subtitle1" className={classes.subheading}>{ formatSentence(props.sentence) }</Typography>
+        <Typography variant="subtitle1" className={classes.subheading}>{ `${Math.round(props.relevance * 100)}%` }：{ formatSentence(props.sentence) }</Typography>
       </AccordionSummary>
       <AccordionDetails className={classes.details}>
         { props.labels && (
@@ -44,7 +44,8 @@ export default function CaseAccordion(props) {
             <TableBody>
               { props.labels.map((label) =>
                 <TableRow>
-                  <TableCell component="th" scope="row">{ factors.find(i => i.name == label.factor).text }</TableCell>
+                  <TableCell component="th" scope="row">{ factors.find(i => i.name == label.factor)?.text || label.factor }</TableCell>
+                  <TableCell>{ label.value === 1 ? '+' : label.value === -1 ? '-' : label.value === 0 ? null : label.value }</TableCell>
                   <TableCell>{ label.summary }</TableCell>
                 </TableRow>
               ) }
