@@ -6,7 +6,7 @@ import FormToolbar from '../controls/FormToolbar';
 import AppForm from './AppForm';
 import AppMenu from './AppMenu';
 import CaseAccordion from './CaseAccordion';
-import { useFactors, formatSentence } from '../util';
+import { formatSentence } from '../util';
 import { fetchPrediction } from '../api';
 
 const useStyles = makeStyles((theme) => ({
@@ -78,7 +78,7 @@ export default function App() {
   const [showFilter, setShowFilter] = useState(false);
 
   // Application states
-  const [loading, setLoading] = useState(false);
+  const [status, setStatus] = useState('blank');
   const [data, setData] = useState({});
 
   const handleFactorChanged = (_, name, value) => {
@@ -87,7 +87,7 @@ export default function App() {
 
   const handleSubmitForm = () => {
     // Clear out the current information
-    setLoading(true);
+    setStatus('loading');
     setData({});
 
     // Build up form request and call API
@@ -95,16 +95,18 @@ export default function App() {
     .then((data) => {
       console.log(data);
       setData(data);
-      setLoading(false);
+      setStatus('ready');
     })
-    .catch(() => {
-      setLoading(false);
+    .catch((e) => {
+      console.log(e);
+      setStatus('error');
     });
   };
 
   const handleClearForm = () => {
     setCrime(-1);
     setFactors({});
+    setStatus('blank');
   };
 
   return (
@@ -129,9 +131,10 @@ export default function App() {
         </Grid>
         <Grid item xs={12} md={6} lg={5} xl={6} className={classes.pane}>
           <div className={classes.content}>
-            { loading ?
-              <CircularProgress className={classes.progress} /> :
-              (data.estimation !== undefined) ?
+            { status === 'loading' &&
+              <CircularProgress className={classes.progress} />
+            }
+            { status === 'ready' &&
               <>
                 <Paper elevation={1} className={classes.crimePanel}>
                   <Typography variant="overline" gutterBottom>量刑預測</Typography>
@@ -144,9 +147,16 @@ export default function App() {
                 { data.related_cases.map((i) =>
                   <CaseAccordion key={i.id} {...i} />
                 )}
-              </> :
+              </>
+            }
+            { status === 'blank' &&
               <div className={classes.onboardingPanel}>
                 <Typography variant="body1">輸入變項後，按一下「計算」以取得預測結果。</Typography>
+              </div>
+            }
+            { status === 'error' &&
+              <div className={classes.onboardingPanel}>
+                <Typography variant="body1">伺服器或網路錯誤，請再試一次。</Typography>
               </div>
             }
           </div>

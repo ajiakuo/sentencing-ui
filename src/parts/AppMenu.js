@@ -45,7 +45,7 @@ class AppMenu extends Component {
   }
 
   render() {
-    const anchorOrigin = { vertical: 'bottom', horizontal: 'right'};
+    const anchorOrigin = { vertical: 'top', horizontal: 'right'};
     const transformOrigin = { vertical: 'top', horizontal: 'right'};
 
     return (
@@ -57,7 +57,7 @@ class AppMenu extends Component {
         </IconButton>
         <Menu
           id="menu" keepMounted anchorEl={this.state.anchorEl}
-          anchorOrigin={anchorOrigin} transformOrigin={transformOrigin}
+          anchorOrigin={anchorOrigin} transformOrigin={transformOrigin} getContentAnchorEl={null}
           open={Boolean(this.state.anchorEl)} onClose={this.handleMenuClose}>
           <MenuItem onClick={this.handleFilterItemClick} disabled>
             <ListItemIcon>
