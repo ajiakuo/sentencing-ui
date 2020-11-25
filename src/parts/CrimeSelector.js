@@ -104,7 +104,7 @@ export default function CrimeSelector(props) {
         <TabPanel key={c.title} currentIndex={currentIndex} index={index} className={classes.panel}>
           <FormControl component="fieldset">
             { Array.from(c.kinds.values(), (k) =>
-              <FormControlLabel key={k.text} value={k.text} checked={k.text === kind?.text} control={<Radio />} label={k.text} onClick={(e) => handleFiltering(e, e.target.value)} />
+              <FormControlLabel key={k.text} value={k.text} checked={k.text === kind?.text} disabled={k.disabled} control={<Radio />} label={k.text} onClick={(e) => handleFiltering(e, e.target.value)} />
             )}
           </FormControl>
         </TabPanel>
@@ -115,7 +115,7 @@ export default function CrimeSelector(props) {
             <Typography component="label" id="stages-label" className={classes.label} gutterBottom>犯罪階段</Typography>
             <ButtonGroup color="primary" variant="outlined" role="radiogroup" aria-labelledby="stages-label">
               { Array.from(nameOfStages.keys(), (s) => kind.stages.includes(s) &&
-                <ToggleButton key={s} role="radio" checked={crime.stage === s} onClick={(e) => handleFiltering(e, crime.kind, s)} className={classes.stage}>{nameOfStages.get(s)}</ToggleButton>
+                <ToggleButton key={s} role="radio" checked={crime.stage === s} disabled={kind.disabledStages.has(s)} onClick={(e) => handleFiltering(e, crime.kind, s)} className={classes.stage}>{nameOfStages.get(s)}</ToggleButton>
               )}
             </ButtonGroup>
           </FormControl>

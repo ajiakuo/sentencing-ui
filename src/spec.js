@@ -15,87 +15,87 @@ const crimes = [
   },
   {
     value: 3, text: "§271(3) 預備殺人罪",
-    category: "殺人", kind: "普通殺人", stage: "preparatory"
+    category: "殺人", kind: "普通殺人", stage: "preparatory", disabled: true
   },
   {
     value: 4, text: "§272(1) 殺害直系血親尊親屬罪",
-    category: "殺人", kind: "殺害直系血親尊親屬", stage: "accomplished", valid_before: PENAL_CODE_AMENDMENT_DATE
+    category: "殺人", kind: "殺害直系血親尊親屬", stage: "accomplished", valid_before: PENAL_CODE_AMENDMENT_DATE, disabled: true
   },
   {
     value: 27, text: "§272,§271(1) 殺害直系血親尊親屬罪",
-    category: "殺人", kind: "殺害直系血親尊親屬", stage: "accomplished", valid_after: PENAL_CODE_AMENDMENT_DATE
+    category: "殺人", kind: "殺害直系血親尊親屬", stage: "accomplished", valid_after: PENAL_CODE_AMENDMENT_DATE, disabled: true
   },
   {
     value: 5, text: "§272(2),(1) 殺害直系血親尊親屬未遂罪",
-    category: "殺人", kind: "殺害直系血親尊親屬", stage: "attempted", valid_before: PENAL_CODE_AMENDMENT_DATE
+    category: "殺人", kind: "殺害直系血親尊親屬", stage: "attempted", valid_before: PENAL_CODE_AMENDMENT_DATE, disabled: true
   },
   {
     value: 28, text: "§272,§271(2),(1) 殺害直系血親尊親屬未遂罪",
-    category: "殺人", kind: "殺害直系血親尊親屬", stage: "attempted", valid_after: PENAL_CODE_AMENDMENT_DATE
+    category: "殺人", kind: "殺害直系血親尊親屬", stage: "attempted", valid_after: PENAL_CODE_AMENDMENT_DATE, disabled: true
   },
   {
     value: 6, text: "§272(3) 預備殺害直系血親尊親屬罪",
-    category: "殺人", kind: "殺害直系血親尊親屬", stage: "preparatory", valid_before: PENAL_CODE_AMENDMENT_DATE
+    category: "殺人", kind: "殺害直系血親尊親屬", stage: "preparatory", valid_before: PENAL_CODE_AMENDMENT_DATE, disabled: true
   },
   {
     value: 29, text: "§272,§271(3) 預備殺害直系血親尊親屬罪",
-    category: "殺人", kind: "殺害直系血親尊親屬", stage: "preparatory", valid_after: PENAL_CODE_AMENDMENT_DATE
+    category: "殺人", kind: "殺害直系血親尊親屬", stage: "preparatory", valid_after: PENAL_CODE_AMENDMENT_DATE, disabled: true
   },
   {
     value: 7, text: "§273(1) 義憤殺人罪",
-    category: "殺人", kind: "義憤殺人", stage: "accomplished"
+    category: "殺人", kind: "義憤殺人", stage: "accomplished", disabled: true
   },
   {
     value: 8, text: "§273(2),(1) 義憤殺人未遂罪",
-    category: "殺人", kind: "義憤殺人", stage: "attempted"
+    category: "殺人", kind: "義憤殺人", stage: "attempted", disabled: true
   },
   {
     value: 9, text: "§274(1) 母殺嬰兒罪",
-    category: "殺人", kind: "母殺嬰兒", stage: "accomplished"
+    category: "殺人", kind: "母殺嬰兒", stage: "accomplished", disabled: true
   },
   {
     value: 10, text: "§274(2),(1) 母殺嬰兒未遂罪",
-    category: "殺人", kind: "母殺嬰兒", stage: "attempted"
+    category: "殺人", kind: "母殺嬰兒", stage: "attempted", disabled: true
   },
   {
     value: 11, text: "§275(1) 加工自殺罪",
-    category: "殺人", kind: "加工自殺", stage: "accomplished"
+    category: "殺人", kind: "加工自殺", stage: "accomplished", disabled: true
   },
   {
     value: 12, text: "§275(2) 加工自殺未遂罪",
-    category: "殺人", kind: "加工自殺", stage: "attempted", valid_before: PENAL_CODE_AMENDMENT_DATE
+    category: "殺人", kind: "加工自殺", stage: "attempted", valid_before: PENAL_CODE_AMENDMENT_DATE, disabled: true
   },
   {
     value: 12, text: "§275(3),(1) 加工自殺未遂罪",
-    category: "殺人", kind: "加工自殺", stage: "attempted", valid_after: PENAL_CODE_AMENDMENT_DATE
+    category: "殺人", kind: "加工自殺", stage: "attempted", valid_after: PENAL_CODE_AMENDMENT_DATE, disabled: true
   },
   {
     value: 21, text: "§275(4),§275(1) 謀為同死，加工自殺罪",
-    category: "殺人", kind: "加工自殺", stage: "accomplished", variant: "謀為同死", valid_after: PENAL_CODE_AMENDMENT_DATE
+    category: "殺人", kind: "加工自殺", stage: "accomplished", variant: "謀為同死", valid_after: PENAL_CODE_AMENDMENT_DATE, disabled: true
   },
   {
     value: 21, text: "§275(3) 謀為同死，加工自殺罪",
-    category: "殺人", kind: "加工自殺", stage: "accomplished", variant: "謀為同死", valid_before: PENAL_CODE_AMENDMENT_DATE
+    category: "殺人", kind: "加工自殺", stage: "accomplished", variant: "謀為同死", valid_before: PENAL_CODE_AMENDMENT_DATE, disabled: true
   },
   {
     value: 22, text: "§275(1) 教唆或幫助自殺罪",
-    category: "殺人", kind: "教唆幫助自殺", stage: "accomplished", valid_before: PENAL_CODE_AMENDMENT_DATE
+    category: "殺人", kind: "教唆幫助自殺", stage: "accomplished", valid_before: PENAL_CODE_AMENDMENT_DATE, disabled: true
   },
   {
     value: 25, text: "§275(2) 教唆或幫助自殺罪",
-    category: "殺人", kind: "教唆幫助自殺", stage: "accomplished", valid_after: PENAL_CODE_AMENDMENT_DATE
+    category: "殺人", kind: "教唆幫助自殺", stage: "accomplished", valid_after: PENAL_CODE_AMENDMENT_DATE, disabled: true
   },
   {
     value: 24, text: "§275(2),(1) 教唆或幫助自殺未遂罪",
-    category: "殺人", kind: "教唆幫助自殺", stage: "attempted", valid_before: PENAL_CODE_AMENDMENT_DATE
+    category: "殺人", kind: "教唆幫助自殺", stage: "attempted", valid_before: PENAL_CODE_AMENDMENT_DATE, disabled: true
   },
   {
     value: 23, text: "§275(3),§275(1) 謀為同死，教唆或幫助自殺罪",
-    category: "殺人", kind: "教唆幫助自殺", stage: "accomplished", variant: "謀為同死", valid_before: PENAL_CODE_AMENDMENT_DATE
+    category: "殺人", kind: "教唆幫助自殺", stage: "accomplished", variant: "謀為同死", valid_before: PENAL_CODE_AMENDMENT_DATE, disabled: true
   },
   {
     value: 26, text: "§275(4),§275(2) 謀為同死，教唆或幫助自殺罪",
-    category: "殺人", kind: "教唆幫助自殺", stage: "accomplished", variant: "謀為同死", valid_after: PENAL_CODE_AMENDMENT_DATE
+    category: "殺人", kind: "教唆幫助自殺", stage: "accomplished", variant: "謀為同死", valid_after: PENAL_CODE_AMENDMENT_DATE, disabled: true
   },
   {
     value: 13, text: "§277(2)前段 傷害致人於死罪",
@@ -103,39 +103,39 @@ const crimes = [
   },
   {
     value: 14, text: "§278(2) 使人受重傷因而致人於死罪",
-    category: "傷害致死", kind: "重傷致死"
+    category: "傷害致死", kind: "重傷致死", disabled: true
   },
   {
     value: 15, text: "§279但書 義憤傷害因而致人於死罪",
-    category: "傷害致死", kind: "義憤傷害致死"
+    category: "傷害致死", kind: "義憤傷害致死", disabled: true
   },
   {
     value: 16, text: "§280,§277(2) 傷害直系血親尊親屬致死罪",
-    category: "傷害致死", kind: "傷害直系血親尊親屬致死"
+    category: "傷害致死", kind: "傷害直系血親尊親屬致死", disabled: true
   },
   {
     value: 17, text: "§280,§278(2) 重傷害直系血親尊親屬致死罪",
-    category: "傷害致死", kind: "重傷直系血親尊親屬致死"
+    category: "傷害致死", kind: "重傷直系血親尊親屬致死", disabled: true
   },
   {
     value: 18, text: "§282中段 加工自傷因而致死罪",
-    category: "傷害致死", kind: "加工自傷致死", valid_before: PENAL_CODE_AMENDMENT_DATE
+    category: "傷害致死", kind: "加工自傷致死", valid_before: PENAL_CODE_AMENDMENT_DATE, disabled: true
   },
   {
     value: 18, text: "§282(1)前段 加工自傷因而致死罪",
-    category: "傷害致死", kind: "加工自傷致死", valid_after: PENAL_CODE_AMENDMENT_DATE
+    category: "傷害致死", kind: "加工自傷致死", valid_after: PENAL_CODE_AMENDMENT_DATE, disabled: true
   },
   {
     value: 19, text: "§282前段 教唆或幫助自傷因而致死罪",
-    category: "傷害致死", kind: "教唆幫助自傷致死", valid_before: PENAL_CODE_AMENDMENT_DATE
+    category: "傷害致死", kind: "教唆幫助自傷致死", valid_before: PENAL_CODE_AMENDMENT_DATE, disabled: true
   },
   {
     value: 20, text: "§282(2)前段 教唆或幫助自傷因而致死罪",
-    category: "傷害致死", kind: "教唆幫助自傷致死", valid_after: PENAL_CODE_AMENDMENT_DATE
+    category: "傷害致死", kind: "教唆幫助自傷致死", valid_after: PENAL_CODE_AMENDMENT_DATE, disabled: true
   },
   {
     value: 30, text: "§283,§277(2)前段 聚眾鬥毆致人於死罪",
-    category: "傷害致死", kind: "聚眾鬥毆致死", valid_before: PENAL_CODE_AMENDMENT_DATE
+    category: "傷害致死", kind: "聚眾鬥毆致死", valid_before: PENAL_CODE_AMENDMENT_DATE, disabled: true
   }
 ];
 
@@ -160,18 +160,18 @@ const factors = [
   { name: "mit_c18_2", text: "§18Ⅱ 十四歲以上未滿十八歲" },
   { name: "mit_c18_3", text: "§18Ⅲ 滿八十歲" },
   { name: "mit_c19_2", text: "§19Ⅱ 辨識、控制能力顯著減低" },
-  { name: "mit_c20", text: "§20 瘖啞" },
+  { name: "mit_c20", text: "§20 瘖啞", disabled: true },
   { name: "mit_c23", text: "§23 防衛過當" },
-  { name: "mit_c24_1", text: "§24Ⅰ 避難過當" },
+  { name: "mit_c24_1", text: "§24Ⅰ 避難過當", disabled: true },
   { name: "mit_c25_2", text: "§25Ⅱ 普通未遂" },
   { name: "mit_c27_1", text: "§27Ⅰ 中止犯" },
   { name: "mit_c30", text: "§30 幫助犯" },
-  { name: "mit_c31_1", text: "§31Ⅰ 身分犯無特定關係之共犯" },
+  { name: "mit_c31_1", text: "§31Ⅰ 身分犯無特定關係之共犯", disabled: true },
   { name: "mit_c59", text: "§59 情狀顯可憫恕" },
   { name: "mit_c62", text: "§62 自首" },
   { name: "mit_c63", text: "§63 老幼處刑", calculated: true },
-  { name: "mit_cp14_1", text: "證保§14Ⅰ 污點證人" },
-  { name: "mit_cp7", text: "速審§7 訴訟延滯", valid_after: new Date("2010-05-19T00:00:00+08:00") },
+  { name: "mit_cp14_1", text: "證保§14Ⅰ 污點證人", disabled: true },
+  { name: "mit_cp7", text: "速審§7 訴訟延滯", valid_after: new Date("2010-05-19T00:00:00+08:00"), disabled: true },
 ];
 
 const factorGroups = [

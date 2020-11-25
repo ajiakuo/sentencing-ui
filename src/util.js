@@ -75,11 +75,15 @@ export function useCrimeCategories() {
         text: crime.kind,
         stages: new Set(),
         variants: new Set(),
+        disabled: true,
+        disabledStages: new Set(),
       });
 
     let kind = kinds.get(crime.kind);
     if (crime.stage) kind.stages.add(crime.stage);
     if (crime.variant) kind.variants.add(crime.variant);
+    kind.disabled = kind.disabled && crime.disabled;
+    if (crime.disabled) kind.disabledStages.add(crime.stage);
   });
 
   for (let category of categories.values())

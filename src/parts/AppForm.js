@@ -46,7 +46,7 @@ const CrimeSelect = withStyles((theme) => ({
       inputProps={{ "aria-label": "罪名" }} IconComponent="div" {...others}>
       <MenuItem value="" disabled>適用條文</MenuItem>
       { crimes.map((crime) => (
-        <MenuItem key={crime.value} value={crime.value}>{crime.text}</MenuItem>
+        <MenuItem key={crime.value} value={crime.value} disabled={crime.disabled}>{crime.text}</MenuItem>
       )) }
     </Select>
   );
@@ -82,8 +82,8 @@ export default function AppForm(props) {
             { group.factors.map((factor) => (
               <div key={factor.name}>
                 { group.type === "binary" ?
-                  <FactorCheckBox name={factor.name} value={factors[factor.name] !== undefined ? factors[factor.name] : 0} label={factor.text} vibe={group.vibe} disabled={factor.calculated} onChange={onFactorChanged} /> :
-                  <FactorSlider name={factor.name} value={factors[factor.name] !== undefined ? factors[factor.name] : 0} label={factor.text} onChange={onFactorChanged} />
+                  <FactorCheckBox name={factor.name} value={factors[factor.name] !== undefined ? factors[factor.name] : 0} label={factor.text} vibe={group.vibe} disabled={factor.disabled} onChange={onFactorChanged} /> :
+                  <FactorSlider name={factor.name} value={factors[factor.name] !== undefined ? factors[factor.name] : 0} label={factor.text} onChange={onFactorChanged} disabled={factor.disabled} />
                 }
               </div>
               ))}
