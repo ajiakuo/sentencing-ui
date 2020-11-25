@@ -3,10 +3,10 @@
 
 import { useFactors } from './util';
 
-const API_URL = '/example.json'; /*! The API used in this project not affiliated nor endorsed technically or academically by @rschiang. We’re just not committing their server IP into the codebase, and the courtesy “parking” of their IP under the subdomain may be retracted at any time. */ // TODO: CANNOT CALL REAL API DUE TO CORS
+const API_URL = 'https://35.229.167.36/v1/predictions'; /*! The API used in this project not affiliated nor endorsed technically or academically by the project author. */
 const ERROR_MARGIN = 18; // MAE as given
 
-console.info('%cNote: The API used in this project is not endorsed by project developer or the domain owner. See LICENSE.txt for details.', 'font-style: italic; color: gray');
+console.info('%cNote: The API used in this project is not endorsed by project developer. See LICENSE.txt for details.', 'font-style: italic; color: gray');
 
 export const fetchPrediction = async (crime, factors) => {
   // Map all the parameters to a FormData object
@@ -20,12 +20,12 @@ export const fetchPrediction = async (crime, factors) => {
   });
 
   const response = await fetch(API_URL, {
-    //method: 'POST',
+    method: 'POST',
     headers: {
       'X-Requested-With': 'Sentencing-UI',
     },
-    //body: formData,
-    mode: 'cors', // Server side hasn’t setup CORS yet; ergh.
+    body: formData,
+    mode: 'cors',
     credentials: 'omit',
     cache: 'no-store',
     /* // We’re not using these options for now, but it’s nice to put it here
