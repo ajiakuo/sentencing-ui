@@ -32,10 +32,10 @@ export default function CaseAccordion(props) {
   const case_id = parseCaseID(props.id);
 
   return (
-    <Accordion>
+    <Accordion data-relevance={Math.round(props.relevance * 100)}>
       <AccordionSummary expandIcon={<ExpandMoreIcon />}>
         <Typography variant="subtitle1" className={classes.heading}>{ case_id.formatted_text }</Typography>
-        <Typography variant="subtitle1" className={classes.subheading}>{ `${Math.round(props.relevance * 100)}%` }：{ formatSentence(props.sentence) }</Typography>
+        <Typography variant="subtitle1" className={classes.subheading}>{ formatSentence(props.sentence) }</Typography>
       </AccordionSummary>
       <AccordionDetails className={classes.details}>
         { props.labels && (

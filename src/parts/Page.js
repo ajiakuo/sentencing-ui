@@ -93,7 +93,10 @@ export default function App() {
     // Build up form request and call API
     fetchPrediction(crime, factors)
     .then((data) => {
-      console.log(data);
+      // Sort the related cases by their relevance, DESCending.
+      // We assume there would be no NaNs again, as they are invalid JSON values.
+      data.related_cases.sort((a, b) => (Math.round(b.relevance * 100) - Math.round(a.relevance * 100)));
+
       setData(data);
       setStatus('ready');
     })
@@ -139,8 +142,8 @@ export default function App() {
                 <Paper elevation={1} className={classes.crimePanel}>
                   <Typography variant="overline" gutterBottom>量刑預測</Typography>
                   <Typography variant="h4" component="div">{
-                    data.estimation > data.errorMargin ?
-                    `${formatSentence(data.estimation - data.errorMargin)} ~ ${formatSentence(data.estimation + data.errorMargin)}` :
+                    data.estimation > data.error_margin ?
+                    `${formatSentence(data.estimation - data.error_margin)} ~ ${formatSentence(data.estimation + data.error_margin)}` :
                     formatSentence(data.estimation)
                   }</Typography>
                 </Paper>

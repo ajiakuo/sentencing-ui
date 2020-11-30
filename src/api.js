@@ -13,7 +13,7 @@ export const fetchPrediction = async (crime, factors) => {
   const formData = new URLSearchParams();
   formData.append('Svalue', crime);
 
-  // Iterate over know factors or the API wouldn’t be pleased :/
+  // Iterate over known factors or the API wouldn’t be pleased :/
   useFactors().forEach((factor) => {
     let value = factors[factor.name];
     formData.append(factor.name, value !== undefined ? value : 0);
@@ -47,7 +47,7 @@ export const fetchPrediction = async (crime, factors) => {
   // Reformat the data to match the application spec
   return {
     estimation: data.estimation,
-    errorMargin: ERROR_MARGIN,
+    error_margin: ERROR_MARGIN,
     related_cases: data.related_cases.map((c) => ({
       _pk: c.caseindex,
       id: c.shortid2,
