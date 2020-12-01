@@ -11,7 +11,7 @@ export function parseCaseID(id) {
       year: m.groups.year,
       case: m.groups.case,
       no: m.groups.no,
-      formatted_text: `${court_name} ${m.groups.year} 年${m.groups.case}字第 ${m.groups.no} 號`
+      formatted_text: `${court_name} ${m.groups.year} 年度${m.groups.case}字第 ${m.groups.no} 號刑事判決`
     };
   }
 };

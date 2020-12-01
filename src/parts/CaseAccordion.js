@@ -1,5 +1,5 @@
 import React from 'react';
-import { Accordion, AccordionSummary, AccordionDetails, Button, Table, TableContainer, TableBody, TableRow, TableCell, Typography } from '@material-ui/core';
+import { Accordion, AccordionSummary, AccordionDetails, AccordionActions, Button, Table, TableContainer, TableBody, TableRow, TableCell, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import OpenInNewIcon from '@material-ui/icons/OpenInNew';
@@ -19,10 +19,10 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(1) - 20,
     marginBottom: 20 - theme.spacing(1),
   },
-  sourceButton: {
+  sourceButton: {/*
     paddingLeft: theme.spacing(2),
     paddingRight: theme.spacing(2), // Align with table
-    alignSelf: 'start',
+    alignSelf: 'start',*/
   },
 }));
 
@@ -40,7 +40,7 @@ export default function CaseAccordion(props) {
       <AccordionDetails className={classes.details}>
         { props.labels && (
         <TableContainer className={classes.tableWrapper}>
-          <Table aria-label="量刑因素標記">
+          <Table aria-label="量刑因素標記" size="small">
             <TableBody>
               { props.labels.map((label) =>
                 <TableRow>
@@ -53,11 +53,13 @@ export default function CaseAccordion(props) {
           </Table>
         </TableContainer>
         )}
+      </AccordionDetails>
+      <AccordionActions>
         <Button className={classes.sourceButton} endIcon={<OpenInNewIcon />}
           target="_blank" href={formatCaseURL(case_id)}>
           在法學資料檢索系統檢視
         </Button>
-      </AccordionDetails>
+      </AccordionActions>
     </Accordion>
   );
 }

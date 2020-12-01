@@ -57,6 +57,15 @@ export default function AppForm(props) {
   const factorGroups = useFactorGroups();
   const { crime, factors, showFilter, onCrimeChanged, onFactorChanged, ...others } = props;
 
+  const handleCrimeSelectChanged = (e) => {
+    onCrimeChanged(e.target.value);
+
+    // Find and switch to the selected tab
+    const crimes = useCrimes();
+    const crime = crimes.find((c) => c.value === e.target.value);
+    document.querySelector(`button[data-crime-tab][data-title=${crime.category}]`)?.click();
+  };
+
   return (
     <Grid container component="form" className={classes.root} {...others}>
       <Grid item xs={12} sm={6} md={12} lg={6}>
@@ -66,7 +75,7 @@ export default function AppForm(props) {
               <Typography variant="h6" className={classes.selectTitle}>罪名</Typography>
               <FormControl className={classes.selectControl}>
                 <CrimeSelect name="crime" value={crime}
-                  onChange={(e) => onCrimeChanged(e.target.value)}
+                  onChange={handleCrimeSelectChanged}
                   onClick={(e) => e.stopPropagation()} />
               </FormControl>
             </>

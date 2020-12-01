@@ -96,7 +96,7 @@ export default function CrimeSelector(props) {
       <Tabs value={currentIndex} onChange={handleTabChange}
         indicatorColor="primary" textColor="primary" variant="fullWidth" aria-label="罪名分類">
         { listOfCategories.map((c, index) =>
-          <Tab key={c.title} value={index} label={c.title}
+          <Tab key={c.title} value={index} label={c.title} data-crime-tab data-title={c.title}
             id={`crime-tab-${index}`} aria-controls={`crime-panel-${index}`} className={classes.tab} />
         )}
       </Tabs>

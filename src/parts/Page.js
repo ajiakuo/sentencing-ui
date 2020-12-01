@@ -147,6 +147,7 @@ export default function App() {
                     formatSentence(data.estimation)
                   }</Typography>
                 </Paper>
+                <Typography variant="overline" gutterBottom>相關判決</Typography>
                 { data.related_cases.map((i) =>
                   <CaseAccordion key={i.id} {...i} />
                 )}
