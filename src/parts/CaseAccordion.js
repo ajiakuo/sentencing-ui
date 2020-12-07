@@ -5,6 +5,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import OpenInNewIcon from '@material-ui/icons/OpenInNew';
 import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Remove';
+import LabeledCircularProgress from '../controls/LabeledCircularProgress';
 import { parseCaseID, formatSentence, formatCaseURL, useFactors } from '../util';
 
 const useStyles = makeStyles((theme) => ({
@@ -16,7 +17,6 @@ const useStyles = makeStyles((theme) => ({
   },
   relevance: {
     marginLeft: theme.spacing(1),
-    marginTop: '2px',
   },
   details: {
     flexDirection: 'column',
@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
   icon: {
     padding: theme.spacing(1),
   },
-}));
+}), { name: 'CaseAccordion' });
 
 export default function CaseAccordion(props) {
   const classes = useStyles();
@@ -65,9 +65,8 @@ export default function CaseAccordion(props) {
     <Accordion>
       <AccordionSummary expandIcon={<ExpandMoreIcon />}>
         <Typography variant="subtitle1" className={classes.heading}>{ case_id.formatted_text }</Typography>
-        <Typography variant="body2" color="textSecondary">{ formatSentence(props.sentence) }</Typography>
-        <Typography variant="body2" color="textSecondary">{ `：${Math.round(props.relevance * 100)}%` }</Typography>
-        <CircularProgress variant="determinate" value={props.relevance * 100} size={24} className={classes.relevance} />
+        <Typography variant="subtitle1" className={classes.subheading}>{ formatSentence(props.sentence) }</Typography>
+        <LabeledCircularProgress value={props.relevance * 100} size={28} className={classes.relevance} />
       </AccordionSummary>
       <AccordionDetails className={classes.details}>
         { labels.length > 0 && (
