@@ -1,5 +1,5 @@
 import React from 'react';
-import { Accordion, AccordionSummary, AccordionDetails, AccordionActions, Button, Table, TableContainer, TableBody, TableRow, TableCell, Typography } from '@material-ui/core';
+import { Accordion, AccordionSummary, AccordionDetails, AccordionActions, Button, CircularProgress, Table, TableContainer, TableBody, TableRow, TableCell, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import OpenInNewIcon from '@material-ui/icons/OpenInNew';
@@ -13,6 +13,10 @@ const useStyles = makeStyles((theme) => ({
   },
   subheading: {
     color: theme.palette.text.secondary,
+  },
+  relevance: {
+    marginLeft: theme.spacing(1),
+    marginTop: '2px',
   },
   details: {
     flexDirection: 'column',
@@ -58,10 +62,12 @@ export default function CaseAccordion(props) {
   }
 
   return (
-    <Accordion data-relevance={Math.round(props.relevance * 100)}>
+    <Accordion>
       <AccordionSummary expandIcon={<ExpandMoreIcon />}>
         <Typography variant="subtitle1" className={classes.heading}>{ case_id.formatted_text }</Typography>
-        <Typography variant="subtitle1" className={classes.subheading}>{ formatSentence(props.sentence) }</Typography>
+        <Typography variant="body2" color="textSecondary">{ formatSentence(props.sentence) }</Typography>
+        <Typography variant="body2" color="textSecondary">{ `：${Math.round(props.relevance * 100)}%` }</Typography>
+        <CircularProgress variant="determinate" value={props.relevance * 100} size={24} className={classes.relevance} />
       </AccordionSummary>
       <AccordionDetails className={classes.details}>
         { labels.length > 0 && (
