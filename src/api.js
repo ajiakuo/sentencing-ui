@@ -3,7 +3,7 @@
 
 import { useFactors } from './util';
 
-const API_URL = 'https://35.229.167.36/v1/predictions'; /*! The API used in this project not affiliated nor endorsed technically or academically by the project author. */
+const API_URL = 'http://localhost:9165/v1/predictions'; /*! The API used in this project not affiliated nor endorsed technically or academically by the project author. */
 const ERROR_MARGIN = 18; // MAE as given
 
 console.info('%cNote: The API used in this project is not endorsed by project developer. See LICENSE.txt for details.', 'font-style: italic; color: gray');
@@ -47,7 +47,7 @@ export const fetchPrediction = async (crime, factors) => {
   // Reformat the data to match the application spec
   return {
     estimation: data.estimation,
-    error_margin: ERROR_MARGIN,
+    error_margin: data.error_margin || ERROR_MARGIN,
     related_cases: data.related_cases.map((c) => ({
       _pk: c.caseindex,
       id: c.shortid2,
