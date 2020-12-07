@@ -1,22 +1,37 @@
 import React from 'react';
-import { Accordion, AccordionSummary, AccordionDetails, AccordionActions, Button, CircularProgress, Table, TableContainer, TableBody, TableRow, TableCell, Typography } from '@material-ui/core';
+import { Accordion, AccordionSummary, AccordionDetails, AccordionActions, Button, LinearProgress, Table, TableContainer, TableBody, TableRow, TableCell, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import OpenInNewIcon from '@material-ui/icons/OpenInNew';
 import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Remove';
-import LabeledCircularProgress from '../controls/LabeledCircularProgress';
 import { parseCaseID, formatSentence, formatCaseURL, useFactors } from '../util';
 
 const useStyles = makeStyles((theme) => ({
   heading: {
     flexGrow: 1,
   },
-  subheading: {
+  metaControl: {
+    display: 'flex',
+    flexDirection: 'column',
+    minWidth: '6rem',
+    flexBasis: '7rem',
+    flexShrink: 1,
+  },
+  metaRow: {
+    display: 'flex',
+  },
+  metadata: {
+    ...theme.typography.caption,
     color: theme.palette.text.secondary,
+    '&:first-child': {
+      flexGrow: 1,
+    }
   },
   relevance: {
-    marginLeft: theme.spacing(1),
+    transform: 'rotateY(180deg)',
+  },
+  subheading: {
   },
   details: {
     flexDirection: 'column',
@@ -65,8 +80,13 @@ export default function CaseAccordion(props) {
     <Accordion>
       <AccordionSummary expandIcon={<ExpandMoreIcon />}>
         <Typography variant="subtitle1" className={classes.heading}>{ case_id.formatted_text }</Typography>
-        <Typography variant="subtitle1" className={classes.subheading}>{ formatSentence(props.sentence) }</Typography>
-        <LabeledCircularProgress value={props.relevance * 100} size={28} className={classes.relevance} />
+        <div className={classes.metaControl}>
+          <div className={classes.metaRow}>
+            <Typography component="div" className={classes.metadata}>{ formatSentence(props.sentence) }</Typography>
+            <Typography component="div" className={classes.metadata}>{ `${Math.round(props.relevance * 100)}%` }</Typography>
+          </div>
+          <LinearProgress variant="determinate" value={props.relevance * 100} className={classes.relevance} />
+        </div>
       </AccordionSummary>
       <AccordionDetails className={classes.details}>
         { labels.length > 0 && (
