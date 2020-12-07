@@ -3,6 +3,8 @@ import { Accordion, AccordionSummary, AccordionDetails, AccordionActions, Button
 import { makeStyles } from '@material-ui/core/styles';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import OpenInNewIcon from '@material-ui/icons/OpenInNew';
+import AddIcon from '@material-ui/icons/Add';
+import RemoveIcon from '@material-ui/icons/Remove';
 import { parseCaseID, formatSentence, formatCaseURL, useFactors } from '../util';
 
 const useStyles = makeStyles((theme) => ({
@@ -19,10 +21,8 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(1) - 20,
     marginBottom: 20 - theme.spacing(1),
   },
-  sourceButton: {/*
-    paddingLeft: theme.spacing(2),
-    paddingRight: theme.spacing(2), // Align with table
-    alignSelf: 'start',*/
+  icon: {
+    padding: theme.spacing(1),
   },
 }));
 
@@ -73,7 +73,12 @@ export default function CaseAccordion(props) {
                   { label.group_first &&
                     <TableCell component="th" scope="row" rowSpan={label.group_count}>{ label.factor_text || label.factor }</TableCell>
                   }
-                  <TableCell>{ label.value === 1 ? '+' : label.value === -1 ? '-' : label.value === 0 ? null : label.value }</TableCell>
+                  <TableCell className={classes.icon}>
+                  { label.value === 1 ? <AddIcon /> :
+                    label.value === -1 ? <RemoveIcon /> :
+                    label.value === 0 ? null :
+                    label.value }
+                  </TableCell>
                   <TableCell>{ label.summary }</TableCell>
                 </TableRow>
               ) }
