@@ -60,10 +60,17 @@ const useStyles = makeStyles((theme) => ({
   progress: {
     alignSelf: 'center',
   },
-  crimePanel: {
+  prediction: {
     padding: theme.spacing(2),
   },
-  onboardingPanel: {
+  descriptor: {
+    marginTop: theme.spacing(1),
+    marginBottom: theme.spacing(1),
+    '& + .Mui-expanded': {
+      marginTop: 0,
+    },
+  },
+  message: {
     color: theme.palette.text.secondary,
     textAlign: 'center',
   },
@@ -139,27 +146,27 @@ export default function App() {
             }
             { status === 'ready' &&
               <>
-                <Paper elevation={1} className={classes.crimePanel}>
-                  <Typography variant="overline" gutterBottom>量刑預測</Typography>
+                <Typography variant="overline" component="h5" className={classes.descriptor}>量刑預測</Typography>
+                <Paper elevation={1} className={classes.prediction}>
                   <Typography variant="h4" component="div">{
                     data.estimation > data.error_margin ?
                     `${formatSentence(data.estimation - data.error_margin)} ~ ${formatSentence(data.estimation + data.error_margin)}` :
                     formatSentence(data.estimation)
                   }</Typography>
                 </Paper>
-                <Typography variant="overline" gutterBottom>相關判決</Typography>
+                <Typography variant="overline" component="h5" className={classes.descriptor}>相關判決</Typography>
                 { data.related_cases.map((i) =>
                   <CaseAccordion key={i.id} {...i} />
                 )}
               </>
             }
             { status === 'blank' &&
-              <div className={classes.onboardingPanel}>
+              <div className={classes.message}>
                 <Typography variant="body1">輸入變項後，按一下「計算」以取得預測結果。</Typography>
               </div>
             }
             { status === 'error' &&
-              <div className={classes.onboardingPanel}>
+              <div className={classes.message}>
                 <Typography variant="body1">伺服器或網路錯誤，請再試一次。</Typography>
               </div>
             }

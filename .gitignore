@@ -117,3 +117,6 @@ dist
 
 # Build files
 build/
+
+# Mockup files
+example.json
