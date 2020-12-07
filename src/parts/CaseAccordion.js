@@ -17,6 +17,7 @@ const useStyles = makeStyles((theme) => ({
     minWidth: '6rem',
     flexBasis: '7rem',
     flexShrink: 1,
+    marginLeft: theme.spacing(1),
   },
   metaRow: {
     display: 'flex',
@@ -36,9 +37,14 @@ const useStyles = makeStyles((theme) => ({
   details: {
     flexDirection: 'column',
   },
-  tableWrapper: {
+  labels: {
     marginTop: theme.spacing(1) - 20,
     marginBottom: 20 - theme.spacing(1),
+  },
+  label: {
+    '&[hidden]': {
+      opacity: 0.54,
+    }
   },
   icon: {
     padding: theme.spacing(1),
@@ -68,11 +74,15 @@ export default function CaseAccordion(props) {
 
     labels.sort((a, b) => a.index - b.index);
     labels.reduce((prev, cur) => {
-      if (cur.factor !== prev) {
+      if (cur.factor !== prev?.factor) {
         cur.group_first = true;
         cur.group_count = counts[cur.factor];
+      } else if (cur.summary === prev.summary) {
+        // Cheap deduplicate method. Don’t complain as the backend should be the
+        // one sanitizing their output.
+        cur.duplicate = true;
       }
-      return cur.factor;
+      return cur;
     }, null);
   }
 
@@ -90,11 +100,11 @@ export default function CaseAccordion(props) {
       </AccordionSummary>
       <AccordionDetails className={classes.details}>
         { labels.length > 0 && (
-        <TableContainer className={classes.tableWrapper}>
+        <TableContainer className={classes.labels}>
           <Table aria-label="量刑因素標記" size="small">
             <TableBody>
               { labels.map((label) =>
-                <TableRow>
+                <TableRow key={label.index} hidden={label.duplicate} className={classes.label}>
                   { label.group_first &&
                     <TableCell component="th" scope="row" rowSpan={label.group_count}>{ label.factor_text || label.factor }</TableCell>
                   }

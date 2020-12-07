@@ -3,10 +3,12 @@
 
 import { useFactors } from './util';
 
-const API_URL = 'http://localhost:9165/v1/predictions'; /*! The API used in this project not affiliated nor endorsed technically or academically by the project author. */
+const API_URL = 'https://35.229.167.36/v1/predictions'; /*! The API used in this project is not technically nor academically endorsed by the project author. */
+const TESTDRIVE_API_URL = 'http://localhost:9165/v1/predictions'; // For development purpose only. Eeeesh.
 const ERROR_MARGIN = 18; // MAE as given
 
-console.info('%cNote: The API used in this project is not endorsed by project developer. See LICENSE.txt for details.', 'font-style: italic; color: gray');
+if (window)
+  console.info('%cNote: The API used in this project is not technically nor academically endorsed by project developer.', 'font-style: italic; color: gray');
 
 export const fetchPrediction = async (crime, factors) => {
   // Map all the parameters to a FormData object
@@ -19,7 +21,8 @@ export const fetchPrediction = async (crime, factors) => {
     formData.append(factor.name, value !== undefined ? value : 0);
   });
 
-  const response = await fetch(API_URL, {
+  const apiPath = window && window.location.hostname === 'localhost' ? TESTDRIVE_API_URL : API_URL;
+  const response = await fetch(apiPath, {
     method: 'POST',
     headers: {
       'X-Requested-With': 'Sentencing-UI',
