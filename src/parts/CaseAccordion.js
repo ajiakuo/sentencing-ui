@@ -31,6 +31,32 @@ export default function CaseAccordion(props) {
   const factors = useFactors();
   const case_id = parseCaseID(props.id);
 
+  // We’re asked to sort the labels by their factor instead of their occurrence.
+  // It would be better if we highlight them contextually or at least deduplicate
+  // the values/find some clever algorithms to reduce the time complexity,
+  // but I’m tired of this so whatever.
+  let labels = [];
+  if (props.labels) {
+    let counts = {};
+    labels = props.labels.map((label, label_i) => {
+      let factor_i = factors.findIndex(i => i.name == label.factor);
+      counts[label.factor] = (counts[label.factor] || 0) + 1;
+      return {
+        index: (factor_i * 100 + label_i),
+        factor_text: (factor_i >= 0) ? factors[factor_i].text : null,
+        ...label };
+    });
+
+    labels.sort((a, b) => a.index - b.index);
+    labels.reduce((prev, cur) => {
+      if (cur.factor !== prev) {
+        cur.group_first = true;
+        cur.group_count = counts[cur.factor];
+      }
+      return cur.factor;
+    }, null);
+  }
+
   return (
     <Accordion data-relevance={Math.round(props.relevance * 100)}>
       <AccordionSummary expandIcon={<ExpandMoreIcon />}>
@@ -38,13 +64,15 @@ export default function CaseAccordion(props) {
         <Typography variant="subtitle1" className={classes.subheading}>{ formatSentence(props.sentence) }</Typography>
       </AccordionSummary>
       <AccordionDetails className={classes.details}>
-        { props.labels && (
+        { labels.length > 0 && (
         <TableContainer className={classes.tableWrapper}>
           <Table aria-label="量刑因素標記" size="small">
             <TableBody>
-              { props.labels.map((label) =>
+              { labels.map((label) =>
                 <TableRow>
-                  <TableCell component="th" scope="row">{ factors.find(i => i.name == label.factor)?.text || label.factor }</TableCell>
+                  { label.group_first &&
+                    <TableCell component="th" scope="row" rowSpan={label.group_count}>{ label.factor_text || label.factor }</TableCell>
+                  }
                   <TableCell>{ label.value === 1 ? '+' : label.value === -1 ? '-' : label.value === 0 ? null : label.value }</TableCell>
                   <TableCell>{ label.summary }</TableCell>
                 </TableRow>
