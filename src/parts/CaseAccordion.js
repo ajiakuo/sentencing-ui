@@ -1,11 +1,11 @@
 import React from 'react';
-import { Accordion, AccordionSummary, AccordionDetails, AccordionActions, Button, LinearProgress, Table, TableContainer, TableBody, TableRow, TableCell, Typography } from '@material-ui/core';
+import { Accordion, AccordionSummary, AccordionDetails, AccordionActions, Button, LinearProgress, Table, TableContainer, TableHead, TableBody, TableRow, TableCell, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import OpenInNewIcon from '@material-ui/icons/OpenInNew';
 import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Remove';
-import { parseCaseID, formatSentence, formatCaseURL, useFactors } from '../util';
+import { parseCaseID, formatSentence, formatCaseURL } from '../util';
 
 const useStyles = makeStyles((theme) => ({
   heading: {
@@ -32,8 +32,6 @@ const useStyles = makeStyles((theme) => ({
   relevance: {
     transform: 'rotateY(180deg)',
   },
-  subheading: {
-  },
   details: {
     flexDirection: 'column',
   },
@@ -53,34 +51,13 @@ const useStyles = makeStyles((theme) => ({
 
 export default function CaseAccordion(props) {
   const classes = useStyles();
-  const factors = useFactors();
   const case_id = parseCaseID(props.id);
 
-  // We’re asked to sort the labels by their factor instead of their occurrence.
-  // It would be better if we highlight them contextually or at least deduplicate
-  // the values/find some clever algorithms to reduce the time complexity,
-  // but I’m tired of this so whatever.
-  let labels = [];
-  if (props.labels) {
-    let counts = {};
-    labels = props.labels.map((label, label_i) => {
-      let factor_i = factors.findIndex(i => i.name == label.factor);
-      counts[label.factor] = (counts[label.factor] || 0) + 1;
-      return {
-        index: (factor_i * 100 + label_i),
-        factor_text: (factor_i >= 0) ? factors[factor_i].text : null,
-        ...label };
-    });
-
-    labels.sort((a, b) => a.index - b.index);
-    labels.reduce((prev, cur) => {
-      if (cur.factor !== prev?.factor) {
-        cur.group_first = true;
-        cur.group_count = counts[cur.factor];
-      }
-      return cur;
-    }, null);
-  }
+  const renderFactorValue = (value) => (
+    value === 1 ? <AddIcon /> :
+    value === -1 ? <RemoveIcon /> :
+    value === 0 ? null :
+    value);
 
   return (
     <Accordion>
@@ -95,24 +72,24 @@ export default function CaseAccordion(props) {
         </div>
       </AccordionSummary>
       <AccordionDetails className={classes.details}>
-        { labels.length > 0 && (
+        { props.factors && (
         <TableContainer className={classes.labels}>
-          <Table aria-label="量刑因素標記" size="small">
+          <Table aria-label="量刑因素標記">
+            <TableHead>
+              <TableRow>
+                <TableCell>輸入</TableCell>
+                <TableCell>量刑因素</TableCell>
+                <TableCell>本案</TableCell>
+              </TableRow>
+            </TableHead>
             <TableBody>
-              { labels.map((label) =>
-                <TableRow key={label.index} hidden={label.duplicate} className={classes.label}>
-                  { label.group_first &&
-                    <TableCell component="th" scope="row" rowSpan={label.group_count}>{ label.factor_text || label.factor }</TableCell>
-                  }
-                  <TableCell className={classes.icon}>
-                  { label.value === 1 ? <AddIcon /> :
-                    label.value === -1 ? <RemoveIcon /> :
-                    label.value === 0 ? null :
-                    label.value }
-                  </TableCell>
-                  <TableCell>{ label.summary }</TableCell>
+              { props.factors.map((factor) =>
+                <TableRow key={factor.name} className={classes.label}>
+                  <TableCell className={classes.icon}>{ renderFactorValue(factor.input) }</TableCell>
+                  <TableCell>{ factor.text }</TableCell>
+                  <TableCell className={classes.icon}>{ renderFactorValue(factor.value) }</TableCell>
                 </TableRow>
-              ) }
+              )}
             </TableBody>
           </Table>
         </TableContainer>

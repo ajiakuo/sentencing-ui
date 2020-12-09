@@ -16,7 +16,8 @@ export const fetchPrediction = async (crime, factors) => {
   formData.append('Svalue', crime);
 
   // Iterate over known factors or the API wouldn’t be pleased :/
-  useFactors().forEach((factor) => {
+  const specFactors = useFactors()
+  specFactors.forEach((factor) => {
     let value = factors[factor.name];
     formData.append(factor.name, value !== undefined ? value : 0);
   });
@@ -59,11 +60,17 @@ export const fetchPrediction = async (crime, factors) => {
       crime: c.Svalue,
       sentence: c.prison_m,
       subject: c.subject,
-      labels: c.labels.map((l) => ({
+      labels: c.labels ? c.labels.map((l) => ({
         factor: l.Ctype,
         summary: l.Ctext,
         value: l.Cvalue
-      }))
+      })) : null,
+      factors: c.factors ? specFactors.map((f) => ({
+        factor: f.name,
+        text: f.text,
+        input: factors[f.name],
+        value: c.factors[f.name],
+      })) : null,
     }))
   };
 }
