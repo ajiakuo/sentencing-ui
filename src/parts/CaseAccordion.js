@@ -77,10 +77,6 @@ export default function CaseAccordion(props) {
       if (cur.factor !== prev?.factor) {
         cur.group_first = true;
         cur.group_count = counts[cur.factor];
-      } else if (cur.summary === prev.summary) {
-        // Cheap deduplicate method. Don’t complain as the backend should be the
-        // one sanitizing their output.
-        cur.duplicate = true;
       }
       return cur;
     }, null);
@@ -93,7 +89,7 @@ export default function CaseAccordion(props) {
         <div className={classes.metaControl}>
           <div className={classes.metaRow}>
             <Typography component="div" className={classes.metadata}>{ formatSentence(props.sentence) }</Typography>
-            <Typography component="div" className={classes.metadata}>{ `${Math.round(props.relevance * 100)}%` }</Typography>
+            <Typography component="div" className={classes.metadata}>{ `0.${Math.round(props.relevance * 1000)}` }</Typography>
           </div>
           <LinearProgress variant="determinate" value={props.relevance * 100} className={classes.relevance} />
         </div>
