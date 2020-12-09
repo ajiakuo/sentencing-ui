@@ -51,6 +51,7 @@ export const fetchPrediction = async (crime, factors) => {
   return {
     estimation: data.estimation,
     error_margin: data.error_margin || ERROR_MARGIN,
+    plot: data.plot_img,
     related_cases: data.related_cases.map((c) => ({
       _pk: c.caseindex,
       id: c.shortid2,

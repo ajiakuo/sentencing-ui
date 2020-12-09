@@ -63,6 +63,9 @@ const useStyles = makeStyles((theme) => ({
   prediction: {
     padding: theme.spacing(2),
   },
+  plot: {
+    maxWidth: '100%',
+  },
   descriptor: {
     marginTop: theme.spacing(1),
     marginBottom: theme.spacing(1),
@@ -153,6 +156,9 @@ export default function App() {
                     `${formatSentence(data.estimation - data.error_margin)} ~ ${formatSentence(data.estimation + data.error_margin)}` :
                     formatSentence(data.estimation)
                   }</Typography>
+                  { data.plot_img &&
+                    <img src={data.plot_img} className={classes.plot} />
+                  }
                 </Paper>
                 <Typography variant="overline" component="h5" className={classes.descriptor}>相關判決</Typography>
                 { data.related_cases.map((i) =>
