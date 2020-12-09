@@ -1,19 +1,21 @@
 import { React, Component } from 'react';
-import { Divider, IconButton, ListItemIcon, ListItemText, Menu, MenuItem } from '@material-ui/core';
+import { Avatar, Divider, IconButton, ListItemIcon, ListItemText, Menu, MenuItem } from '@material-ui/core';
 import {
   CheckBox as CheckBoxIcon,
   CheckBoxOutlineBlank as UncheckedBoxIcon,
   Feedback as FeedbackIcon,
   Help as HelpIcon,
   MoreVert as MoreIcon,
+  Person as PersonIcon,
   } from '@material-ui/icons';
 
 
 class AppMenu extends Component {
   constructor(props) {
     super(props);
-    this.state = { anchorEl: null };
+    this.state = { anchorEl: null, loggedIn: true };
     this.handleButtonClick = this.handleButtonClick.bind(this);
+    this.handleUserItemClick = this.handleUserItemClick.bind(this);
     this.handleFilterItemClick = this.handleFilterItemClick.bind(this);
     this.handleHelpItemClick = this.handleHelpItemClick.bind(this);
     this.handleFeedbackItemClick = this.handleFeedbackItemClick.bind(this);
@@ -22,6 +24,10 @@ class AppMenu extends Component {
 
   handleButtonClick(e) {
     this.setState({ anchorEl: e.currentTarget });
+  }
+
+  handleUserItemClick() {
+    this.handleMenuClose();
   }
 
   handleFilterItemClick() {
@@ -59,13 +65,21 @@ class AppMenu extends Component {
           id="menu" keepMounted anchorEl={this.state.anchorEl}
           anchorOrigin={anchorOrigin} transformOrigin={transformOrigin} getContentAnchorEl={null}
           open={Boolean(this.state.anchorEl)} onClose={this.handleMenuClose}>
+          <MenuItem onClick={this.handleUserItemClick}>
+            <ListItemIcon>
+              <Avatar>{ this.state.loggedIn ? "李" : <PersonIcon /> }</Avatar>
+            </ListItemIcon>
+            <ListItemText
+              primary={this.state.loggedIn ? "PD Li" : "訪客使用者"}
+              secondary={this.state.loggedIn ? "pd;li@judicial;gov;tw".replace(/;/g, '.') : "按一下以登入"} />
+          </MenuItem>
+          <Divider />
           <MenuItem onClick={this.handleFilterItemClick} disabled>
             <ListItemIcon>
               { this.props.showFilter ? <CheckBoxIcon color="secondary" /> : <UncheckedBoxIcon /> }
             </ListItemIcon>
             <ListItemText primary="顯示修正前條文" />
           </MenuItem>
-          <Divider />
           <MenuItem onClick={this.handleHelpItemClick}>
             <ListItemIcon><HelpIcon /></ListItemIcon>
             <ListItemText primary="使用說明" />
