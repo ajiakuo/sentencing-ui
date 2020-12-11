@@ -1,5 +1,6 @@
 import { React, useState } from 'react';
-import { AppBar, Avatar, CircularProgress, Grid, IconButton, Paper, Toolbar, Typography } from '@material-ui/core';
+import clsx from 'clsx';
+import { AppBar, Avatar, CircularProgress, Grid, Paper, Toolbar, Tooltip, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import GavelIcon from '@material-ui/icons/Gavel';
 import HelpIcon from '@material-ui/icons/HelpOutline';
@@ -74,6 +75,10 @@ const useStyles = makeStyles((theme) => ({
     '& + .Mui-expanded': {
       marginTop: 0,
     },
+  },
+  tipped: {
+    display: 'flex',
+    alignItems: 'center',
   },
   helpIcon: {
     fontSize: '1rem',
@@ -165,11 +170,11 @@ export default function App() {
                     <img src={data.plot_img} className={classes.plot} />
                   }
                 </Paper>
-                <Typography variant="caption" component="h5" className={classes.descriptor}>
-                  相關判決
-                  <IconButton aria-label="說明" size="small">
+                <Typography variant="caption" component="h5" className={clsx(classes.descriptor, classes.tipped)}>
+                  <span>相關判決</span>
+                  <Tooltip title="說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明。這樣兩百一十字整。">
                     <HelpIcon className={classes.helpIcon} />
-                  </IconButton>
+                  </Tooltip>
                 </Typography>
                 { data.related_cases.map((i) =>
                   <CaseAccordion key={i.id} {...i} />
