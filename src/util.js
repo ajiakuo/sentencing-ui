@@ -4,10 +4,11 @@ export function parseCaseID(id) {
   let m = id.match((/^(?<court>[A-Z]+),(?<year>\d+),(?<case>[^,]+),(?<no>\d+)$/));
   if (m != null) {
     // Leave out the court name if it’s Supreme Court
-    let court_name = m.groups.court === 'TPS' ? '' : courts.find((e) => e.value == m.groups.court).text;
+    const court_id = m.groups.court;
+    let court_name = court_id === 'TPS' ? '' : (courts.find((e) => e.value == court_id)?.text || court_id);
     return {
       database_id: id,
-      court: m.groups.court,
+      court: court_id,
       year: m.groups.year,
       case: m.groups.case,
       no: m.groups.no,
@@ -32,6 +33,12 @@ export function formatSentence(sentence) {
 
 export function formatCaseURL(cid) {
   return `https://law.judicial.gov.tw/FJUD/qryresult.aspx?jud_court=${cid.court}&jud_sys=M&jud_year=${cid.year}&jud_case=${cid.case}&jud_no=${cid.no}&judtype=JUDBOOK`;
+}
+
+export function round(num, digits) {
+  const one = Math.pow(10, digits);
+  const d = Math.round(num * one);
+  return `${Math.floor(d / one)}.${d % one}`;
 }
 
 function filterSpec(list) {

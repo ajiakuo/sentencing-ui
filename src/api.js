@@ -68,6 +68,7 @@ export const fetchPrediction = async (crime, factors) => {
       factors: c.factors ? specFactors.map((f) => ({
         factor: f.name,
         text: f.text,
+        disabled: f.disabled,
         input: factors[f.name],
         value: c.factors[f.name],
       })) : null,

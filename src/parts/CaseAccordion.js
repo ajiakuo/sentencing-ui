@@ -5,7 +5,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import OpenInNewIcon from '@material-ui/icons/OpenInNew';
 import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Remove';
-import { parseCaseID, formatSentence, formatCaseURL } from '../util';
+import { parseCaseID, formatSentence, formatCaseURL, round } from '../util';
 
 const useStyles = makeStyles((theme) => ({
   heading: {
@@ -66,7 +66,7 @@ export default function CaseAccordion(props) {
         <div className={classes.metaControl}>
           <div className={classes.metaRow}>
             <Typography component="div" className={classes.metadata}>{ formatSentence(props.sentence) }</Typography>
-            <Typography component="div" className={classes.metadata}>{ `0.${Math.round(props.relevance * 1000)}` }</Typography>
+            <Typography component="div" className={classes.metadata}>{ round(props.relevance, 3) }</Typography>
           </div>
           <LinearProgress variant="determinate" value={props.relevance * 100} className={classes.relevance} />
         </div>
@@ -83,7 +83,7 @@ export default function CaseAccordion(props) {
               </TableRow>
             </TableHead>
             <TableBody>
-              { props.factors.map((factor) =>
+              { props.factors.map((factor) => !factor.disabled &&
                 <TableRow key={factor.name} className={classes.label}>
                   <TableCell className={classes.icon}>{ renderFactorValue(factor.input) }</TableCell>
                   <TableCell>{ factor.text }</TableCell>
