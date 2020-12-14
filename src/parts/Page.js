@@ -67,11 +67,15 @@ const useStyles = makeStyles((theme) => ({
   },
   plot: {
     maxWidth: '100%',
+    marginTop: theme.spacing(2),
   },
   descriptor: {
     color: theme.palette.text.secondary,
-    marginTop: theme.spacing(1),
-    marginBottom: theme.spacing(1),
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(2),
+    '&:first-child': {
+      marginTop: 0,
+    },
     '& + .Mui-expanded': {
       marginTop: 0,
     },
@@ -166,8 +170,8 @@ export default function App() {
                     `${formatSentence(data.estimation - data.error_margin)} ~ ${formatSentence(data.estimation + data.error_margin)}` :
                     formatSentence(data.estimation)
                   }</Typography>
-                  { data.plot_img &&
-                    <img src={data.plot_img} className={classes.plot} />
+                  { data.plot &&
+                    <img src={data.plot} className={classes.plot} />
                   }
                 </Paper>
                 <Typography variant="caption" component="h5" className={clsx(classes.descriptor, classes.tipped)}>
