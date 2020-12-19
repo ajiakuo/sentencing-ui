@@ -27,7 +27,7 @@ class AppMenu extends Component {
   }
 
   handleUserItemClick() {
-    this.handleMenuClose();
+    this.setState({ loggedIn: !this.state.loggedIn });
   }
 
   handleFilterItemClick() {
@@ -41,8 +41,7 @@ class AppMenu extends Component {
   }
 
   handleFeedbackItemClick() {
-    // Well, we’re just doing our part. Don’t nag us for model inaccuracies.
-    window.open("https://github.com/rschiang/sentencing-ui/issues", "_blank");
+    window.open("https://www.judicial.gov.tw", "_blank");
     this.handleMenuClose();
   }
 
@@ -67,11 +66,11 @@ class AppMenu extends Component {
           open={Boolean(this.state.anchorEl)} onClose={this.handleMenuClose}>
           <MenuItem onClick={this.handleUserItemClick}>
             <ListItemIcon>
-              <Avatar>{ this.state.loggedIn ? "李" : <PersonIcon /> }</Avatar>
+              <Avatar>{ this.state.loggedIn ? "陳" : <PersonIcon /> }</Avatar>
             </ListItemIcon>
             <ListItemText
-              primary={this.state.loggedIn ? "PD Li" : "訪客使用者"}
-              secondary={this.state.loggedIn ? "pd;li@judicial;gov;tw".replace(/;/g, '.') : "按一下以登入"} />
+              primary={this.state.loggedIn ? "陳小林" : "訪客使用者"}
+              secondary={this.state.loggedIn ? "sl;chen@judicial;gov;tw".replace(/;/g, '.') : "按一下以登入"} />
           </MenuItem>
           <Divider />
           <MenuItem onClick={this.handleFilterItemClick} disabled>
