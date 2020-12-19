@@ -163,7 +163,7 @@ export default function App() {
             }
             { status === 'ready' &&
               <>
-                <Typography variant="caption" component="h5" className={classes.descriptor}>量刑預測</Typography>
+                <Typography variant="caption" component="h5" className={classes.descriptor}>量刑估計區間</Typography>
                 <Paper elevation={1} className={classes.prediction}>
                   <Typography variant="h4" component="div">{
                     data.estimation > data.error_margin ?
@@ -176,7 +176,7 @@ export default function App() {
                 </Paper>
                 <Typography variant="caption" component="h5" className={clsx(classes.descriptor, classes.tipped)}>
                   <span>相關判決</span>
-                  <Tooltip title="說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明說明。這樣兩百一十字整。">
+                  <Tooltip title="依照情狀相似程度，揀選前幾名的相似判決。">
                     <HelpIcon className={classes.helpIcon} />
                   </Tooltip>
                 </Typography>
