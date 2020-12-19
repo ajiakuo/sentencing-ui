@@ -4,6 +4,7 @@ import { AppBar, Avatar, CircularProgress, Grid, Paper, Toolbar, Tooltip, Typogr
 import { makeStyles } from '@material-ui/core/styles';
 import GavelIcon from '@material-ui/icons/Gavel';
 import HelpIcon from '@material-ui/icons/HelpOutline';
+import FormAccordion from '../controls/FormAccordion';
 import FormToolbar from '../controls/FormToolbar';
 import AppForm from './AppForm';
 import AppMenu from './AppMenu';
@@ -65,20 +66,16 @@ const useStyles = makeStyles((theme) => ({
   prediction: {
     padding: theme.spacing(2),
   },
+  sentence: {
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(2),
+  },
   plot: {
     maxWidth: '100%',
     marginTop: theme.spacing(2),
   },
   descriptor: {
     color: theme.palette.text.secondary,
-    marginTop: theme.spacing(2),
-    marginBottom: theme.spacing(2),
-    '&:first-child': {
-      marginTop: 0,
-    },
-    '& + .Mui-expanded': {
-      marginTop: 0,
-    },
   },
   tipped: {
     display: 'flex',
@@ -162,28 +159,29 @@ export default function App() {
               <CircularProgress className={classes.progress} />
             }
             { status === 'ready' &&
-              <>
+              <Paper elevation={1} className={classes.prediction}>
                 <Typography variant="caption" component="h5" className={classes.descriptor}>量刑估計區間</Typography>
-                <Paper elevation={1} className={classes.prediction}>
-                  <Typography variant="h4" component="div">{
-                    data.estimation > data.error_margin ?
-                    `${formatSentence(data.estimation - data.error_margin)} ~ ${formatSentence(data.estimation + data.error_margin)}` :
-                    formatSentence(data.estimation)
-                  }</Typography>
-                  { data.plot &&
-                    <img src={data.plot} className={classes.plot} />
-                  }
-                </Paper>
-                <Typography variant="caption" component="h5" className={clsx(classes.descriptor, classes.tipped)}>
-                  <span>相關判決</span>
-                  <Tooltip title="依照情狀相似程度，揀選前幾名的相似判決。">
-                    <HelpIcon className={classes.helpIcon} />
-                  </Tooltip>
-                </Typography>
-                { data.related_cases.map((i) =>
-                  <CaseAccordion key={i.id} {...i} />
-                )}
-              </>
+                <Typography variant="h4" component="div" className={classes.sentence}>{
+                  data.estimation > data.error_margin ?
+                  `${formatSentence(data.estimation - data.error_margin)} ~ ${formatSentence(data.estimation + data.error_margin)}` :
+                  formatSentence(data.estimation)
+                }</Typography>
+                { data.plot &&
+                  <img src={data.plot} className={classes.plot} />
+                }
+                <FormAccordion defaultExpanded={true} summary={
+                  <Typography variant="caption" component="h5" className={clsx(classes.descriptor, classes.tipped)}>
+                    <span>相關判決</span>
+                    <Tooltip title="依照情狀相似程度，揀選前幾名的相似判決。">
+                      <HelpIcon className={classes.helpIcon} />
+                    </Tooltip>
+                  </Typography>
+                }>
+                  { data.related_cases.map((i) =>
+                    <CaseAccordion key={i.id} {...i} />
+                  )}
+                </FormAccordion>
+              </Paper>
             }
             { status === 'blank' &&
               <div className={classes.message}>
