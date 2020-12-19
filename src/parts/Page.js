@@ -102,6 +102,13 @@ export default function App() {
   const [status, setStatus] = useState('blank');
   const [data, setData] = useState({});
 
+  const handleCrimeChanged = (value) => {
+    setCrime(value);
+
+    // HACK: Forcefully set the factor on attempted crime.
+    setFactors({...factors, mit_c25_2: (value == 2 ? 1 : 0)});
+  };
+
   const handleFactorChanged = (_, name, value) => {
     setFactors((factors) => ({...factors, [name]: value}));
   };
@@ -149,7 +156,7 @@ export default function App() {
       <Grid container component="main" className={classes.main}>
         <Grid item xs={12} md={6} lg={7} xl={6} component={Paper} elevation={3} className={classes.pane}>
           <div className={classes.content}>
-            <AppForm crime={crime} factors={factors} showFilter={showFilter} onCrimeChanged={setCrime} onFactorChanged={handleFactorChanged} />
+            <AppForm crime={crime} factors={factors} showFilter={showFilter} onCrimeChanged={handleCrimeChanged} onFactorChanged={handleFactorChanged} />
             <FormToolbar className={classes.controls} canSubmit={crime >= 0} onSubmit={handleSubmitForm} onClear={handleClearForm} />
           </div>
         </Grid>

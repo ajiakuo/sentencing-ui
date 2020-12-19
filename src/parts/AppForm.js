@@ -66,6 +66,10 @@ export default function AppForm(props) {
     document.querySelector(`button[data-crime-tab][data-title=${crime.category}]`)?.click();
   };
 
+  const handleCrimeSelectorChanged = (e, newValue) => {
+    onCrimeChanged(newValue);
+  };
+
   return (
     <Grid container component="form" className={classes.root} {...others}>
       <Grid item xs={12} sm={6} md={12} lg={6}>
@@ -80,7 +84,7 @@ export default function AppForm(props) {
               </FormControl>
             </>
           )}>
-          <CrimeSelector value={crime} onChange={(_, newValue) => onCrimeChanged(newValue)} />
+          <CrimeSelector value={crime} onChange={handleCrimeSelectorChanged} />
         </FormAccordion>
       </Grid>
       <Grid item xs={12} sm={6} md={12} lg={6}>

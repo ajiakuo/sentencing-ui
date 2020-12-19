@@ -166,7 +166,7 @@ const factors = [
   { name: "mit_c20", text: "§20 瘖啞", disabled: true },
   { name: "mit_c23", text: "§23 防衛過當" },
   { name: "mit_c24_1", text: "§24Ⅰ 避難過當", disabled: true },
-  { name: "mit_c25_2", text: "§25Ⅱ 普通未遂" },
+  { name: "mit_c25_2", text: "§25Ⅱ 普通未遂", disabled: true },
   { name: "mit_c27_1", text: "§27Ⅰ 中止犯" },
   { name: "mit_c30", text: "§30 幫助犯" },
   { name: "mit_c31_1", text: "§31Ⅰ 身分犯無特定關係之共犯", disabled: true },
