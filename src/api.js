@@ -22,6 +22,12 @@ export const fetchPrediction = async (crime, factors) => {
     formData.append(factor.name, value !== undefined ? value : 0);
   });
 
+  // HACK: Backend hasn’t done the split yet. Manually writing the values.
+  formData.delete('agg_c112_1');
+  formData.delete('agg_c112_2');
+  formData.append('agg_c112', (factors.agg_c112_1 || factors.agg_c112_2) ? 1 : 0);
+
+  // HACK: Enable the site to be hosted locally for demo purposes.
   const apiPath = window && window.location.hostname === 'localhost' ? TESTDRIVE_API_URL : API_URL;
   const response = await fetch(apiPath, {
     method: 'POST',

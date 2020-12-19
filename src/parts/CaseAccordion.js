@@ -84,6 +84,7 @@ export default function CaseAccordion(props) {
             </TableHead>
             <TableBody>
               { props.factors.map((factor) => !factor.disabled &&
+                !(factor.name[0] !== 'c' && factor.input === 0 && factor.value === 0) &&
                 <TableRow key={factor.name} className={classes.label}>
                   <TableCell className={classes.icon}>{ renderFactorValue(factor.input) }</TableCell>
                   <TableCell>{ factor.text }</TableCell>
