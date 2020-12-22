@@ -101,6 +101,7 @@ export default function App() {
   // Application states
   const [status, setStatus] = useState('blank');
   const [data, setData] = useState({});
+  const [errorCode, setErrorCode] = useState('');
 
   const handleCrimeChanged = (value) => {
     setCrime(value);
@@ -115,6 +116,7 @@ export default function App() {
 
   const handleSubmitForm = () => {
     // Clear out the current information
+    setErrorCode('');
     setStatus('loading');
     setData({});
 
@@ -130,6 +132,7 @@ export default function App() {
     })
     .catch((e) => {
       console.log(e);
+      setErrorCode(e.message);
       setStatus('error');
     });
   };
@@ -198,6 +201,7 @@ export default function App() {
             { status === 'error' &&
               <div className={classes.message}>
                 <Typography variant="body1">伺服器或網路錯誤，請再試一次。</Typography>
+                { errorCode && <Typography variant="caption">{ errorCode }</Typography> }
               </div>
             }
           </div>

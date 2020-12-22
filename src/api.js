@@ -8,7 +8,7 @@ const TESTDRIVE_API_URL = 'http://localhost:9165/v1/predictions'; // For develop
 const ERROR_MARGIN = 18; // MAE as given
 
 if (window)
-  console.info('%cNote: The API used in this project is not technically nor academically endorsed by project developer.', 'font-style: italic; color: gray');
+  console.info('%cNote: The coded API is not endorsed by the hosting domain. See project license for details.', 'font-style: italic; color: gray');
 
 export const fetchPrediction = async (crime, factors) => {
   // Map all the parameters to a FormData object
@@ -44,7 +44,7 @@ export const fetchPrediction = async (crime, factors) => {
   if (!response.ok) {
     // Note that the body of the error is just plain text error message
     // instead of a proper JSON object. We’re not sniffing them here.
-    throw new Error(`API call failed: HTTP ${response.status}`);
+    throw new Error(`HTTP ${response.status} ${response.statusText}`);
   }
 
   const data = await response.json();
