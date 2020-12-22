@@ -155,10 +155,8 @@ const factors = [
   { name: "c57_9", text: "§57(9) 犯罪所生之危險或損害" },
   { name: "c57_10", text: "§57(10) 犯罪後之態度" },
   { name: "agg_c47", text: "§47 累犯" },
-  { name: "agg_c112_1", text: "兒少§70前段 成年人教唆、幫助或利用兒童及少年犯罪或與之共同實施犯罪", valid_before: MINOR_WELFARE_ACT_AMENDMENT_DATE },
-  { name: "agg_c112_1", text: "兒少§112前段 成年人教唆、幫助或利用兒童及少年犯罪或與之共同實施犯罪", valid_after: MINOR_WELFARE_ACT_AMENDMENT_DATE },
-  { name: "agg_c112_2", text: "兒少§70後段 成年人故意對兒童及少年犯罪", valid_before: MINOR_WELFARE_ACT_AMENDMENT_DATE },
-  { name: "agg_c112_2", text: "兒少§112後段 成年人故意對兒童及少年犯罪", valid_after: MINOR_WELFARE_ACT_AMENDMENT_DATE },
+  { name: "agg_c112", text: "兒少§70 成年人教唆、幫助或利用兒童及少年犯罪或與之共同實施犯罪或故意對其犯罪", valid_before: MINOR_WELFARE_ACT_AMENDMENT_DATE },
+  { name: "agg_c112", text: "兒少§112 成年人教唆、幫助或利用兒童及少年犯罪或與之共同實施犯罪或故意對其犯罪", valid_after: MINOR_WELFARE_ACT_AMENDMENT_DATE },
   { name: "agg_c134", text: "§134 公務員利用職權機會" },
   { name: "mit_c18_2", text: "§18Ⅱ 十四歲以上未滿十八歲" },
   { name: "mit_c18_3", text: "§18Ⅲ 滿八十歲" },
@@ -187,7 +185,7 @@ const factorGroups = [
     title: "法定加重事由",
     type: "binary",
     vibe: "negative",
-    factors: ["agg_c47", "agg_c112_1", "agg_c112_2", "agg_c134"]
+    factors: ["agg_c47", "agg_c112", "agg_c134"]
   },
   {
     title: "法定減輕事由",
