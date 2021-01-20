@@ -88,6 +88,9 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.text.secondary,
     textAlign: 'center',
   },
+  helpMessage: {
+    color: theme.palette.text.secondary,
+  },
 }), { name: 'App' });
 
 export default function App() {
@@ -194,13 +197,17 @@ export default function App() {
               </Paper>
             }
             { status === 'blank' &&
-              <div className={classes.message}>
-                <Typography variant="subtitle1">使用說明</Typography>
-                <Typography variant="body1">1. 本系統不含死刑與無期徒刑之案件。</Typography>
-                <Typography variant="body1">2. 「法定加重及法定減輕事由」，點選「V」清單可拉出/收攏，若有合乎相關條目情狀，請點選。</Typography>
-                <Typography variant="body1">3. 「法定科刑注意事項」中，若判斷該款應加重刑期，將滑桿向右方「+」拉動（呈現紅色）；若判斷該款應減輕刑期：將滑桿向左方「-」拉動（呈現綠色）；若感覺中立：則不移動滑桿，維持預設。</Typography>
-                <Typography variant="body1">4.  按下「計算」按鈕會出現估計結果。</Typography>
-                <Typography variant="body1">5. 估計結果含四個項目：「量刑估計區間」、「因素權重瀑布圖」（輸入因子對量刑估計區間的影響權重，單位：月）、「相似判決」（系統判斷與輸入因子相似的判決）、「判決細部比較」（系統考量之輸入因子與系統中判決之因子比較）。</Typography>
+              <div className={classes.helpMessage}>
+                <Typography variant="subtitle2">使用說明</Typography>
+                <Typography variant="body2">
+                  <ol>
+                    <li>本系統不含死刑與無期徒刑之案件。</li>
+                    <li>「法定加重及法定減輕事由」，點選「V」清單可拉出/收攏，若有合乎相關條目情狀，請點選。</li>
+                    <li>「法定科刑注意事項」中，若判斷該款應加重刑期，將滑桿向右方「+」拉動（呈現紅色）；若判斷該款應減輕刑期：將滑桿向左方「-」拉動（呈現綠色）；若感覺中立：則不移動滑桿，維持預設。</li>
+                    <li>按下「計算」按鈕會出現估計結果。</li>
+                    <li>估計結果含四個項目：「量刑估計區間」、「因素權重瀑布圖」（輸入因子對量刑估計區間的影響權重，單位：月）、「相似判決」（系統判斷與輸入因子相似的判決）、「判決細部比較」（系統考量之輸入因子與系統中判決之因子比較）。</li>
+                  </ol>
+                </Typography>
               </div>
             }
             { status === 'error' &&
