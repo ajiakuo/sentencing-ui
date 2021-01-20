@@ -73,22 +73,32 @@ export default function AppForm(props) {
           <CrimeSelect name="crime" value={crime} onChange={handleCrimeSelectChanged} />
         </FormControl>
       </Grid>
-      { factorGroups.map((group) => (
-        <Grid item xs={12} sm={6} md={12} lg={6}>
-          <FormAccordion key={group.title}
-            defaultExpanded={group.type !== "binary"}
+      <Grid item xs={12} sm={6} md={12} lg={6}></Grid>
+      <Grid item xs={12} sm={6} md={12} lg={6}>
+        { factorGroups.filter((g) => g.type == "binary").map((group) => (
+          <FormAccordion key={group.title} defaultExpanded={false}
             summary={(<Typography variant="h6">{group.title}</Typography>)}>
             { group.factors.map((factor) => (
               <div key={factor.name}>
-                { group.type === "binary" ?
-                  <FactorCheckBox name={factor.name} value={factors[factor.name] !== undefined ? factors[factor.name] : 0} label={factor.text} vibe={group.vibe} disabled={factor.disabled} onChange={onFactorChanged} /> :
-                  <FactorSlider name={factor.name} value={factors[factor.name] !== undefined ? factors[factor.name] : 0} label={factor.text} onChange={onFactorChanged} disabled={factor.disabled} />
-                }
+                <FactorCheckBox name={factor.name} value={factors[factor.name] !== undefined ? factors[factor.name] : 0} label={factor.text} vibe={group.vibe} disabled={factor.disabled} onChange={onFactorChanged} />
               </div>
-              ))}
+            ))}
           </FormAccordion>
-        </Grid>
-      )) }
+        )) }
+      </Grid>
+      <Grid item xs={12} sm={6} md={12} lg={6}>
+        { factorGroups.filter((g) => g.type !== "binary").map((group) => (
+          <FormAccordion key={group.title}
+            defaultExpanded={true}
+            summary={(<Typography variant="h6">{group.title}</Typography>)}>
+            { group.factors.map((factor) => (
+              <div key={factor.name}>
+                <FactorSlider name={factor.name} value={factors[factor.name] !== undefined ? factors[factor.name] : 0} label={factor.text} onChange={onFactorChanged} disabled={factor.disabled} />
+              </div>
+            ))}
+          </FormAccordion>
+        )) }
+      </Grid>
     </Grid>
   );
 };
