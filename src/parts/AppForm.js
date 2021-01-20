@@ -4,7 +4,6 @@ import { makeStyles, withStyles } from '@material-ui/core/styles';
 import FactorCheckBox from '../controls/FactorCheckBox';
 import FactorSlider from '../controls/FactorSlider';;
 import FormAccordion from '../controls/FormAccordion';
-import CrimeSelector from './CrimeSelector';
 import { useCrimes, useFactorGroups } from '../util';
 
 const useStyles = makeStyles((theme) => ({
@@ -18,6 +17,11 @@ const useStyles = makeStyles((theme) => ({
       width: `calc(100% + ${theme.spacing(4)}px)`,
       '& > div': { padding: theme.spacing(2) },
     }
+  },
+  select: {
+    margin: '12px 0',
+    display: 'flex',
+    flexDirection: 'row',
   },
   selectTitle: {
     flexShrink: 0,
@@ -43,7 +47,7 @@ const CrimeSelect = withStyles((theme) => ({
 
   return (
     <Select displayEmpty value={value >= 0 ? value : ""}
-      inputProps={{ "aria-label": "罪名" }} IconComponent="div" {...others}>
+      inputProps={{ "aria-label": "罪名" }} {...others}>
       <MenuItem value="" disabled>適用條文</MenuItem>
       { crimes.map((crime) => (
         <MenuItem key={crime.value} value={crime.value} disabled={crime.disabled}>{crime.text}</MenuItem>
@@ -59,36 +63,18 @@ export default function AppForm(props) {
 
   const handleCrimeSelectChanged = (e) => {
     onCrimeChanged(e.target.value);
-
-    // Find and switch to the selected tab
-    const crimes = useCrimes();
-    const crime = crimes.find((c) => c.value === e.target.value);
-    document.querySelector(`button[data-crime-tab][data-title=${crime.category}]`)?.click();
-  };
-
-  const handleCrimeSelectorChanged = (e, newValue) => {
-    onCrimeChanged(newValue);
   };
 
   return (
     <Grid container component="form" className={classes.root} {...others}>
-      <Grid item xs={12} sm={6} md={12} lg={6}>
-        <FormAccordion defaultExpanded={true}
-          summary={(
-            <>
-              <Typography variant="h6" className={classes.selectTitle}>罪名</Typography>
-              <FormControl className={classes.selectControl}>
-                <CrimeSelect name="crime" value={crime}
-                  onChange={handleCrimeSelectChanged}
-                  onClick={(e) => e.stopPropagation()} />
-              </FormControl>
-            </>
-          )}>
-          <CrimeSelector value={crime} onChange={handleCrimeSelectorChanged} />
-        </FormAccordion>
+      <Grid item xs={12} sm={6} md={12} lg={6} className={classes.select}>
+        <Typography variant="h6" className={classes.selectTitle}>罪名</Typography>
+        <FormControl className={classes.selectControl}>
+          <CrimeSelect name="crime" value={crime} onChange={handleCrimeSelectChanged} />
+        </FormControl>
       </Grid>
-      <Grid item xs={12} sm={6} md={12} lg={6}>
-        { factorGroups.map((group) => (
+      { factorGroups.map((group) => (
+        <Grid item xs={12} sm={6} md={12} lg={6}>
           <FormAccordion key={group.title}
             defaultExpanded={group.type !== "binary"}
             summary={(<Typography variant="h6">{group.title}</Typography>)}>
@@ -101,8 +87,8 @@ export default function AppForm(props) {
               </div>
               ))}
           </FormAccordion>
-        )) }
-      </Grid>
+        </Grid>
+      )) }
     </Grid>
   );
 };
