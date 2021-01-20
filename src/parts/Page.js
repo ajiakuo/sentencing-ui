@@ -181,8 +181,8 @@ export default function App() {
                 }
                 <FormAccordion defaultExpanded={true} summary={
                   <Typography variant="caption" component="h5" className={clsx(classes.descriptor, classes.tipped)}>
-                    <span>相關判決</span>
-                    <Tooltip title="依照情狀相似程度，揀選前幾名的相似判決。">
+                    <span>相似判決</span>
+                    <Tooltip title="本系統提供使用者輸入之量刑因子相類似之判決，使用餘弦相似度計算數值，數值越高相似程度越高。">
                       <HelpIcon className={classes.helpIcon} />
                     </Tooltip>
                   </Typography>
@@ -195,7 +195,12 @@ export default function App() {
             }
             { status === 'blank' &&
               <div className={classes.message}>
-                <Typography variant="body1">輸入變項後，按一下「計算」以取得預測結果。</Typography>
+                <Typography variant="subtitle1">使用說明</Typography>
+                <Typography variant="body1">1. 本系統不含死刑與無期徒刑之案件。</Typography>
+                <Typography variant="body1">2. 「法定加重及法定減輕事由」，點選「V」清單可拉出/收攏，若有合乎相關條目情狀，請點選。</Typography>
+                <Typography variant="body1">3. 「法定科刑注意事項」中，若判斷該款應加重刑期，將滑桿向右方「+」拉動（呈現紅色）；若判斷該款應減輕刑期：將滑桿向左方「-」拉動（呈現綠色）；若感覺中立：則不移動滑桿，維持預設。</Typography>
+                <Typography variant="body1">4.  按下「計算」按鈕會出現估計結果。</Typography>
+                <Typography variant="body1">5. 估計結果含四個項目：「量刑估計區間」、「因素權重瀑布圖」（輸入因子對量刑估計區間的影響權重，單位：月）、「相似判決」（系統判斷與輸入因子相似的判決）、「判決細部比較」（系統考量之輸入因子與系統中判決之因子比較）。</Typography>
               </div>
             }
             { status === 'error' &&
