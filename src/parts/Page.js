@@ -99,7 +99,6 @@ export default function App() {
   // Form states
   const [crime, setCrime] = useState(-1);
   const [factors, setFactors] = useState({});
-  const [showFilter, setShowFilter] = useState(false);
 
   // Application states
   const [status, setStatus] = useState('blank');
@@ -156,13 +155,13 @@ export default function App() {
           <Typography variant="h6" noWrap className={classes.title}>
             司法院量刑資訊系統
           </Typography>
-          <AppMenu showFilter={showFilter} onShowFilterChanged={setShowFilter} />
+          <AppMenu />
         </Toolbar>
       </AppBar>
       <Grid container component="main" className={classes.main}>
         <Grid item xs={12} md={6} lg={7} xl={6} component={Paper} elevation={3} className={classes.pane}>
           <div className={classes.content}>
-            <AppForm crime={crime} factors={factors} showFilter={showFilter} onCrimeChanged={handleCrimeChanged} onFactorChanged={handleFactorChanged} />
+            <AppForm crime={crime} factors={factors} onCrimeChanged={handleCrimeChanged} onFactorChanged={handleFactorChanged} />
             <FormToolbar className={classes.controls} canSubmit={crime >= 0} onSubmit={handleSubmitForm} onClear={handleClearForm} />
           </div>
         </Grid>

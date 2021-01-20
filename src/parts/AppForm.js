@@ -1,4 +1,4 @@
-import { React, useState } from 'react';
+import React from 'react';
 import { FormControl, Grid, MenuItem, Select, Typography } from '@material-ui/core';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import FactorCheckBox from '../controls/FactorCheckBox';
@@ -55,7 +55,7 @@ const CrimeSelect = withStyles((theme) => ({
 export default function AppForm(props) {
   const classes = useStyles();
   const factorGroups = useFactorGroups();
-  const { crime, factors, showFilter, onCrimeChanged, onFactorChanged, ...others } = props;
+  const { crime, factors, onCrimeChanged, onFactorChanged, ...others } = props;
 
   const handleCrimeSelectChanged = (e) => {
     onCrimeChanged(e.target.value);
