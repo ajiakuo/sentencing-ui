@@ -145,32 +145,6 @@ export default function App() {
     setStatus('blank');
   };
 
-  const formatPrediction = () => {
-    // HACK: We’re asked to clip the estimation bound
-    // out of courtesy, so we’ll just kinda leave it here
-    let lower = data.estimation - data.error_margin;
-    let upper = data.estimation + data.error_margin;
-    let c = useCrimes().find((i) => i.value === crime);
-
-    // Check if there are any aggrevation/mitigation factors
-    // and only apply clip if there were none
-    let clip = true;
-    for (let factor_name in factors) {
-      if (factor_name[0] !== 'c' && factors[factor_name] !== 0) {
-        clip = false;
-        break;
-      }
-    }
-
-    // Clip according to the spec
-    if (clip) {
-      lower = Math.max(lower, c.min_sentence);
-      upper = Math.min(upper, c.max_sentence);
-    }
-
-    return (lower < upper) ? `${formatSentence(lower)} ~ ${formatSentence(upper)}` : formatSentence(lower);
-  }
-
   return (
     <div className={classes.root}>
       <AppBar position="fixed">
@@ -200,7 +174,9 @@ export default function App() {
               <Paper elevation={1} className={classes.prediction}>
                 <Typography variant="caption" component="h5" className={classes.descriptor}>量刑估計區間</Typography>
                 <Typography variant="h4" component="div" className={classes.sentence}>{
-                  formatPrediction()
+                  (data.min_sentence < data.max_sentence) ?
+                  `${formatSentence(data.min_sentence)} ~ ${formatSentence(data.max_sentence)}` :
+                  formatSentence(data.min_sentence)
                 }</Typography>
                 { data.plot &&
                   <img src={data.plot} className={classes.plot} />
