@@ -9,7 +9,7 @@ import FormToolbar from '../controls/FormToolbar';
 import AppForm from './AppForm';
 import AppMenu from './AppMenu';
 import CaseAccordion from './CaseAccordion';
-import { formatSentence } from '../util';
+import { useCrimes, formatSentence } from '../util';
 import { fetchPrediction } from '../api';
 
 const useStyles = makeStyles((theme) => ({
@@ -145,6 +145,17 @@ export default function App() {
     setStatus('blank');
   };
 
+  const formatPrediction = () => {
+    // HACK: We’re asked to clip the estimation bound
+    // out of courtesy, so we’ll just kinda leave it here
+    let c = useCrimes().find((i) => i.value === crime);
+    if (c) {
+      let min = Math.max(data.estimation - data.error_margin, c.min_sentence);
+      let max = Math.min(data.estimation + data.error_margin, c.max_sentence);
+      return (min < max) ? `${formatSentence(min)} ~ ${formatSentence(max)}` : formatSentence(min);
+    }
+  }
+
   return (
     <div className={classes.root}>
       <AppBar position="fixed">
@@ -174,9 +185,7 @@ export default function App() {
               <Paper elevation={1} className={classes.prediction}>
                 <Typography variant="caption" component="h5" className={classes.descriptor}>量刑估計區間</Typography>
                 <Typography variant="h4" component="div" className={classes.sentence}>{
-                  data.estimation > data.error_margin ?
-                  `${formatSentence(data.estimation - data.error_margin)} ~ ${formatSentence(data.estimation + data.error_margin)}` :
-                  formatSentence(data.estimation)
+                  formatPrediction()
                 }</Typography>
                 { data.plot &&
                   <img src={data.plot} className={classes.plot} />

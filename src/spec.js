@@ -5,22 +5,28 @@
 const PENAL_CODE_AMENDMENT_DATE = new Date("2019-05-29T00:00:00+08:00");
 const MINOR_WELFARE_ACT_AMENDMENT_DATE = new Date("2011-11-30T00:00:00+08:00");
 
+// The metadata was used for user-friendly crime picker.
+// They now only exist in git history, as the project has scaled back.
+
 const crimes = [
   {
     value: 1, text: "§271(1) 殺人罪",
-    category: "殺人", kind: "普通殺人", stage: "accomplished"
+    category: "殺人", kind: "普通殺人", stage: "accomplished",
+    min_sentence: 120, max_sentence: 180
   },
   {
     value: 2, text: "§271(2),(1) 殺人未遂罪",
-    category: "殺人", kind: "普通殺人", stage: "attempted"
+    category: "殺人", kind: "普通殺人", stage: "attempted",
+    min_sentence: 60, max_sentence: 180
   },
   {
     value: 13, text: "§277(2)前段 傷害致人於死罪",
-    category: "傷害致死", kind: "傷害致死"
+    category: "傷害致死", kind: "傷害致死",
+    min_sentence: 84, max_sentence: 180
   }
 ];
 
-// The naming of the factors do not conform to the midterm report.
+// The naming of the factors does not conform to the midterm report.
 // See API-actual.md for details.
 
 const factors = [
