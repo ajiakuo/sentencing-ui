@@ -148,12 +148,27 @@ export default function App() {
   const formatPrediction = () => {
     // HACK: We’re asked to clip the estimation bound
     // out of courtesy, so we’ll just kinda leave it here
+    let lower = data.estimation - data.error_margin;
+    let upper = data.estimation + data.error_margin;
     let c = useCrimes().find((i) => i.value === crime);
-    if (c) {
-      let min = Math.max(data.estimation - data.error_margin, c.min_sentence);
-      let max = Math.min(data.estimation + data.error_margin, c.max_sentence);
-      return (min < max) ? `${formatSentence(min)} ~ ${formatSentence(max)}` : formatSentence(min);
+
+    // Check if there are any aggrevation/mitigation factors
+    // and only apply clip if there were none
+    let clip = true;
+    for (let factor_name in factors) {
+      if (factor_name[0] !== 'c' && factors[factor_name] !== 0) {
+        clip = false;
+        break;
+      }
     }
+
+    // Clip according to the spec
+    if (clip) {
+      lower = Math.max(lower, c.min_sentence);
+      upper = Math.min(upper, c.max_sentence);
+    }
+
+    return (lower < upper) ? `${formatSentence(lower)} ~ ${formatSentence(upper)}` : formatSentence(lower);
   }
 
   return (
