@@ -89,9 +89,15 @@ const useStyles = makeStyles((theme) => ({
     textAlign: 'center',
   },
   helpMessage: {
-    color: theme.palette.text.secondary,
+    '& h5': {
+      color: theme.palette.text.secondary,
+    },
     '& h6': {
-      margin: '0.5em 0',
+      margin: '1em 0',
+      color: theme.palette.text.secondary,
+    },
+    '& p': {
+      margin: '0 0 1em 1em',
     },
     '& li': {
       marginBottom: '0.5em',
@@ -203,12 +209,12 @@ export default function App() {
             }
             { status === 'blank' &&
               <div className={classes.helpMessage}>
-                <Typography variant="subtitle1">使用說明</Typography>
+                <Typography variant="subtitle1" component="h5">使用說明</Typography>
                 <Typography variant="subtitle2">原理</Typography>
                 <Typography variant="body2">
                   本量刑系統以民國 106 年 1 月 1 日起至 109 年 1 月 31 日止，全國各「地方法院」判決之普通殺人既遂罪（刑法第 271 條第 1 項）、普通殺人未遂罪（刑法第 271 條第 2 項）、傷害致死罪（刑法第 277 條第 2 項前段）共 1,027 則「有期徒刑」量刑結果為基礎（<u>不含無罪判決、死刑與無期徒刑判決</u>），根據機器學習（machine learning）方法計算量刑因子權重所建立，以提供系統使用者就過往類似案件中，在量刑時如何衡酌各項量刑因子的整體圖像，作為當前案件的量刑參考資訊。
                 </Typography>
-                <Typography variant="subtitle2">使用</Typography>
+                <Typography variant="subtitle2">使用方法</Typography>
                 <ol>
                   <li>請首先選擇您所設想的案件之「罪名」，再將案件中應予加重、減輕或維持中立的量刑因子，依序輸入系統中。</li>
                   <li>請先勾選「法定加重事由」（例如有累犯的情況）和「法定減輕事由」（例如有自首的情況）的各項加重或減輕事由。</li>
