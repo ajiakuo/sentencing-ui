@@ -1,3 +1,4 @@
+// index.js - 模組進入點。
 /*! sentencing-ui: https://github.com/rschiang/sentencing-ui */
 
 import React from 'react';

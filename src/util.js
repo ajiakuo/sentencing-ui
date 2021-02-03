@@ -1,3 +1,5 @@
+// util.js - Utility functions
+
 import { crimes, factors, factorGroups, courts } from './spec';
 
 export function parseCaseID(id) {
