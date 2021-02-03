@@ -210,7 +210,11 @@ export default function App() {
               <Paper elevation={1} className={classes.prediction}>
                 <Typography variant="caption" component="h5" className={clsx(classes.descriptor, classes.tipped)}>
                   <span>量刑估計區間</span>
-                  <Tooltip title="系統計算出的量刑估計區間，是加入正負平均絕對誤差值得出。其上、下限顯示可能超出法定刑或處斷刑之範圍，但實際個案科刑仍應遵守法定刑和處斷刑之法律規定。">
+                  <Tooltip title={<span>
+                      <b>E[<i>f(x)</i>]</b>：該類型犯罪的「量刑起點」（月數）。<br />
+                      <b><i>f(x)</i></b>：在「量刑起點」上加減量刑因子權重後，得出的「個案量刑估計值」（月數）。<br />
+                      <b>「量刑估計區間」</b>：將「個案量刑估計值」加減機器學習的平均絕對誤差值（MAE）後所得區間。其上、下限顯示可能超出法定刑或處斷刑之範圍，但實際個案科刑仍應遵守法定刑和處斷刑之法律規定。
+                    </span>}>
                     <HelpIcon className={classes.helpIcon} />
                   </Tooltip>
                 </Typography>

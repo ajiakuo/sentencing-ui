@@ -1,7 +1,7 @@
 // api.js -
 // This file is where we load and treat non-spec conforming APIs, normalizing their data.
 
-import { useCrimes, useFactors } from './util';
+import { useFactors } from './util';
 
 const API_URL = 'https://35.229.167.36/v1/predictions'; /*! The API used in this project is not technically nor academically endorsed by the project author. */
 const TESTDRIVE_API_URL = 'http://localhost:9165/v1/predictions'; // For development purpose only. Eeeesh.
@@ -49,28 +49,14 @@ export const fetchPrediction = async (crime, factors) => {
 
   const data = await response.json();
 
-  // HACK: We’re asked to clip the estimation bound
-  // out of courtesy, so we’ll just kinda leave it here
   let error_margin = data.error_margin || ERROR_MARGIN;
+
+  // We used to single these into variables to perform clipping
+  // (i.e. limiting rendered sentence within legal bound)
+  // but now we’re asked to present untampered values.
+  // Ideally these should be done in backend ツ
   let lower = data.estimation - error_margin;
   let upper = data.estimation + error_margin;
-  let c = useCrimes().find((i) => i.value === crime);
-
-  // Check if there are any aggrevation/mitigation factors
-  // and only apply clip if there were none
-  let clip = true;
-  for (let factor_name in factors) {
-    if (factor_name[0] !== 'c' && factors[factor_name] !== 0) {
-      clip = false;
-      break;
-    }
-  }
-
-  // Clip according to the spec
-  if (clip) {
-    lower = Math.max(lower, c.min_sentence);
-    upper = Math.min(upper, c.max_sentence);
-  }
 
   // Reformat the data to match the application spec
   return {
