@@ -1,6 +1,6 @@
 import { React, useState } from 'react';
 import clsx from 'clsx';
-import { AppBar, Avatar, CircularProgress, Grid, Paper, Toolbar, Tooltip, Typography } from '@material-ui/core';
+import { AppBar, Avatar, Button, CircularProgress, Grid, Paper, Toolbar, Tooltip, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import GavelIcon from '@material-ui/icons/Gavel';
 import HelpIcon from '@material-ui/icons/HelpOutline';
@@ -9,7 +9,7 @@ import FormToolbar from '../controls/FormToolbar';
 import AppForm from './AppForm';
 import AppMenu from './AppMenu';
 import CaseAccordion from './CaseAccordion';
-import { useCrimes, formatSentence } from '../util';
+import { formatSentence } from '../util';
 import { fetchPrediction } from '../api';
 
 const useStyles = makeStyles((theme) => ({
@@ -184,7 +184,12 @@ export default function App() {
             }
             { status === 'ready' &&
               <Paper elevation={1} className={classes.prediction}>
-                <Typography variant="caption" component="h5" className={classes.descriptor}>量刑估計區間</Typography>
+                <Typography variant="caption" component="h5" className={clsx(classes.descriptor, classes.tipped)}>
+                  <span>量刑估計區間</span>
+                  <Tooltip title="系統計算出的量刑估計區間，是加入正負平均絕對誤差值得出。其上、下限顯示可能超出法定刑或處斷刑之範圍，但實際個案科刑仍應遵守法定刑和處斷刑之法律規定。">
+                    <HelpIcon className={classes.helpIcon} />
+                  </Tooltip>
+                </Typography>
                 <Typography variant="h4" component="div" className={classes.sentence}>{
                   (data.min_sentence < data.max_sentence) ?
                   `${formatSentence(data.min_sentence)} ~ ${formatSentence(data.max_sentence)}` :
@@ -209,21 +214,14 @@ export default function App() {
             }
             { status === 'blank' &&
               <div className={classes.helpMessage}>
-                <Typography variant="subtitle1" component="h5">使用說明</Typography>
-                <Typography variant="subtitle2">原理</Typography>
-                <Typography variant="body2">
-                  本量刑系統以民國 106 年 1 月 1 日起至 109 年 1 月 31 日止，全國各「地方法院」判決之普通殺人既遂罪（刑法第 271 條第 1 項）、普通殺人未遂罪（刑法第 271 條第 2 項）、傷害致死罪（刑法第 277 條第 2 項前段）共 1,027 則「有期徒刑」量刑結果為基礎（<u>不含無罪判決、死刑與無期徒刑判決</u>），根據機器學習（machine learning）方法計算量刑因子權重所建立，以提供系統使用者就過往類似案件中，在量刑時如何衡酌各項量刑因子的整體圖像，作為當前案件的量刑參考資訊。
-                </Typography>
-                <Typography variant="subtitle2">使用方法</Typography>
+                <Typography variant="subtitle1" component="h5">「司法院109年刑事殺人罪案件量刑資訊系統資料庫更新」</Typography>
+                <Button component="a" href="https://reurl.cc/g82RNz" rel="external">系統使用手冊</Button>
+                <Typography variant="subtitle2">使用說明與聲明</Typography>
                 <ol>
-                  <li>請首先選擇您所設想的案件之「罪名」，再將案件中應予加重、減輕或維持中立的量刑因子，依序輸入系統中。</li>
-                  <li>請先勾選「法定加重事由」（例如有累犯的情況）和「法定減輕事由」（例如有自首的情況）的各項加重或減輕事由。</li>
-                  <li>在「法定科刑注意事項」欄位，列出了刑法第 57 條第 1 至 10 款的科刑輕重標準應注意事項。若您認為所設想的案件情況中，有某項因子應造成刑罰加重（例如您認為被告的犯罪手段特別兇殘），請將該項因子的滑桿向右方「+」拉動（此時因子滑桿將呈現紅色）；若認為有某項因子應使刑罰減輕（例如您認為被告犯罪後之態度良好），請將滑桿向左方「-」拉動（此時該項因子滑桿將呈現綠色）；若認為屬於中立（例如您認為被告的生活狀況並無特別影響刑罰應加重或減輕之處），則不移動滑桿。</li>
-                  <li>以上均輸入完畢後，請按下「計算」按鈕，系統將根據過去地方法院量處有期徒刑之判決中，呈現出的量刑因子整體圖像進行運算後，輸出以下結果供您作為量刑的參考：<br />
-                  「量刑估計區間」<br />
-                  「因素權重瀑布圖」（輸入因子對量刑估計區間的影響權重，單位：月）<br />
-                  「相似判決」（系統判斷與輸入因子相似的判決）<br />
-                  「判決細部比較」（系統考量之輸入因子與系統中判決之因子比較）。</li>
+                  <li><strong><u>在使用本系統前，請務必詳讀「系統使用手冊」。</u></strong>系統使用手冊之內容，包含系統原理與注意事項、瀑布圖例說明及操作方法等。</li>
+                  <li>本系統為實然面（法院實際上如何科刑）的展現，不能作為「應然面」（法院應如何科刑始為正確）的科刑指導。</li>
+                  <li>本系統是一種「量刑資訊輔助系統」，<strong>不能擴張或壓縮法院依法得審酌各種量刑相關事由的裁量空間，也不能取代法律所規定的法定刑或處斷刑之上、下限。</strong></li>
+                  <li>以上均輸入完畢後，請按下「計算」按鈕，系統將根據過去地方法院量處有期徒刑之判決中，呈現出的量刑因子整體圖像進行運算後，輸出以下結果供您作為系統計算出的「量刑估計區間」是加入正負平均絕對誤差值所得出，因此區間的上、下限顯示，有可能超出法定刑或處斷刑之範圍，惟<strong><u>實際之個案科刑仍應遵守法定刑和處斷刑之法律規定。</u></strong></li>
                 </ol>
               </div>
             }
