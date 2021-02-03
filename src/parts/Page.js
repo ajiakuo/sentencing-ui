@@ -96,12 +96,13 @@ const useStyles = makeStyles((theme) => ({
       margin: '1em 0',
       color: theme.palette.text.secondary,
     },
-    '& p': {
-      margin: '0 0 1em 1em',
-    },
     '& li': {
       marginBottom: '0.5em',
     },
+  },
+  inlineButton: {
+    verticalAlign: 'baseline',
+    margin: '.5em .33em',
   },
 }), { name: 'App' });
 
@@ -215,13 +216,20 @@ export default function App() {
             { status === 'blank' &&
               <div className={classes.helpMessage}>
                 <Typography variant="subtitle1" component="h5">「司法院109年刑事殺人罪案件量刑資訊系統資料庫更新」</Typography>
-                <Button component="a" href="https://reurl.cc/g82RNz" rel="external">系統使用手冊</Button>
+                <Typography variant="body2">
+                  請按此下載
+                  <Button variant="outlined" color="primary" className={classes.inlineButton}
+                          href="https://reurl.cc/g82RNz" rel="external" target="_blank">
+                          系統使用手冊
+                  </Button>
+                  。
+                </Typography>
                 <Typography variant="subtitle2">使用說明與聲明</Typography>
                 <ol>
                   <li><strong><u>在使用本系統前，請務必詳讀「系統使用手冊」。</u></strong>系統使用手冊之內容，包含系統原理與注意事項、瀑布圖例說明及操作方法等。</li>
                   <li>本系統為實然面（法院實際上如何科刑）的展現，不能作為「應然面」（法院應如何科刑始為正確）的科刑指導。</li>
                   <li>本系統是一種「量刑資訊輔助系統」，<strong>不能擴張或壓縮法院依法得審酌各種量刑相關事由的裁量空間，也不能取代法律所規定的法定刑或處斷刑之上、下限。</strong></li>
-                  <li>以上均輸入完畢後，請按下「計算」按鈕，系統將根據過去地方法院量處有期徒刑之判決中，呈現出的量刑因子整體圖像進行運算後，輸出以下結果供您作為系統計算出的「量刑估計區間」是加入正負平均絕對誤差值所得出，因此區間的上、下限顯示，有可能超出法定刑或處斷刑之範圍，惟<strong><u>實際之個案科刑仍應遵守法定刑和處斷刑之法律規定。</u></strong></li>
+                  <li>系統計算出的「量刑估計區間」是加入正負平均絕對誤差值所得出，因此區間的上、下限顯示，有可能超出法定刑或處斷刑之範圍，惟<strong><u>實際之個案科刑仍應遵守法定刑和處斷刑之法律規定。</u></strong></li>
                 </ol>
               </div>
             }
