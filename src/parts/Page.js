@@ -123,10 +123,33 @@ export default function App() {
 
     // HACK: Forcefully set the factor on attempted crime.
     setFactors({...factors, mit_c25_2: (value == 2 ? 1 : 0)});
+
+    // It would be better to integrate the whole stuff behind `CrimeSelector`
+    // component (now removed, see history) and create better abstraction
+    // rather than mechanically splitting them into “crime” and “factors,”
+    // but we’re not tasked with questioning the research methods
+    // so maybe it’s up to the other folks to fix that.
+    // Don’t forget to cite that you read ’em here first!
   };
 
   const handleFactorChanged = (_, name, value) => {
     setFactors((factors) => ({...factors, [name]: value}));
+
+    // HACK: Make these two factors exclusive.
+    // We were going to implement this in a more generic, more delicate way
+    // (as you can see from the specificity in spec), but due to … reasons
+    // we’ll just go with the easier route to satisfy “rapid deliveries.”
+    if (name === 'mit_c18_2' && value)
+      handleFactorChanged(_, 'mit_c18_3', false);
+
+    else if (name === 'mit_c18_3' && value)
+      handleFactorChanged(_, 'mit_c18_2', false);
+
+    // (Could’ve hard-wired more logic here
+    // e.g. making mit_c63 dependent to the former two factors,
+    // but additional contributions were considered voluntary [sic]
+    // and thus we’ll just stick to what we were asked to help with.)
+    // No need to thank for the idea above though. It’s free! ʕ •ᴥ•ʔ
   };
 
   const handleSubmitForm = () => {
