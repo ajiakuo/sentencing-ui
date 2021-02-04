@@ -140,10 +140,10 @@ export default function App() {
     // (as you can see from the specificity in spec), but due to … reasons
     // we’ll just go with the easier route to satisfy “rapid deliveries.”
     if (name === 'mit_c18_2' && value)
-      handleFactorChanged(_, 'mit_c18_3', false);
+      handleFactorChanged(_, 'mit_c18_3', 0);   // Do remember that value:int
 
     else if (name === 'mit_c18_3' && value)
-      handleFactorChanged(_, 'mit_c18_2', false);
+      handleFactorChanged(_, 'mit_c18_2', 0);   // We could’ve done type checking…
 
     // (Could’ve hard-wired more logic here
     // e.g. making mit_c63 dependent to the former two factors,
